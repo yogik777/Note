@@ -1,0 +1,107 @@
+Refresh Tokens - JWT 
+====================
+A refresh token is a token (base-64 string of a random number) that is used to obtain a new JWT token every time,
+when it is expired.
+
+
+
+                1) User Sign-in (using User ID / Password)
+User        -----------------------------------------------------> Authentication Server
+
+            <------------JWT Token-------refresh token----------------------------------
+                2) User Authenticated, JWT token and 'refresh token' is created and 
+                    returned to the user.
+
+                3) When the JWT token expires, user submits JWT token and 'refresh 
+                    token' as request header.
+            ------------Old JWT token----------refresh token---------------------------->        
+
+            <----------------New JWT token----------refresh token------------------------
+                4) If the refresh token is expired but valid and the 'refresh token' is valid;
+                    then the server generates a new JWT token.
+
+
+
+		[HttpPost]
+		[Route("Login")]
+		public IActionResult Login([FromBody]UserLoginDTO userLogin)
+		{
+			if(User != null)
+			{
+
+				var user = Users.FirstOrDefault(u => u.UserName == userLogin.UserName && u.Password == userLogin.Password);
+
+				if(user != null)
+				{
+					var claims = new[]
+					{
+						new Claim(JwtRegisteredClaimNames.Sub, _config["Jwt:Subject"]),
+						new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
+						new Claim("UserId", user.Id.ToString()),
+						new Claim("Email", user.Email.ToString()),
+
+					};
+
+					var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_config["Jwt:Key"]));
+					var signIn = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
+					var token = new JwtSecurityToken(
+						_config["Jwt:Issuer"],
+						_config["Jwt:Audience"],
+						claims,
+						expires: DateTime.UtcNow.AddMinutes(Convert.ToInt32(_config["Jwt:EXPIRATION_MINUTES"])),
+						signingCredentials: signIn
+
+						);
+
+
+
+					string reftoken = GenerateRefreshToken();
+					var reftokenExpirationDateTime = DateTime.UtcNow.AddMinutes(Convert.ToInt32(_config["RefreshToken:EXPIRATION_MINUTES"]));
+					
+					user.RefreshToken = reftoken;
+					user.RefreshTokenExpirationDateTime = reftokenExpirationDateTime;
+
+
+
+
+					string tokenValue = new JwtSecurityTokenHandler().WriteToken(token);
+					return Ok(new { 
+						Token = tokenValue, 
+						User = user, 
+						RefreshToken = reftoken,
+						RefreshTokenExpirationDateTime = reftokenExpirationDateTime
+
+					});
+				}
+				
+				return StatusCode(401, "Unauthorized access");
+
+			}
+			return StatusCode(401, "Unauthorized access");
+		}
+
+
+		//Creates a refresh token (base 64 string of random numbers)
+		private string GenerateRefreshToken()
+		{
+			Byte[] bytes = new byte[64];
+			var randomNumberGenerator =  RandomNumberGenerator.Create();
+			randomNumberGenerator.GetBytes(bytes);
+			return Convert.ToBase64String(bytes);
+		}
+
+
+    public class UserModel
+	{
+		public int Id { get; set; }
+		public string UserName { get; set; }
+		public string Email {  get; set; }
+		public string Password { get; set; }
+		public string? RefreshToken { get; set; }
+		public DateTime RefreshTokenExpirationDateTime { get; set; }
+	}
+
+  -> appsetting.json
+  "RefreshToken": {
+    "EXPIRATION_MINUTES": 60
+  }

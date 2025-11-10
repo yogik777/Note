@@ -1,0 +1,237 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "F:\\Interview Preperation\\.net core\\Views\\Layout Views\\LayoutViewsExample\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{AAFF01C9-3C31-47E8-8759-15C557912EE5}|LayoutViewsExample\\LayoutViewsExample.csproj|f:\\interview preperation\\.net core\\views\\layout views\\layoutviewsexample\\layoutviewsexample\\views\\shared\\_layout.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{AAFF01C9-3C31-47E8-8759-15C557912EE5}|LayoutViewsExample\\LayoutViewsExample.csproj|solutionrelative:layoutviewsexample\\views\\shared\\_layout.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{AAFF01C9-3C31-47E8-8759-15C557912EE5}|LayoutViewsExample\\LayoutViewsExample.csproj|f:\\interview preperation\\.net core\\views\\layout views\\layoutviewsexample\\layoutviewsexample\\views\\shared\\_masterlayout.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{AAFF01C9-3C31-47E8-8759-15C557912EE5}|LayoutViewsExample\\LayoutViewsExample.csproj|solutionrelative:layoutviewsexample\\views\\shared\\_masterlayout.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{AAFF01C9-3C31-47E8-8759-15C557912EE5}|LayoutViewsExample\\LayoutViewsExample.csproj|f:\\interview preperation\\.net core\\views\\layout views\\layoutviewsexample\\layoutviewsexample\\views\\shared\\_productslayout.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{AAFF01C9-3C31-47E8-8759-15C557912EE5}|LayoutViewsExample\\LayoutViewsExample.csproj|solutionrelative:layoutviewsexample\\views\\shared\\_productslayout.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{AAFF01C9-3C31-47E8-8759-15C557912EE5}|LayoutViewsExample\\LayoutViewsExample.csproj|f:\\interview preperation\\.net core\\views\\layout views\\layoutviewsexample\\layoutviewsexample\\views\\home\\contact.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{AAFF01C9-3C31-47E8-8759-15C557912EE5}|LayoutViewsExample\\LayoutViewsExample.csproj|solutionrelative:layoutviewsexample\\views\\home\\contact.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{AAFF01C9-3C31-47E8-8759-15C557912EE5}|LayoutViewsExample\\LayoutViewsExample.csproj|f:\\interview preperation\\.net core\\views\\layout views\\layoutviewsexample\\layoutviewsexample\\controllers\\productscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{AAFF01C9-3C31-47E8-8759-15C557912EE5}|LayoutViewsExample\\LayoutViewsExample.csproj|solutionrelative:layoutviewsexample\\controllers\\productscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{AAFF01C9-3C31-47E8-8759-15C557912EE5}|LayoutViewsExample\\LayoutViewsExample.csproj|f:\\interview preperation\\.net core\\views\\layout views\\layoutviewsexample\\layoutviewsexample\\views\\products\\search.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{AAFF01C9-3C31-47E8-8759-15C557912EE5}|LayoutViewsExample\\LayoutViewsExample.csproj|solutionrelative:layoutviewsexample\\views\\products\\search.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{AAFF01C9-3C31-47E8-8759-15C557912EE5}|LayoutViewsExample\\LayoutViewsExample.csproj|f:\\interview preperation\\.net core\\views\\layout views\\layoutviewsexample\\layoutviewsexample\\views\\products\\order.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{AAFF01C9-3C31-47E8-8759-15C557912EE5}|LayoutViewsExample\\LayoutViewsExample.csproj|solutionrelative:layoutviewsexample\\views\\products\\order.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{AAFF01C9-3C31-47E8-8759-15C557912EE5}|LayoutViewsExample\\LayoutViewsExample.csproj|f:\\interview preperation\\.net core\\views\\layout views\\layoutviewsexample\\layoutviewsexample\\views\\_viewstart.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{AAFF01C9-3C31-47E8-8759-15C557912EE5}|LayoutViewsExample\\LayoutViewsExample.csproj|solutionrelative:layoutviewsexample\\views\\_viewstart.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{AAFF01C9-3C31-47E8-8759-15C557912EE5}|LayoutViewsExample\\LayoutViewsExample.csproj|f:\\interview preperation\\.net core\\views\\layout views\\layoutviewsexample\\layoutviewsexample\\views\\products\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{AAFF01C9-3C31-47E8-8759-15C557912EE5}|LayoutViewsExample\\LayoutViewsExample.csproj|solutionrelative:layoutviewsexample\\views\\products\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{AAFF01C9-3C31-47E8-8759-15C557912EE5}|LayoutViewsExample\\LayoutViewsExample.csproj|f:\\interview preperation\\.net core\\views\\layout views\\layoutviewsexample\\layoutviewsexample\\views\\home\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{AAFF01C9-3C31-47E8-8759-15C557912EE5}|LayoutViewsExample\\LayoutViewsExample.csproj|solutionrelative:layoutviewsexample\\views\\home\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{AAFF01C9-3C31-47E8-8759-15C557912EE5}|LayoutViewsExample\\LayoutViewsExample.csproj|f:\\interview preperation\\.net core\\views\\layout views\\layoutviewsexample\\layoutviewsexample\\views\\home\\about.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{AAFF01C9-3C31-47E8-8759-15C557912EE5}|LayoutViewsExample\\LayoutViewsExample.csproj|solutionrelative:layoutviewsexample\\views\\home\\about.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{AAFF01C9-3C31-47E8-8759-15C557912EE5}|LayoutViewsExample\\LayoutViewsExample.csproj|f:\\interview preperation\\.net core\\views\\layout views\\layoutviewsexample\\layoutviewsexample\\controllers\\homecontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{AAFF01C9-3C31-47E8-8759-15C557912EE5}|LayoutViewsExample\\LayoutViewsExample.csproj|solutionrelative:layoutviewsexample\\controllers\\homecontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{AAFF01C9-3C31-47E8-8759-15C557912EE5}|LayoutViewsExample\\LayoutViewsExample.csproj|f:\\interview preperation\\.net core\\views\\layout views\\layoutviewsexample\\layoutviewsexample\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{AAFF01C9-3C31-47E8-8759-15C557912EE5}|LayoutViewsExample\\LayoutViewsExample.csproj|solutionrelative:layoutviewsexample\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 11,
+          "Children": [
+            {
+              "$type": "Bookmark",
+              "Name": "ST:128:0:{1fc202d4-d401-403c-9834-5b218574bb67}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{d78612c7-9962-4b83-95d9-268046dad23a}"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "_MasterLayout.cshtml",
+              "DocumentMoniker": "F:\\Interview Preperation\\.net core\\Views\\Layout Views\\LayoutViewsExample\\LayoutViewsExample\\Views\\Shared\\_MasterLayout.cshtml",
+              "RelativeDocumentMoniker": "LayoutViewsExample\\Views\\Shared\\_MasterLayout.cshtml",
+              "ToolTip": "F:\\Interview Preperation\\.net core\\Views\\Layout Views\\LayoutViewsExample\\LayoutViewsExample\\Views\\Shared\\_MasterLayout.cshtml",
+              "RelativeToolTip": "LayoutViewsExample\\Views\\Shared\\_MasterLayout.cshtml",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAsAAAAhAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2024-12-31T03:31:41.164Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "_ProductsLayout.cshtml",
+              "DocumentMoniker": "F:\\Interview Preperation\\.net core\\Views\\Layout Views\\LayoutViewsExample\\LayoutViewsExample\\Views\\Shared\\_ProductsLayout.cshtml",
+              "RelativeDocumentMoniker": "LayoutViewsExample\\Views\\Shared\\_ProductsLayout.cshtml",
+              "ToolTip": "F:\\Interview Preperation\\.net core\\Views\\Layout Views\\LayoutViewsExample\\LayoutViewsExample\\Views\\Shared\\_ProductsLayout.cshtml",
+              "RelativeToolTip": "LayoutViewsExample\\Views\\Shared\\_ProductsLayout.cshtml",
+              "ViewState": "AgIAAAYAAAAAAAAAAAAAAAsAAAA0AAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2024-12-30T08:00:37.558Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 7,
+              "Title": "_ViewStart.cshtml",
+              "DocumentMoniker": "F:\\Interview Preperation\\.net core\\Views\\Layout Views\\LayoutViewsExample\\LayoutViewsExample\\Views\\_ViewStart.cshtml",
+              "RelativeDocumentMoniker": "LayoutViewsExample\\Views\\_ViewStart.cshtml",
+              "ToolTip": "F:\\Interview Preperation\\.net core\\Views\\Layout Views\\LayoutViewsExample\\LayoutViewsExample\\Views\\_ViewStart.cshtml",
+              "RelativeToolTip": "LayoutViewsExample\\Views\\_ViewStart.cshtml",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAEAAAAtAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2024-12-30T07:35:20.339Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "Order.cshtml",
+              "DocumentMoniker": "F:\\Interview Preperation\\.net core\\Views\\Layout Views\\LayoutViewsExample\\LayoutViewsExample\\Views\\Products\\Order.cshtml",
+              "RelativeDocumentMoniker": "LayoutViewsExample\\Views\\Products\\Order.cshtml",
+              "ToolTip": "F:\\Interview Preperation\\.net core\\Views\\Layout Views\\LayoutViewsExample\\LayoutViewsExample\\Views\\Products\\Order.cshtml",
+              "RelativeToolTip": "LayoutViewsExample\\Views\\Products\\Order.cshtml",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAUAAAAWAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2024-12-30T06:47:55.092Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "Search.cshtml",
+              "DocumentMoniker": "F:\\Interview Preperation\\.net core\\Views\\Layout Views\\LayoutViewsExample\\LayoutViewsExample\\Views\\Products\\Search.cshtml",
+              "RelativeDocumentMoniker": "LayoutViewsExample\\Views\\Products\\Search.cshtml",
+              "ToolTip": "F:\\Interview Preperation\\.net core\\Views\\Layout Views\\LayoutViewsExample\\LayoutViewsExample\\Views\\Products\\Search.cshtml",
+              "RelativeToolTip": "LayoutViewsExample\\Views\\Products\\Search.cshtml",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAYAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2024-12-30T06:44:20.518Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 8,
+              "Title": "Index.cshtml",
+              "DocumentMoniker": "F:\\Interview Preperation\\.net core\\Views\\Layout Views\\LayoutViewsExample\\LayoutViewsExample\\Views\\Products\\Index.cshtml",
+              "RelativeDocumentMoniker": "LayoutViewsExample\\Views\\Products\\Index.cshtml",
+              "ToolTip": "F:\\Interview Preperation\\.net core\\Views\\Layout Views\\LayoutViewsExample\\LayoutViewsExample\\Views\\Products\\Index.cshtml",
+              "RelativeToolTip": "LayoutViewsExample\\Views\\Products\\Index.cshtml",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAEAAAAcAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2024-12-30T06:43:31.134Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "Contact.cshtml",
+              "DocumentMoniker": "F:\\Interview Preperation\\.net core\\Views\\Layout Views\\LayoutViewsExample\\LayoutViewsExample\\Views\\Home\\Contact.cshtml",
+              "RelativeDocumentMoniker": "LayoutViewsExample\\Views\\Home\\Contact.cshtml",
+              "ToolTip": "F:\\Interview Preperation\\.net core\\Views\\Layout Views\\LayoutViewsExample\\LayoutViewsExample\\Views\\Home\\Contact.cshtml",
+              "RelativeToolTip": "LayoutViewsExample\\Views\\Home\\Contact.cshtml",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAYAAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2024-12-30T06:41:59.978Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 10,
+              "Title": "About.cshtml",
+              "DocumentMoniker": "F:\\Interview Preperation\\.net core\\Views\\Layout Views\\LayoutViewsExample\\LayoutViewsExample\\Views\\Home\\About.cshtml",
+              "RelativeDocumentMoniker": "LayoutViewsExample\\Views\\Home\\About.cshtml",
+              "ToolTip": "F:\\Interview Preperation\\.net core\\Views\\Layout Views\\LayoutViewsExample\\LayoutViewsExample\\Views\\Home\\About.cshtml",
+              "RelativeToolTip": "LayoutViewsExample\\Views\\Home\\About.cshtml",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAEAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2024-12-30T06:38:02.369Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 9,
+              "Title": "Index.cshtml",
+              "DocumentMoniker": "F:\\Interview Preperation\\.net core\\Views\\Layout Views\\LayoutViewsExample\\LayoutViewsExample\\Views\\Home\\Index.cshtml",
+              "RelativeDocumentMoniker": "LayoutViewsExample\\Views\\Home\\Index.cshtml",
+              "ToolTip": "F:\\Interview Preperation\\.net core\\Views\\Layout Views\\LayoutViewsExample\\LayoutViewsExample\\Views\\Home\\Index.cshtml",
+              "RelativeToolTip": "LayoutViewsExample\\Views\\Home\\Index.cshtml",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAcAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2024-12-30T06:19:23.587Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "_Layout.cshtml",
+              "DocumentMoniker": "F:\\Interview Preperation\\.net core\\Views\\Layout Views\\LayoutViewsExample\\LayoutViewsExample\\Views\\Shared\\_Layout.cshtml",
+              "RelativeDocumentMoniker": "LayoutViewsExample\\Views\\Shared\\_Layout.cshtml",
+              "ToolTip": "F:\\Interview Preperation\\.net core\\Views\\Layout Views\\LayoutViewsExample\\LayoutViewsExample\\Views\\Shared\\_Layout.cshtml",
+              "RelativeToolTip": "LayoutViewsExample\\Views\\Shared\\_Layout.cshtml",
+              "ViewState": "AgIAAAYAAAAAAAAAAAAAAAEAAAAzAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2024-12-30T05:43:43.783Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "ProductsController.cs",
+              "DocumentMoniker": "F:\\Interview Preperation\\.net core\\Views\\Layout Views\\LayoutViewsExample\\LayoutViewsExample\\Controllers\\ProductsController.cs",
+              "RelativeDocumentMoniker": "LayoutViewsExample\\Controllers\\ProductsController.cs",
+              "ToolTip": "F:\\Interview Preperation\\.net core\\Views\\Layout Views\\LayoutViewsExample\\LayoutViewsExample\\Controllers\\ProductsController.cs",
+              "RelativeToolTip": "LayoutViewsExample\\Controllers\\ProductsController.cs",
+              "ViewState": "AgIAAAUAAAAAAAAAAAAAwAkAAAARAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-12-30T05:40:30.521Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 11,
+              "Title": "HomeController.cs",
+              "DocumentMoniker": "F:\\Interview Preperation\\.net core\\Views\\Layout Views\\LayoutViewsExample\\LayoutViewsExample\\Controllers\\HomeController.cs",
+              "RelativeDocumentMoniker": "LayoutViewsExample\\Controllers\\HomeController.cs",
+              "ToolTip": "F:\\Interview Preperation\\.net core\\Views\\Layout Views\\LayoutViewsExample\\LayoutViewsExample\\Controllers\\HomeController.cs",
+              "RelativeToolTip": "LayoutViewsExample\\Controllers\\HomeController.cs",
+              "ViewState": "AgIAAA0AAAAAAAAAAAAQwBMAAAAeAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-12-30T05:37:15.934Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 12,
+              "Title": "Program.cs",
+              "DocumentMoniker": "F:\\Interview Preperation\\.net core\\Views\\Layout Views\\LayoutViewsExample\\LayoutViewsExample\\Program.cs",
+              "RelativeDocumentMoniker": "LayoutViewsExample\\Program.cs",
+              "ToolTip": "F:\\Interview Preperation\\.net core\\Views\\Layout Views\\LayoutViewsExample\\LayoutViewsExample\\Program.cs",
+              "RelativeToolTip": "LayoutViewsExample\\Program.cs",
+              "ViewState": "AgIAAAMAAAAAAAAAAAAAAA0AAAAUAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-12-30T05:32:54.651Z"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

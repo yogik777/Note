@@ -1,0 +1,79 @@
+Razor - Switch 
+===============
+
+@switch(variable){
+
+    case value1: C# / html code here; break;
+
+    case value2: C# / html code here; break;
+
+    default: C# / html code here; break;
+}
+
+-------------------------------------------------------------------------------------------------
+namespace ViewsExample.Models
+{
+    public class Person
+    {
+        public string? Name { get; set; }
+        public DateTime? DateOfBirth { get; set; }
+
+        public Gender PersonGender { get; set; }
+    }
+
+    public enum Gender
+    {
+        Male, Female, Other
+    }
+}
+-------------------------------------------------------------------------------------------------
+
+@using ViewsExample.Models;
+
+@{
+
+    string appTitle = "Hi this is title from variable!!!";
+    Person person = new Person()
+            {
+                Name = "Yogesh",
+                // DateOfBirth = Convert.ToDateTime("2000-07-01")
+                DateOfBirth = null,
+                PersonGender = Gender.Female, 
+            };
+}
+
+
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>@appTitle</title>
+        <meta charset="utf-8" />
+    </head>
+    <body>
+        <h1>Welcome</h1>
+        <h2>Hello @person.Name</h2>
+     @if(person.DateOfBirth.HasValue){
+           double age = Math.Round((DateTime.Now - person.DateOfBirth).Value.TotalDays / 365.25);
+        <h3>@age years old</h3>
+    }
+    else
+    {
+        <h3>Date of birth is unknown</h3>
+    }
+
+
+    @switch (person.PersonGender)
+    {
+        case Gender.Male:
+            <p>November 19 is International Men's Day'</p>
+            break;
+        case Gender.Female:
+            <p>March 8 is International Women's Day'</p>
+            break;
+        case Gender.Other:
+            <p>March 31 is International Transgender's Day</p>
+            break;
+    }
+
+    </body>
+</html>

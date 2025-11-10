@@ -1,0 +1,114 @@
+-majority of companies prefer to use repository pattern 
+
+Repository 
+==========
+-Repository(or Repository Pattern) is an abstraction between Data Access Layer 
+    (EF DbContext) and business logic layer (Service) of the application.
+
+No repository 
+-------------
+    -Controller 
+    -Business Logic (Service)
+    -Data Access Logic (DbContext)
+
+With Repository
+---------------
+    -Controller 
+    -Business Logic (Service)
+    -Repository 
+    -Data Access Logic (DbContext)
+
+-we don't put validation logic in repository because by definition the validation logic 
+    or any kind or calculations any kind of decision making before implementation of 
+    something it the business logic. and business logic should be kept in service layer 
+    So the Repository layer blindly performs the data base operations without checking 
+    anything. 
+-we don't use dto's in repository we use model classes in it 
+
+
+//In a new class library
+ICountriesRepository
+--------------------
+public interface ICountriesRepository 
+{
+    Task<Country> AddCountry(Country country);
+    Task<List<Country>> GetAllCountries();
+    Task<Country?> GetCountryByCountryId(Guid countryID);
+    Task<Country?> GetCountryByCountryName(string countryName);
+}
+
+
+IPersonsRepository
+------------------
+public interface IPersonsRepository
+{
+    Task<Person> AddPerson(Person person);
+    Task<List<Person>> GetAllPersons();
+    Task<List<Person>> GetPersonByPersonID(Guid personID);
+    Task<List<Person>> GetFilteredPersons(Expression<Func<Person, bool>> predicate);
+    Task<bool> DeletePersonByPersonID(Guid personId);
+    Task<Person> UpdatePerson(Person person);
+}
+
+
+//In a new class library ->Repositories 
+public class CountriesRepository : ICountriesRepository
+{
+    private readonly ApplicationDbContext _db;
+
+    public CountriesRepository(ApplicationDbContext db){
+        _db = db;
+    }
+
+    public async Task<Country> AddCountry(Country country)
+    {
+        _db.Countries.Add(country);
+        _db.SaveChangesAsync();
+
+        return country;
+    }
+
+    public async Task<List<Country>> GetAllCountries()
+    {
+        return await _db.Countries.ToListAsync();
+    }
+
+    public async Task<Country?> GetCountryByCountryID(Guid countryID)
+    {
+        return await _db.Countries.FirstOrDefaultAsync(temp => temp.CountryID == countryID);
+    }
+
+    public async Task<Country?> GetCountryByCountryName(string countryName)
+    {
+        return await _db.Countries.FirstOrDefaultAsync(temp => temp.CountryName == countryName);
+    }
+}
+
+
+
+
+-now consume this repository 
+-if we have to migrate to another data store for example azure, we can create an alternative 
+    implementation of the repository and simply change the the repository through 
+    dependency injection
+
+
+Pros and Cons of Repository Pattern
+===================================
+pros 
+----
+Loosely-coupled business logic (service) & data access.
+(You can independently develop them).
+
+Changing data store
+(You can create alternative repository implementation for another data store, when 
+    needed).
+    
+Unit Testing.
+(Mocking the repository is much easier (and preferred) than mocking DbContext).
+
+Cons 
+----
+introduces an extra layer in overall architecture of your application design 
+
+

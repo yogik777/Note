@@ -1,0 +1,56 @@
+F:\Interview Preperation\.net core\View Components\View Components\View Components\bin\Debug\net8.0\appsettings.Development.json
+F:\Interview Preperation\.net core\View Components\View Components\View Components\bin\Debug\net8.0\appsettings.json
+F:\Interview Preperation\.net core\View Components\View Components\View Components\bin\Debug\net8.0\View Components.staticwebassets.runtime.json
+F:\Interview Preperation\.net core\View Components\View Components\View Components\bin\Debug\net8.0\View Components.exe
+F:\Interview Preperation\.net core\View Components\View Components\View Components\bin\Debug\net8.0\View Components.deps.json
+F:\Interview Preperation\.net core\View Components\View Components\View Components\bin\Debug\net8.0\View Components.runtimeconfig.json
+F:\Interview Preperation\.net core\View Components\View Components\View Components\bin\Debug\net8.0\View Components.dll
+F:\Interview Preperation\.net core\View Components\View Components\View Components\bin\Debug\net8.0\View Components.pdb
+F:\Interview Preperation\.net core\View Components\View Components\View Components\obj\Debug\net8.0\View Components.GeneratedMSBuildEditorConfig.editorconfig
+F:\Interview Preperation\.net core\View Components\View Components\View Components\obj\Debug\net8.0\View Components.AssemblyInfoInputs.cache
+F:\Interview Preperation\.net core\View Components\View Components\View Components\obj\Debug\net8.0\View Components.AssemblyInfo.cs
+F:\Interview Preperation\.net core\View Components\View Components\View Components\obj\Debug\net8.0\View Components.csproj.CoreCompileInputs.cache
+F:\Interview Preperation\.net core\View Components\View Components\View Components\obj\Debug\net8.0\View Components.MvcApplicationPartsAssemblyInfo.cache
+F:\Interview Preperation\.net core\View Components\View Components\View Components\obj\Debug\net8.0\View Components.RazorAssemblyInfo.cache
+F:\Interview Preperation\.net core\View Components\View Components\View Components\obj\Debug\net8.0\View Components.RazorAssemblyInfo.cs
+F:\Interview Preperation\.net core\View Components\View Components\View Components\obj\Debug\net8.0\staticwebassets.build.json
+F:\Interview Preperation\.net core\View Components\View Components\View Components\obj\Debug\net8.0\staticwebassets.development.json
+F:\Interview Preperation\.net core\View Components\View Components\View Components\obj\Debug\net8.0\staticwebassets\msbuild.View Components.Microsoft.AspNetCore.StaticWebAssets.props
+F:\Interview Preperation\.net core\View Components\View Components\View Components\obj\Debug\net8.0\staticwebassets\msbuild.build.View Components.props
+F:\Interview Preperation\.net core\View Components\View Components\View Components\obj\Debug\net8.0\staticwebassets\msbuild.buildMultiTargeting.View Components.props
+F:\Interview Preperation\.net core\View Components\View Components\View Components\obj\Debug\net8.0\staticwebassets\msbuild.buildTransitive.View Components.props
+F:\Interview Preperation\.net core\View Components\View Components\View Components\obj\Debug\net8.0\staticwebassets.pack.json
+F:\Interview Preperation\.net core\View Components\View Components\View Components\obj\Debug\net8.0\scopedcss\bundle\View Components.styles.css
+F:\Interview Preperation\.net core\View Components\View Components\View Components\obj\Debug\net8.0\View Components.dll
+F:\Interview Preperation\.net core\View Components\View Components\View Components\obj\Debug\net8.0\refint\View Components.dll
+F:\Interview Preperation\.net core\View Components\View Components\View Components\obj\Debug\net8.0\View Components.pdb
+F:\Interview Preperation\.net core\View Components\View Components\View Components\obj\Debug\net8.0\View Components.genruntimeconfig.cache
+F:\Interview Preperation\.net core\View Components\View Components\View Components\obj\Debug\net8.0\ref\View Components.dll
+F:\Interview Preperation\.net core\Views\View Components\View Components\View Components\bin\Debug\net8.0\appsettings.Development.json
+F:\Interview Preperation\.net core\Views\View Components\View Components\View Components\bin\Debug\net8.0\appsettings.json
+F:\Interview Preperation\.net core\Views\View Components\View Components\View Components\bin\Debug\net8.0\View Components.staticwebassets.runtime.json
+F:\Interview Preperation\.net core\Views\View Components\View Components\View Components\bin\Debug\net8.0\View Components.exe
+F:\Interview Preperation\.net core\Views\View Components\View Components\View Components\bin\Debug\net8.0\View Components.deps.json
+F:\Interview Preperation\.net core\Views\View Components\View Components\View Components\bin\Debug\net8.0\View Components.runtimeconfig.json
+F:\Interview Preperation\.net core\Views\View Components\View Components\View Components\bin\Debug\net8.0\View Components.dll
+F:\Interview Preperation\.net core\Views\View Components\View Components\View Components\bin\Debug\net8.0\View Components.pdb
+F:\Interview Preperation\.net core\Views\View Components\View Components\View Components\obj\Debug\net8.0\View Components.GeneratedMSBuildEditorConfig.editorconfig
+F:\Interview Preperation\.net core\Views\View Components\View Components\View Components\obj\Debug\net8.0\View Components.AssemblyInfoInputs.cache
+F:\Interview Preperation\.net core\Views\View Components\View Components\View Components\obj\Debug\net8.0\View Components.AssemblyInfo.cs
+F:\Interview Preperation\.net core\Views\View Components\View Components\View Components\obj\Debug\net8.0\View Components.csproj.CoreCompileInputs.cache
+F:\Interview Preperation\.net core\Views\View Components\View Components\View Components\obj\Debug\net8.0\View Components.MvcApplicationPartsAssemblyInfo.cache
+F:\Interview Preperation\.net core\Views\View Components\View Components\View Components\obj\Debug\net8.0\View Components.RazorAssemblyInfo.cache
+F:\Interview Preperation\.net core\Views\View Components\View Components\View Components\obj\Debug\net8.0\View Components.RazorAssemblyInfo.cs
+F:\Interview Preperation\.net core\Views\View Components\View Components\View Components\obj\Debug\net8.0\staticwebassets.build.json
+F:\Interview Preperation\.net core\Views\View Components\View Components\View Components\obj\Debug\net8.0\staticwebassets.development.json
+F:\Interview Preperation\.net core\Views\View Components\View Components\View Components\obj\Debug\net8.0\staticwebassets\msbuild.View Components.Microsoft.AspNetCore.StaticWebAssets.props
+F:\Interview Preperation\.net core\Views\View Components\View Components\View Components\obj\Debug\net8.0\staticwebassets\msbuild.build.View Components.props
+F:\Interview Preperation\.net core\Views\View Components\View Components\View Components\obj\Debug\net8.0\staticwebassets\msbuild.buildMultiTargeting.View Components.props
+F:\Interview Preperation\.net core\Views\View Components\View Components\View Components\obj\Debug\net8.0\staticwebassets\msbuild.buildTransitive.View Components.props
+F:\Interview Preperation\.net core\Views\View Components\View Components\View Components\obj\Debug\net8.0\staticwebassets.pack.json
+F:\Interview Preperation\.net core\Views\View Components\View Components\View Components\obj\Debug\net8.0\scopedcss\bundle\View Components.styles.css
+F:\Interview Preperation\.net core\Views\View Components\View Components\View Components\obj\Debug\net8.0\View Components.dll
+F:\Interview Preperation\.net core\Views\View Components\View Components\View Components\obj\Debug\net8.0\refint\View Components.dll
+F:\Interview Preperation\.net core\Views\View Components\View Components\View Components\obj\Debug\net8.0\View Components.pdb
+F:\Interview Preperation\.net core\Views\View Components\View Components\View Components\obj\Debug\net8.0\View Components.genruntimeconfig.cache
+F:\Interview Preperation\.net core\Views\View Components\View Components\View Components\obj\Debug\net8.0\ref\View Components.dll

@@ -1,0 +1,19 @@
+{
+  "Version": 1,
+  "Hash": "QHWrDs2vY4hdqpT4DJSpehaFVYl2MSqFLrGN5cPrAYY=",
+  "Source": "LayoutViewsExample",
+  "BasePath": "_content/LayoutViewsExample",
+  "Mode": "Default",
+  "ManifestType": "Build",
+  "ReferencedProjectsConfiguration": [],
+  "DiscoveryPatterns": [
+    {
+      "Name": "LayoutViewsExample\\wwwroot",
+      "Source": "LayoutViewsExample",
+      "ContentRoot": "F:\\Interview Preperation\\.net core\\Views\\Layout Views\\LayoutViewsExample\\LayoutViewsExample\\wwwroot\\",
+      "BasePath": "_content/LayoutViewsExample",
+      "Pattern": "**"
+    }
+  ],
+  "Assets": []
+}

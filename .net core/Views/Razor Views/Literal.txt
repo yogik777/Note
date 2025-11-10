@@ -1,0 +1,28 @@
+Razor - Literal
+================
+--for single line
+@{
+    @: static text
+}
+
+Razor - Literal
+================
+<text>static text</text>
+
+
+
+    @for (int i = 0; i<2; i++)
+    {
+        Person person = people[i];
+        <text>this is static text</text>
+        @: Hello to
+        <div>
+            @person.Name
+            <span>, </span>
+            <span>@person.PersonGender</span>
+            @if (person.DateOfBirth != null)
+            {
+                <span>@person.DateOfBirth.Value.ToString("MM/dd/yyyy")</span>
+            }
+        </div>
+    }

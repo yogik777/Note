@@ -1,0 +1,178 @@
+Exception Handling Middleware 
+=============================
+Handles all errors occurred in filter pipeline (including model binding, controllers and 
+    filtere)
+
+Should be added to the application pipeline, before RoutingMiddleware.
+
+request
+----->    Exception Handling Middleware ---> Other Middleware --> Routing Middleware --> Endpoint Middleware 
+response
+<-------                                <---                 <--                    <--
+
+
+Custom Exception Handling Middleware
+------------------------------------
+//this is a conventional type of middleware 
+public class ExceptionHandlingMiddleware 
+{
+    private readonly RequestDelegate _next; //Stores reference of subsequent middleware 
+    private readonly ILogger<ExceptionHandlingMiddleware>;
+    private readonly IDiagnosticContext _diagnosticContext;
+
+
+    public ExceptionHandlingMiddleware(
+        RequestDelegate next,
+        ILogger<ExceptionHandlingMiddleware> Logger,
+        IDiagnosticContext diagnosticContext)
+    {
+        _next = next;
+        _logger = logger;
+        _diagnosticContext = diagnosticContext;
+    }
+    
+    public async Task InvokeAsync(HttpContext context)
+    {
+        try
+        {
+            await _next(context);       //--> Other Middleware --> EndPoint Middleware
+        }
+        catch(Exception ex)
+        {
+            if(ex.InnerException != null)
+            {
+                _logger.LogError("{ExceptionType} {ExceptionMessage}", ex.InnerException.GetType(), ex.InnerException.Message);
+            }
+            else
+            {
+                _logger.LogError("{ExceptionType} {ExceptionMessage}", ex.GetType(), ex.Message);
+                await httpContext.Response.WriteAsync("Error occured"); we cant display the actual error message to the user
+            }
+        }
+    }
+}
+
+
+
+-> in program.cs 
+
+if(builder.Environment.IsDevelopment())
+{
+    app.UseDeveloperExceptionPage();
+}
+else
+{
+    app.UseExceptionHandlingMiddleware();
+}
+
+
+
+Custom Exceptions 
+=================
+-A custom exception class is an exception class that inherits from System.Exception 
+    class & represents a domain-specific exception.
+    -Used to represent the domain-specific errors stand-out of system-related (.NET) 
+        related exceptions.
+                                inherits
+        custom Exception Class <------  System.Exception class 
+
+Custom Exception class 
+----------------------
+public class CustomException : Exception
+{
+    public CustomException() base()
+    {
+
+    }
+
+    public CustomException(string? message) : base(message)
+    {
+
+    }
+
+    public CustomException(string? message, Exception? innerException) : base(message, innerException)
+    {
+
+    }
+}  
+
+
+
+public class InvalidPersonException : ArgumentException 
+{
+    public InvalidPersonException() : base()
+    {
+
+    }
+
+    public InvalidPersonException(string? message) : base(message)
+    {
+
+    }
+
+    public InvalidPersonException(string? message, Exception? innerException)
+    {
+
+    }
+}
+
+
+
+
+UseExceptionHandler 
+===================
+
+UseExceptionHandler()
+---------------------
+    The build-in UseExceptionHandler() middleware redirects to the specified route path,
+when an unhandled exception occurs during the application execution. 
+
+can be used as an alternative to custom exception handling middleware. 
+
+
+request
+----->     Built-in Exception Handler Middleware --->  Exception Handling Middleware ---> Other Middleware --> Routing Middleware --> Endpoint Middleware 
+response    (UseExceptionHandler)
+<-------                                <---                 <--                    <--
+
+-catches and logs unhandled exceptions.
+-Re-executes the request in an alternative pipeline using the specified route path.
+
+if(builder.Environment.IsDevelopment())
+{
+    app.UseDeveloperExceptionPage();
+}
+else
+{
+    app.UseExceptionHandler("/Error");
+    //in exception handling middleware rethrow the exception so that it will be couth by the ExceptionHandler.
+    app.UseExceptionHandlingMiddleware();
+}
+
+
+
+public class HomeController : Controller 
+{
+    [Route("Error")]
+    public IActionResult Error()
+    {
+        IExceptionHandlerPathFeature? exceptionHandlerPathFeature = HttpContext.Features.Get<IExceptionHandlerPathFeature>();
+        if(exceptionHandlerPathFeature != null && exceptionHandlerPathFeature.Error != null)
+        {
+            ViewBag.ErrorMessage = exceptionHandlerPathFeature.Error.Message;
+        }
+        return View(); //Views/Shared/Error
+    }
+}
+
+
+@{ 
+    ViewBag.Title = "Error";
+}
+<div class="text-center">
+    <h1>Error</h1>
+    <h2>Error occurred during execution</h2>
+    <h2>@viewBag.ErrorMessage</h2>
+
+    <img src="~/error.svg" width="500px" style="margin-top:100px"/>
+</div>

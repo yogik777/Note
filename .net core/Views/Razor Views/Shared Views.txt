@@ -1,0 +1,14 @@
+Shared Views
+-------------
+Shared views are placed in "Shared" folder in "Views" folder.
+-They are accessible from any controller, if the view is NOT Present
+in the "Views\ControllerName" folder.
+
+
+-/Views 
+-------/Shared 
+--------------/ViewName.cshtml
+
+as it is a shared view it can be called from multiple controllers
+-first it will check in the controller's folder if view is not found there
+    then it checks in the Shared folder

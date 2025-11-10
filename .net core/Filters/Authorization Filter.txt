@@ -1,0 +1,69 @@
+Authorization Filter 
+====================
+-in filter pipe line this is the first filter 
+
+When it runs 
+    Runs before any other filters in the filter pipeline.
+
+'OnAuthorize' method 
+    - Determines whether the user is authorized for the Request
+    - Short-circuits the pipeline if the request is NOT authorized.
+    - Don't throw exceptions in OnAuthorize method, as they will not be 
+        handled by exception filters.
+
+Synchronous Authorization Filter 
+--------------------------------
+Authorization filter 
+
+public class FilterClassName : IAuthorizationFilter
+{
+    public void OnAuthorization(AuthorizationFilterContext context)
+    {
+        //TO DO: authorization logic here 
+    }
+}
+
+
+
+Asynchronous Authorization Filter 
+---------------------------------
+public class FilterClassName : IAsyncAuthorizationFilter
+{
+    public async Task OnAuthorizationAsync(AuthorizationFilterContext context)
+    {
+        //TO DO: authorization logic here 
+    }
+}
+
+
+just for example 
+
+	public class TokenResultFilter : IResultFilter
+	{
+		public void OnResultExecuted(ResultExecutedContext context)
+		{
+
+		}
+
+		public void OnResultExecuting(ResultExecutingContext context)
+		{
+			context.HttpContext.Response.Cookies.Append("Auth-Key", "A100");
+		}
+	}
+
+
+	public class TokenAuthorizationFilter : IAuthorizationFilter
+	{
+		public void OnAuthorization(AuthorizationFilterContext context)
+		{
+			if (context.HttpContext.Request.Cookies.ContainsKey("Auth-Key") == false)
+			{
+				context.Result = new StatusCodeResult(StatusCodes.Status401Unauthorized);
+			}
+			if (context.HttpContext.Request.Cookies["Auth-Key"]!="A100")
+			{
+				context.Result = new StatusCodeResult(StatusCodes.Status401Unauthorized);
+			}
+
+		}
+	}

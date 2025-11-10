@@ -1,0 +1,42 @@
+[
+  {
+    "PersonID": "0E04232B-E9EC-4721-9909-496CB40A7245",
+    "PersonName": "Aguste",
+    "Email": "Aguste@booking.com",
+    "DateOfBirth": "1923-01-02T00:00:00",
+    "Gender": "Male",
+    "Address": "a0858 Novick Terrace",
+    "ReceiveNewsLetters": true,
+    "CountryID": "D761EDB1-BA5C-4220-9065-F131048E2F85"
+  },
+  {
+    "PersonID": "80CA16B9-1B8C-4815-9F5A-DDB5823243B7",
+    "PersonName": "Sam",
+    "Email": "Sam@booking.com",
+    "DateOfBirth": "1963-01-02T00:00:00",
+    "Gender": "Male",
+    "Address": "b0858 Novick Terrace",
+    "ReceiveNewsLetters": false,
+    "CountryID": "8B47D7F5-AAC7-48A5-9321-099E3E9CB322"
+  },
+  {
+    "PersonID": "BB6D1D8D-F849-4CBB-9117-8108D2C2992C",
+    "PersonName": "Sundar",
+    "Email": "Sundar@booking.com",
+    "DateOfBirth": "1994-01-02T00:00:00",
+    "Gender": "Male",
+    "Address": "d0858 Novick Terrace",
+    "ReceiveNewsLetters": true,
+    "CountryID": "4D01475E-2525-4C94-960C-F4595C3EE212"
+  },
+  {
+    "PersonID": "35F68DC8-DDF0-4E02-B4D9-9B74195F26AE",
+    "PersonName": "Ramesh",
+    "Email": "Ramesh@booking.com",
+    "DateOfBirth": "1993-01-02T00:00:00",
+    "Gender": "Male",
+    "Address": "c0858 Novick Terrace",
+    "ReceiveNewsLetters": false,
+    "CountryID": "D761EDB1-BA5C-4220-9065-F131048E2F85"
+  }
+]

@@ -1,0 +1,138 @@
+-with ViewData you have to type cast the value in the appropriate type
+-So the type cast is must.
+
+
+-- to fix this issue the view bag is introduced
+-- ViewBag is not a separate object but actually it gets data
+    From the ViewData
+
+
+ViewBag is a property of Controller and View, that is used to access
+    the ViewData easily
+
+- ViewBag is 'dynamic' type.
+
+
+        Controller              View
+                            Presentation Logic &
+        Action                  
+        ViewBag                 ViewBag
+        ViewData       ->       ViewData
+
+
+
+ViewBag is a property of Microsoft.AspNetCore.Mvc.Controller and
+    Microsoft.AspNetCore.Mvc.Razor.RazorPageBase class.
+
+It is of dynamic type.
+
+namespace Microsoft.AspNetCore.Mvc
+{
+    public abstract class Controller: ControllerBase
+    {
+        public dynamic ViewBag{ get; set; }
+    }
+}
+
+
+The 'dynamic' type similar to 'var' keyword.
+But, it checks the data type and at run time, rather that at compilation time.
+
+If you try to access a non-existing property in the ViewBag, it returns null.
+
+anyObj?.anyProperty   --> if anyObj is null then expression will return null.
+
+
+ViewBag's syntax is easier to access its properties than ViewData.
+ Eg: ViewBag.property [vs] ViewData["Key"]
+
+You need NOT type-cast the values while reading it 
+ Eg: ViewBag.object_name.property 
+    [vs]
+    (ViewData["key"] as ClassName).Property 
+
+
+
+using Microsoft.AspNetCore.Mvc;
+using ViewsExample.Models;
+
+namespace ViewsExample.controllers
+{
+	
+	public class HomeController: Controller
+	{
+		[Route("home")]
+		[Route("/")]
+		public IActionResult Index()
+		{
+			ViewData["pageTitle"] = "Hi this is title from variable!!!";
+            List<Person> people = new List<Person>()
+            {
+                new Person()
+                {
+                    Name = "Yogesh",
+                    DateOfBirth = DateTime.Parse("2001-05-6"),
+                    PersonGender = Gender.Male
+                },
+                new Person()
+                {
+                    Name = "Shubham",
+                    DateOfBirth = DateTime.Parse("2000-09-30"),
+                    PersonGender = Gender.Male
+                },
+                new Person()
+                {
+                    Name = "Poonam",
+                    PersonGender = Gender.Female
+                }
+            };
+
+            //ViewData["people"] = people;
+            ViewBag.people = people;
+
+            return View();  //Views/Home/Index.cshtml
+							//return new ViewResult() { ViewName = "abc" };
+							//return View("abc");		//abc.cshtml
+		}
+	}
+}
+
+
+
+@using ViewsExample.Models;
+
+<!DOCTYPE html>
+<html>
+    <head>
+    <title>@ViewBag.pageTitle</title>
+        <meta charset="utf-8" />
+    </head>
+    <body>
+        <h1>Welcome</h1>
+            
+            @{
+                // List<Person>? people = (List<Person>?)ViewData["people"];
+                // if(people is null)
+                // {
+                //     people = new List<Person>();
+                // }
+            }
+
+    @foreach(Person person in ViewBag.people)
+    {
+        <text>this is static text</text>
+        @: Hello to
+        <div>
+            @person.Name
+            <span>, </span>
+            <span>@person.PersonGender</span>
+            @if (person.DateOfBirth != null)
+            {
+                <span>@person.DateOfBirth.Value.ToString("MM/dd/yyyy")</span>
+                
+            }
+        </div>
+    }
+
+</body>
+</html>

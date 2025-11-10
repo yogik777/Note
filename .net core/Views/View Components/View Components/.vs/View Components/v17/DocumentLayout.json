@@ -1,0 +1,211 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "F:\\Interview Preperation\\.net core\\Views\\View Components\\View Components\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{5ACB7E24-9398-469F-9FA3-4623A30F87A2}|View Components\\View Components.csproj|f:\\interview preperation\\.net core\\views\\view components\\view components\\view components\\views\\home\\about.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{5ACB7E24-9398-469F-9FA3-4623A30F87A2}|View Components\\View Components.csproj|solutionrelative:view components\\views\\home\\about.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{5ACB7E24-9398-469F-9FA3-4623A30F87A2}|View Components\\View Components.csproj|f:\\interview preperation\\.net core\\views\\view components\\view components\\view components\\views\\home\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{5ACB7E24-9398-469F-9FA3-4623A30F87A2}|View Components\\View Components.csproj|solutionrelative:view components\\views\\home\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{5ACB7E24-9398-469F-9FA3-4623A30F87A2}|View Components\\View Components.csproj|f:\\interview preperation\\.net core\\views\\view components\\view components\\view components\\viewcomponents\\gridviewcomponent.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{5ACB7E24-9398-469F-9FA3-4623A30F87A2}|View Components\\View Components.csproj|solutionrelative:view components\\viewcomponents\\gridviewcomponent.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{5ACB7E24-9398-469F-9FA3-4623A30F87A2}|View Components\\View Components.csproj|f:\\interview preperation\\.net core\\views\\view components\\view components\\view components\\views\\shared\\components\\grid\\sample.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{5ACB7E24-9398-469F-9FA3-4623A30F87A2}|View Components\\View Components.csproj|solutionrelative:view components\\views\\shared\\components\\grid\\sample.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{5ACB7E24-9398-469F-9FA3-4623A30F87A2}|View Components\\View Components.csproj|f:\\interview preperation\\.net core\\views\\view components\\view components\\view components\\views\\shared\\_layout.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{5ACB7E24-9398-469F-9FA3-4623A30F87A2}|View Components\\View Components.csproj|solutionrelative:view components\\views\\shared\\_layout.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{5ACB7E24-9398-469F-9FA3-4623A30F87A2}|View Components\\View Components.csproj|f:\\interview preperation\\.net core\\views\\view components\\view components\\view components\\views\\_viewimports.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{5ACB7E24-9398-469F-9FA3-4623A30F87A2}|View Components\\View Components.csproj|solutionrelative:view components\\views\\_viewimports.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{5ACB7E24-9398-469F-9FA3-4623A30F87A2}|View Components\\View Components.csproj|f:\\interview preperation\\.net core\\views\\view components\\view components\\view components\\views\\_viewstart.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{5ACB7E24-9398-469F-9FA3-4623A30F87A2}|View Components\\View Components.csproj|solutionrelative:view components\\views\\_viewstart.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{5ACB7E24-9398-469F-9FA3-4623A30F87A2}|View Components\\View Components.csproj|f:\\interview preperation\\.net core\\views\\view components\\view components\\view components\\controllers\\homecontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{5ACB7E24-9398-469F-9FA3-4623A30F87A2}|View Components\\View Components.csproj|solutionrelative:view components\\controllers\\homecontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{5ACB7E24-9398-469F-9FA3-4623A30F87A2}|View Components\\View Components.csproj|f:\\interview preperation\\.net core\\views\\view components\\view components\\view components\\models\\person.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{5ACB7E24-9398-469F-9FA3-4623A30F87A2}|View Components\\View Components.csproj|solutionrelative:view components\\models\\person.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{5ACB7E24-9398-469F-9FA3-4623A30F87A2}|View Components\\View Components.csproj|f:\\interview preperation\\.net core\\views\\view components\\view components\\view components\\view components.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|",
+      "RelativeMoniker": "D:0:0:{5ACB7E24-9398-469F-9FA3-4623A30F87A2}|View Components\\View Components.csproj|solutionrelative:view components\\view components.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{5ACB7E24-9398-469F-9FA3-4623A30F87A2}|View Components\\View Components.csproj|f:\\interview preperation\\.net core\\views\\view components\\view components\\view components\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{5ACB7E24-9398-469F-9FA3-4623A30F87A2}|View Components\\View Components.csproj|solutionrelative:view components\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 9,
+          "Children": [
+            {
+              "$type": "Bookmark",
+              "Name": "ST:128:0:{1fc202d4-d401-403c-9834-5b218574bb67}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{d78612c7-9962-4b83-95d9-268046dad23a}"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 8,
+              "Title": "Person.cs",
+              "DocumentMoniker": "F:\\Interview Preperation\\.net core\\Views\\View Components\\View Components\\View Components\\Models\\Person.cs",
+              "RelativeDocumentMoniker": "View Components\\Models\\Person.cs",
+              "ToolTip": "F:\\Interview Preperation\\.net core\\Views\\View Components\\View Components\\View Components\\Models\\Person.cs",
+              "RelativeToolTip": "View Components\\Models\\Person.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAUAAAAtAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-12-31T14:53:50.565Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 9,
+              "Title": "View Components.csproj",
+              "DocumentMoniker": "F:\\Interview Preperation\\.net core\\Views\\View Components\\View Components\\View Components\\View Components.csproj",
+              "RelativeDocumentMoniker": "View Components\\View Components.csproj",
+              "ToolTip": "F:\\Interview Preperation\\.net core\\Views\\View Components\\View Components\\View Components\\View Components.csproj",
+              "RelativeToolTip": "View Components\\View Components.csproj",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAYAAAAiAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000758|",
+              "WhenOpened": "2024-12-31T14:03:05.666Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "_ViewImports.cshtml",
+              "DocumentMoniker": "F:\\Interview Preperation\\.net core\\Views\\View Components\\View Components\\View Components\\Views\\_ViewImports.cshtml",
+              "RelativeDocumentMoniker": "View Components\\Views\\_ViewImports.cshtml",
+              "ToolTip": "F:\\Interview Preperation\\.net core\\Views\\View Components\\View Components\\View Components\\Views\\_ViewImports.cshtml",
+              "RelativeToolTip": "View Components\\Views\\_ViewImports.cshtml",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAIAAAAdAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2024-12-31T13:41:29.349Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "Sample.cshtml",
+              "DocumentMoniker": "F:\\Interview Preperation\\.net core\\Views\\View Components\\View Components\\View Components\\Views\\Shared\\Components\\Grid\\Sample.cshtml",
+              "RelativeDocumentMoniker": "View Components\\Views\\Shared\\Components\\Grid\\Sample.cshtml",
+              "ToolTip": "F:\\Interview Preperation\\.net core\\Views\\View Components\\View Components\\View Components\\Views\\Shared\\Components\\Grid\\Sample.cshtml",
+              "RelativeToolTip": "View Components\\Views\\Shared\\Components\\Grid\\Sample.cshtml",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAsAAAAPAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2024-12-31T13:03:26.833Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "GridViewComponent.cs",
+              "DocumentMoniker": "F:\\Interview Preperation\\.net core\\Views\\View Components\\View Components\\View Components\\ViewComponents\\GridViewComponent.cs",
+              "RelativeDocumentMoniker": "View Components\\ViewComponents\\GridViewComponent.cs",
+              "ToolTip": "F:\\Interview Preperation\\.net core\\Views\\View Components\\View Components\\View Components\\ViewComponents\\GridViewComponent.cs",
+              "RelativeToolTip": "View Components\\ViewComponents\\GridViewComponent.cs",
+              "ViewState": "AgIAAAUAAAAAAAAAAAAmwAkAAAAIAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-12-31T12:53:20.82Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "_ViewStart.cshtml",
+              "DocumentMoniker": "F:\\Interview Preperation\\.net core\\Views\\View Components\\View Components\\View Components\\Views\\_ViewStart.cshtml",
+              "RelativeDocumentMoniker": "View Components\\Views\\_ViewStart.cshtml",
+              "ToolTip": "F:\\Interview Preperation\\.net core\\Views\\View Components\\View Components\\View Components\\Views\\_ViewStart.cshtml",
+              "RelativeToolTip": "View Components\\Views\\_ViewStart.cshtml",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAMAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2024-12-31T12:46:51.973Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "_Layout.cshtml",
+              "DocumentMoniker": "F:\\Interview Preperation\\.net core\\Views\\View Components\\View Components\\View Components\\Views\\Shared\\_Layout.cshtml",
+              "RelativeDocumentMoniker": "View Components\\Views\\Shared\\_Layout.cshtml",
+              "ToolTip": "F:\\Interview Preperation\\.net core\\Views\\View Components\\View Components\\View Components\\Views\\Shared\\_Layout.cshtml",
+              "RelativeToolTip": "View Components\\Views\\Shared\\_Layout.cshtml",
+              "ViewState": "AgIAAAkAAAAAAAAAAAAAABcAAAATAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2024-12-31T12:41:44.323Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "About.cshtml",
+              "DocumentMoniker": "F:\\Interview Preperation\\.net core\\Views\\View Components\\View Components\\View Components\\Views\\Home\\About.cshtml",
+              "RelativeDocumentMoniker": "View Components\\Views\\Home\\About.cshtml",
+              "ToolTip": "F:\\Interview Preperation\\.net core\\Views\\View Components\\View Components\\View Components\\Views\\Home\\About.cshtml",
+              "RelativeToolTip": "View Components\\Views\\Home\\About.cshtml",
+              "ViewState": "AgIAACUAAAAAAAAAAAAowCEAAAAVAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2024-12-31T12:38:59.08Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "Index.cshtml",
+              "DocumentMoniker": "F:\\Interview Preperation\\.net core\\Views\\View Components\\View Components\\View Components\\Views\\Home\\Index.cshtml",
+              "RelativeDocumentMoniker": "View Components\\Views\\Home\\Index.cshtml",
+              "ToolTip": "F:\\Interview Preperation\\.net core\\Views\\View Components\\View Components\\View Components\\Views\\Home\\Index.cshtml",
+              "RelativeToolTip": "View Components\\Views\\Home\\Index.cshtml",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAMAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2024-12-31T12:37:36.611Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 7,
+              "Title": "HomeController.cs",
+              "DocumentMoniker": "F:\\Interview Preperation\\.net core\\Views\\View Components\\View Components\\View Components\\Controllers\\HomeController.cs",
+              "RelativeDocumentMoniker": "View Components\\Controllers\\HomeController.cs",
+              "ToolTip": "F:\\Interview Preperation\\.net core\\Views\\View Components\\View Components\\View Components\\Controllers\\HomeController.cs",
+              "RelativeToolTip": "View Components\\Controllers\\HomeController.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAYAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-12-31T12:34:07.985Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 10,
+              "Title": "Program.cs",
+              "DocumentMoniker": "F:\\Interview Preperation\\.net core\\Views\\View Components\\View Components\\View Components\\Program.cs",
+              "RelativeDocumentMoniker": "View Components\\Program.cs",
+              "ToolTip": "F:\\Interview Preperation\\.net core\\Views\\View Components\\View Components\\View Components\\Program.cs",
+              "RelativeToolTip": "View Components\\Program.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAoAAAAhAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-12-31T12:28:33.081Z"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

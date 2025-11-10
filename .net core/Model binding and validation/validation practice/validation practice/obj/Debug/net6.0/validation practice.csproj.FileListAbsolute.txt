@@ -1,0 +1,30 @@
+F:\Interview Preperation\.net core\Model binding and validation\validation practice\validation practice\bin\Debug\net6.0\appsettings.Development.json
+F:\Interview Preperation\.net core\Model binding and validation\validation practice\validation practice\bin\Debug\net6.0\appsettings.json
+F:\Interview Preperation\.net core\Model binding and validation\validation practice\validation practice\bin\Debug\net6.0\validation practice.staticwebassets.runtime.json
+F:\Interview Preperation\.net core\Model binding and validation\validation practice\validation practice\bin\Debug\net6.0\validation practice.exe
+F:\Interview Preperation\.net core\Model binding and validation\validation practice\validation practice\bin\Debug\net6.0\validation practice.deps.json
+F:\Interview Preperation\.net core\Model binding and validation\validation practice\validation practice\bin\Debug\net6.0\validation practice.runtimeconfig.json
+F:\Interview Preperation\.net core\Model binding and validation\validation practice\validation practice\bin\Debug\net6.0\validation practice.dll
+F:\Interview Preperation\.net core\Model binding and validation\validation practice\validation practice\bin\Debug\net6.0\validation practice.pdb
+F:\Interview Preperation\.net core\Model binding and validation\validation practice\validation practice\obj\Debug\net6.0\validation practice.GeneratedMSBuildEditorConfig.editorconfig
+F:\Interview Preperation\.net core\Model binding and validation\validation practice\validation practice\obj\Debug\net6.0\validation practice.AssemblyInfoInputs.cache
+F:\Interview Preperation\.net core\Model binding and validation\validation practice\validation practice\obj\Debug\net6.0\validation practice.AssemblyInfo.cs
+F:\Interview Preperation\.net core\Model binding and validation\validation practice\validation practice\obj\Debug\net6.0\validation practice.csproj.CoreCompileInputs.cache
+F:\Interview Preperation\.net core\Model binding and validation\validation practice\validation practice\obj\Debug\net6.0\validation practice.MvcApplicationPartsAssemblyInfo.cache
+F:\Interview Preperation\.net core\Model binding and validation\validation practice\validation practice\obj\Debug\net6.0\validation practice.RazorAssemblyInfo.cache
+F:\Interview Preperation\.net core\Model binding and validation\validation practice\validation practice\obj\Debug\net6.0\validation practice.RazorAssemblyInfo.cs
+F:\Interview Preperation\.net core\Model binding and validation\validation practice\validation practice\obj\Debug\net6.0\staticwebassets.build.json
+F:\Interview Preperation\.net core\Model binding and validation\validation practice\validation practice\obj\Debug\net6.0\staticwebassets.development.json
+F:\Interview Preperation\.net core\Model binding and validation\validation practice\validation practice\obj\Debug\net6.0\staticwebassets\msbuild.validation practice.Microsoft.AspNetCore.StaticWebAssets.props
+F:\Interview Preperation\.net core\Model binding and validation\validation practice\validation practice\obj\Debug\net6.0\staticwebassets\msbuild.build.validation practice.props
+F:\Interview Preperation\.net core\Model binding and validation\validation practice\validation practice\obj\Debug\net6.0\staticwebassets\msbuild.buildMultiTargeting.validation practice.props
+F:\Interview Preperation\.net core\Model binding and validation\validation practice\validation practice\obj\Debug\net6.0\staticwebassets\msbuild.buildTransitive.validation practice.props
+F:\Interview Preperation\.net core\Model binding and validation\validation practice\validation practice\obj\Debug\net6.0\staticwebassets.pack.json
+F:\Interview Preperation\.net core\Model binding and validation\validation practice\validation practice\obj\Debug\net6.0\scopedcss\Views\Shared\_Layout.cshtml.rz.scp.css
+F:\Interview Preperation\.net core\Model binding and validation\validation practice\validation practice\obj\Debug\net6.0\scopedcss\bundle\validation practice.styles.css
+F:\Interview Preperation\.net core\Model binding and validation\validation practice\validation practice\obj\Debug\net6.0\scopedcss\projectbundle\validation practice.bundle.scp.css
+F:\Interview Preperation\.net core\Model binding and validation\validation practice\validation practice\obj\Debug\net6.0\validation practice.dll
+F:\Interview Preperation\.net core\Model binding and validation\validation practice\validation practice\obj\Debug\net6.0\refint\validation practice.dll
+F:\Interview Preperation\.net core\Model binding and validation\validation practice\validation practice\obj\Debug\net6.0\validation practice.pdb
+F:\Interview Preperation\.net core\Model binding and validation\validation practice\validation practice\obj\Debug\net6.0\validation practice.genruntimeconfig.cache
+F:\Interview Preperation\.net core\Model binding and validation\validation practice\validation practice\obj\Debug\net6.0\ref\validation practice.dll

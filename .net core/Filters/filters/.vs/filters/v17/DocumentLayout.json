@@ -1,0 +1,178 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "F:\\Interview Preperation\\.net core\\Filters\\filters\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{744432D3-EBA7-4098-B786-1D77269247E5}|filters\\filters.csproj|f:\\interview preperation\\.net core\\filters\\filters\\filters\\filters\\action filters\\personslistactionfilter.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{744432D3-EBA7-4098-B786-1D77269247E5}|filters\\filters.csproj|solutionrelative:filters\\filters\\action filters\\personslistactionfilter.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{744432D3-EBA7-4098-B786-1D77269247E5}|filters\\filters.csproj|f:\\interview preperation\\.net core\\filters\\filters\\filters\\controllers\\homecontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{744432D3-EBA7-4098-B786-1D77269247E5}|filters\\filters.csproj|solutionrelative:filters\\controllers\\homecontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{744432D3-EBA7-4098-B786-1D77269247E5}|filters\\filters.csproj|f:\\interview preperation\\.net core\\filters\\filters\\filters\\filters\\exception filters\\handleexceptionfilter.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{744432D3-EBA7-4098-B786-1D77269247E5}|filters\\filters.csproj|solutionrelative:filters\\filters\\exception filters\\handleexceptionfilter.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{744432D3-EBA7-4098-B786-1D77269247E5}|filters\\filters.csproj|f:\\interview preperation\\.net core\\filters\\filters\\filters\\filters\\resourcefilter\\featuredisabledresourcefilter.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{744432D3-EBA7-4098-B786-1D77269247E5}|filters\\filters.csproj|solutionrelative:filters\\filters\\resourcefilter\\featuredisabledresourcefilter.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{744432D3-EBA7-4098-B786-1D77269247E5}|filters\\filters.csproj|f:\\interview preperation\\.net core\\filters\\filters\\filters\\filters\\result filters\\personslistresultfilter.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{744432D3-EBA7-4098-B786-1D77269247E5}|filters\\filters.csproj|solutionrelative:filters\\filters\\result filters\\personslistresultfilter.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{744432D3-EBA7-4098-B786-1D77269247E5}|filters\\filters.csproj|f:\\interview preperation\\.net core\\filters\\filters\\filters\\filters\\result filters\\tokenresultfilter.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{744432D3-EBA7-4098-B786-1D77269247E5}|filters\\filters.csproj|solutionrelative:filters\\filters\\result filters\\tokenresultfilter.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{744432D3-EBA7-4098-B786-1D77269247E5}|filters\\filters.csproj|f:\\interview preperation\\.net core\\filters\\filters\\filters\\filters.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|",
+      "RelativeMoniker": "D:0:0:{744432D3-EBA7-4098-B786-1D77269247E5}|filters\\filters.csproj|solutionrelative:filters\\filters.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{744432D3-EBA7-4098-B786-1D77269247E5}|filters\\filters.csproj|f:\\interview preperation\\.net core\\filters\\filters\\filters\\authorizationfilter\\tokenauthorizationfilter.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{744432D3-EBA7-4098-B786-1D77269247E5}|filters\\filters.csproj|solutionrelative:filters\\authorizationfilter\\tokenauthorizationfilter.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{744432D3-EBA7-4098-B786-1D77269247E5}|filters\\filters.csproj|f:\\interview preperation\\.net core\\filters\\filters\\filters\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{744432D3-EBA7-4098-B786-1D77269247E5}|filters\\filters.csproj|solutionrelative:filters\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 10,
+          "Children": [
+            {
+              "$type": "Bookmark",
+              "Name": "ST:128:0:{1fc202d4-d401-403c-9834-5b218574bb67}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{d78612c7-9962-4b83-95d9-268046dad23a}"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "HandleExceptionFilter.cs",
+              "DocumentMoniker": "F:\\Interview Preperation\\.net core\\Filters\\filters\\filters\\Filters\\Exception Filters\\HandleExceptionFilter.cs",
+              "RelativeDocumentMoniker": "filters\\Filters\\Exception Filters\\HandleExceptionFilter.cs",
+              "ToolTip": "F:\\Interview Preperation\\.net core\\Filters\\filters\\filters\\Filters\\Exception Filters\\HandleExceptionFilter.cs",
+              "RelativeToolTip": "filters\\Filters\\Exception Filters\\HandleExceptionFilter.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABUAAAADAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-12-10T12:04:47.774Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "TokenResultFilter.cs",
+              "DocumentMoniker": "F:\\Interview Preperation\\.net core\\Filters\\filters\\filters\\Filters\\Result filters\\TokenResultFilter.cs",
+              "RelativeDocumentMoniker": "filters\\Filters\\Result filters\\TokenResultFilter.cs",
+              "ToolTip": "F:\\Interview Preperation\\.net core\\Filters\\filters\\filters\\Filters\\Result filters\\TokenResultFilter.cs",
+              "RelativeToolTip": "filters\\Filters\\Result filters\\TokenResultFilter.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAcAAAADAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-12-10T11:18:15.493Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 7,
+              "Title": "TokenAuthorizationFilter.cs",
+              "DocumentMoniker": "F:\\Interview Preperation\\.net core\\Filters\\filters\\filters\\AuthorizationFilter\\TokenAuthorizationFilter.cs",
+              "RelativeDocumentMoniker": "filters\\AuthorizationFilter\\TokenAuthorizationFilter.cs",
+              "ToolTip": "F:\\Interview Preperation\\.net core\\Filters\\filters\\filters\\AuthorizationFilter\\TokenAuthorizationFilter.cs",
+              "RelativeToolTip": "filters\\AuthorizationFilter\\TokenAuthorizationFilter.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABMAAAACAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-12-10T11:02:42.043Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "filters.csproj",
+              "DocumentMoniker": "F:\\Interview Preperation\\.net core\\Filters\\filters\\filters\\filters.csproj",
+              "RelativeDocumentMoniker": "filters\\filters.csproj",
+              "ToolTip": "F:\\Interview Preperation\\.net core\\Filters\\filters\\filters\\filters.csproj",
+              "RelativeToolTip": "filters\\filters.csproj",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000758|",
+              "WhenOpened": "2024-12-10T11:02:05.055Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "FeatureDisabledResourceFilter.cs",
+              "DocumentMoniker": "F:\\Interview Preperation\\.net core\\Filters\\filters\\filters\\Filters\\ResourceFilter\\FeatureDisabledResourceFilter.cs",
+              "RelativeDocumentMoniker": "filters\\Filters\\ResourceFilter\\FeatureDisabledResourceFilter.cs",
+              "ToolTip": "F:\\Interview Preperation\\.net core\\Filters\\filters\\filters\\Filters\\ResourceFilter\\FeatureDisabledResourceFilter.cs",
+              "RelativeToolTip": "filters\\Filters\\ResourceFilter\\FeatureDisabledResourceFilter.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAsAAAAYAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-12-10T10:16:09.582Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "PersonsListResultFilter.cs",
+              "DocumentMoniker": "F:\\Interview Preperation\\.net core\\Filters\\filters\\filters\\Filters\\Result filters\\PersonsListResultFilter.cs",
+              "RelativeDocumentMoniker": "filters\\Filters\\Result filters\\PersonsListResultFilter.cs",
+              "ToolTip": "F:\\Interview Preperation\\.net core\\Filters\\filters\\filters\\Filters\\Result filters\\PersonsListResultFilter.cs",
+              "RelativeToolTip": "filters\\Filters\\Result filters\\PersonsListResultFilter.cs",
+              "ViewState": "AgIAAAMAAAAAAAAAAAAAAB0AAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-12-10T09:31:41.978Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "HomeController.cs",
+              "DocumentMoniker": "F:\\Interview Preperation\\.net core\\Filters\\filters\\filters\\Controllers\\HomeController.cs",
+              "RelativeDocumentMoniker": "filters\\Controllers\\HomeController.cs",
+              "ToolTip": "F:\\Interview Preperation\\.net core\\Filters\\filters\\filters\\Controllers\\HomeController.cs",
+              "RelativeToolTip": "filters\\Controllers\\HomeController.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAwAAAAxAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-12-09T15:03:07.662Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 8,
+              "Title": "Program.cs",
+              "DocumentMoniker": "F:\\Interview Preperation\\.net core\\Filters\\filters\\filters\\Program.cs",
+              "RelativeDocumentMoniker": "filters\\Program.cs",
+              "ToolTip": "F:\\Interview Preperation\\.net core\\Filters\\filters\\filters\\Program.cs",
+              "RelativeToolTip": "filters\\Program.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA0AAAAUAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-12-09T14:26:41.113Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "PersonsListActionFilter.cs",
+              "DocumentMoniker": "F:\\Interview Preperation\\.net core\\Filters\\filters\\filters\\Filters\\Action Filters\\PersonsListActionFilter.cs",
+              "RelativeDocumentMoniker": "filters\\Filters\\Action Filters\\PersonsListActionFilter.cs",
+              "ToolTip": "F:\\Interview Preperation\\.net core\\Filters\\filters\\filters\\Filters\\Action Filters\\PersonsListActionFilter.cs",
+              "RelativeToolTip": "filters\\Filters\\Action Filters\\PersonsListActionFilter.cs",
+              "ViewState": "AgIAAAQAAAAAAAAAAAAiwBcAAAACAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-12-09T14:54:03.03Z",
+              "EditorCaption": ""
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

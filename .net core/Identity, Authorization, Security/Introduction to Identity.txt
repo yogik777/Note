@@ -1,0 +1,785 @@
+Introduction to Identity
+========================
+	It is an API that manages 
+	1. users, 
+	2. passwords, 
+	3. profile data, 
+	4. roles, 
+	5. tokens, 
+	6. email confirmation, 
+	7. external logins etc.
+-It is by default build on to of EntityFrameworkCore; you can also create custom data stores.
+
+
+	Asp.Net Core App (Controllers)
+	Identity Manager (BL)			Eg. UserManager, RoleManager		
+	Identity Store (Repository)		Eg. UserStore, RoleStore
+	Identity DbContext (DAL)
+	Data Source (Database)
+
+
+
+Creating Models
+===============
+
+Identity Models
+```````````````
+
+IdentityUser<T>		generic type T represents the Data type of the ID. by default -> string
+---------------
+-Acts as a base class for ApplicationUser class that acts as model class to store user details.
+-You can add additional properties to the ApplicationUser class.
+
+Built-in Properties: 
+	-Id		
+	-Email
+	-UserName	
+	-PhoneNumber
+	-PasswordHash
+
+using Microsoft.AspNetCore.Identity;
+
+namespace Identity_API.IdentityEntities
+{
+	public class ApplicationUser:IdentityUser<Guid>
+	{
+		public string? PersonName { get; set; }
+	}
+}
+
+
+
+
+IdentityRole<T>		generic type T represents the Data type of the ID. by default -> string
+```````````````
+-Acts as a base class for ApplicationRole class that acts as model class to store role details.
+	Eg: "admin"
+-You can add additional properties to the ApplicationRole class.
+
+Built-in Properties:
+	-Id
+	-Name
+
+using Microsoft.AspNetCore.Identity;
+
+namespace Identity_API.IdentityEntities
+{
+	public class ApplicationRole:IdentityRole<Guid>
+	{
+
+	}
+}
+
+
+
+
+using Identity_API.IdentityEntities;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore;
+
+namespace Identity_API.DbContext
+{
+	public class ApplicationDbContext : IdentityDbContext<ApplicationUser, ApplicationRole, Guid>
+	{
+		public ApplicationDbContext(DbContextOptions options) : base(options)
+		{
+
+		}
+	}
+}
+
+
+
+
+before interacting with Identity Manager(BL) Eg. UserManger, RoleManager to 
+	register the user
+	we first have to add identity as a service into the IOC container
+
+			//Enable Identity in this project 
+			builder.Services.AddIdentity<ApplicationUser, ApplicationRole>()
+				.AddEntityFrameworkStores<ApplicationDbContext>()	//BL layer
+
+				.AddDefaultTokenProviders()
+
+				.AddUserStore<UserStore<ApplicationUser,			//Repository Layer User
+					ApplicationRole,
+					ApplicationDbContext, Guid>>()
+
+				.AddRoleStore<RoleStore<ApplicationRole, 			//Repository Layer for Role
+					ApplicationDbContext, Guid>>();
+
+
+
+Managers		
+==========
+
+UserManager
+-----------
+-Provides business logic methods for managing users.
+-It provides methods for creating, searching, updating and deleting users.
+
+methods:
+CreateAsync()
+DeleteAsync()
+UpdateAsync()
+IsInRoleAsync()
+FindByEmailAsync()
+FindByIdAsync()
+FindByNameAsync()
+
+SignInManager
+-------------
+-Provides businesss logic methods for sign-in and sign-up functionality for the users.
+-It provides methods for creating, searching, updating and deleting users.
+
+methods:
+SignInAsync()
+PasswordSignInAsync()
+SignOutAsync()
+IsSignedIn()
+
+
+
+
+    [Route("[controller]/[action]")]
+    public class AccountController : Controller
+    {
+        private readonly UserManager<ApplicationUser> _userManager;
+        
+        public AccountController(UserManager<ApplicationUser> userManager)
+        {
+            _userManager = userManager;
+        }
+
+        [HttpGet]
+        public IActionResult Register()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Register(RegisterDTO registerDTO)
+        {
+            //Check for validation errors
+            if (ModelState.IsValid == false)
+            {
+                ViewBag.Errors = ModelState.Values.SelectMany
+                    (temp => temp.Errors).Select(temp => temp.ErrorMessage);
+                return View(registerDTO);
+            }
+
+            ApplicationUser user = new ApplicationUser()
+            {
+                Email = registerDTO.Email,
+                PhoneNumber = registerDTO.Phone,
+                UserName = registerDTO.Email,
+                PersonName = registerDTO.PersonName,
+            };
+
+            IdentityResult result = await _userManager.CreateAsync(user, registerDTO.Password);
+
+            if (result.Succeeded)
+            {
+                return RedirectToAction(nameof(HomeController.Index), "Home");
+            }
+            else
+            {
+                foreach(IdentityError error in result.Errors)
+                {
+                    ModelState.AddModelError("Register", error.Description);
+                } 
+            }
+            //TO DO: Store user registration details into Identity database
+
+            return View(registerDTO);
+        }
+    }
+
+
+-at registration if you pass password in normal string it will be automatically hashed
+	with SHA algorithm by default.
+-at the time of login. the login password again get converted to hash
+-if both hashes matched then it will be considered as successful login	
+	or else login failed.
+
+
+To learn ->1. Model validation
+		   2. Remaining View concepts -> jquery form validation. asp tags etc.
+
+
+
+SignInManager		: Provides business logic methods for sign-in and sign-in functionality of
+--------------			the users. It provides methods for creating, searching, updating and 
+						deleting users.
+-> if we already have Application user object then we will use SignInAsync()
+-> if we dont have already created application object then we will use PasswordSignInAsync()
+-> The SignOutAsync method is used to SignOut/logout 
+-> Whenever user is signed in it creates a cookie automatically in the	
+	browser and that authentication cookie will be automatically submitted for
+	all the subsequent requests.
+	-->For example when the user is signed in with correct username and password 
+		the authentication cookie is created in the server side and sent the same 
+		to the browser then then the the browser stores it in the browser memory
+		when the user navigates to another URL for example person slash index while
+		making request to that route the browser automatically submits the 
+		authentication cookie to prove that the user is already logged in
+		then the server receives the request and verify the cookie is valid or not 
+		since that authentication kookie is valid we can get the current working ID or
+		name based on that 
+
+	await _signInManager.SignInAsync(user, isPersistent:false);
+-> if isPersistent is true then cookie which is store in the browser will be a 
+	persistent cookie, ie cookie will be persistent even after browser is closed 
+
+
+using System.ComponentModel.DataAnnotations;
+namespace Identity_API.DTO
+{
+    public class RegisterDTO
+    {
+        [Required(ErrorMessage = "Name can't be blank")]
+        public string PersonName { get; set; }
+
+        [Required(ErrorMessage = "Email can't be blank")]
+        [EmailAddress(ErrorMessage ="Email should be in a proper email address format")]
+        public string Email { get; set; }
+
+        [Required(ErrorMessage = "Phone can't be blank")]
+        [RegularExpression("^[0-9]*$", ErrorMessage = "Phone number should contain numbers only")]
+        [DataType(DataType.PhoneNumber)]
+        public string Phone {  get; set; }
+
+        [Required(ErrorMessage = "Password can't be blank")]
+        [DataType(DataType.Password)]
+        public string Password { get; set; }
+
+        [Required(ErrorMessage = "Confirm Password can't be blank")]
+        [DataType(DataType.Password)]
+        [Compare("Password", ErrorMessage = "Password and confirm password do not match")]
+        public string ConfirmPassword { get; set; }
+    }
+}
+
+
+ [Route("[controller]/[action]")]
+ public class AccountController : Controller
+ {
+     private readonly UserManager<ApplicationUser> _userManager;
+     private readonly SignInManager<ApplicationUser> _signInManager;
+     
+     public AccountController(UserManager<ApplicationUser> userManager,
+         SignInManager<ApplicationUser> signInManager)
+     {
+         _userManager = userManager;
+         _signInManager = signInManager;
+     }
+
+     [HttpGet]
+     public IActionResult Register()
+     {
+         return View();
+     }
+
+     [HttpPost]
+     public async Task<IActionResult> Register(RegisterDTO registerDTO)
+     {
+         //Check for validation errors
+         if (ModelState.IsValid == false)
+         {
+             ViewBag.Errors = ModelState.Values.SelectMany
+                 (temp => temp.Errors).Select(temp => temp.ErrorMessage);
+             return View(registerDTO);
+         }
+
+         ApplicationUser user = new ApplicationUser()
+         {
+             Email = registerDTO.Email,
+             PhoneNumber = registerDTO.Phone,
+             UserName = registerDTO.Email,
+             PersonName = registerDTO.PersonName,
+         };
+
+         IdentityResult result = await _userManager.CreateAsync(user, registerDTO.Password);
+
+         if (result.Succeeded)
+         {
+             //SignIn
+             await _signInManager.SignInAsync(user, isPersistent:false);
+             return RedirectToAction(nameof(HomeController.Index), "Home");
+         }
+         else
+         {
+             foreach(IdentityError error in result.Errors)
+             {
+                 ModelState.AddModelError("Register", error.Description);
+             } 
+         }
+         //TO DO: Store user registration details into Identity database
+
+         return View(registerDTO);
+     }
+ }
+
+
+
+
+
+
+
+
+
+ login/logout button
+ -------------------
+<ul class="navbar-nav flex-grow-1">
+
+	@if(User.Identity.IsAuthenticated)
+	{
+		<i class="fa-solid fa-user"></i>
+		<li class="nav-item">
+			@User.Identity?.Name
+		</li>
+		<li class="nav-item">
+			<a asp-controller="Account" asp-action="Logout">Logout</a>
+		</li>
+	}
+	else
+	{
+		<li class="nav-item">
+			<a asp-controller="Account" asp-action="Register">Register</a>
+		</li>
+		<li class="nav-item">
+			<a asp-controller="Account" asp-action="Login">Login</a>
+		</li>
+	}
+
+</ul>
+
+
+
+
+Active Nav Link
+----------------
+-> first we have to search current working URL 
+
+
+
+
+
+
+
+
+
+services.AddIdentity<ApplicationUser, ApplicationRole>(options=>
+{
+    options.Password.RequiredLength = 5;
+    options.Password.RequireNonAlphanumeric = true;
+    options.Password.RequireUppercase = true;
+    options.Password.RequireDigit = true;
+    options.Password.RequireUniqueChars=1;
+})
+.AddEntityFramworkStores<ApplicationDbContext>()
+.AddDefaultTokenProviders()
+.AddUserStore<UserStore<ApplicationUser, ApplicationRole, ApplicationDbContext, Guid>>()
+.AddRoleStore<RoleStore<ApplicationRole, ApplicationDbContext, Guid>>();
+
+
+Login
+======
+
+        [HttpPost]
+        public async Task<IActionResult> Login(LoginDTO login)
+        {
+            if (!ModelState.IsValid)
+            {
+                var errors = ModelState.Values.SelectMany(temp => temp.Errors).Select(temp => temp.ErrorMessage);
+                return Ok(errors);
+            }
+
+            var result = await _signInManager.PasswordSignInAsync(login.Email, login.Password, isPersistent: false, lockoutOnFailure: false);
+
+            if(result.Succeeded)
+            {
+                //return RedirectToAction(nameof(PersonController.Index, "Persons")
+
+                return Ok("Login Successful");
+            }
+            else
+            {
+                var error = "Invalid email or password";
+                return Ok(error);
+            }
+            //if wrong info is provided then lockout the account from login 
+
+        }
+
+        public async Task<IActionResult> Logout()
+        {
+            await _signInManager.SignOutAsync();
+            return Ok("Loged Out");
+        }
+
+
+Authorization Policies 
+======================
+
+
+			builder.Services.AddAuthorization(options =>
+			{
+				var policy = new AuthorizationPolicyBuilder().RequireAuthenticatedUser().Build();
+				options.FallbackPolicy = policy;//it applies authorization filter for all the actions methods
+												//to give access to AccountsControler we can use [AllowAnonymous]
+				//we can also add [AllowAnonymous] on ActionMethod so that authenticaion and authorization
+					//will get bypassed for these methods only in a controller 
+
+			});
+			//but what happens if the uer is not authenticated /loged in for that we have to provide the 
+			//fallback url
+
+			builder.Services.ConfigureApplicationCookie(
+				options =>
+				{
+					options.LoginPath = "/Account/Login";
+				});
+
+
+
+
+ReturnUrl       ->  when authorization fails the poly url send this return url 
+=========
+Step 1:
+        HTTP GET Request to /some-route
+Client  -----------------------------------------------------> Server -> No, user is not authenticated.
+                                                                         So let's redirect the client to "/login"
+        <----------------------------------------------------
+        HTTP 302 Response with Location=/login?ReturnUrl=/some-route 
+
+Step 2: 
+        HTTP GET Request to /login?ReturnUrl=/some-route
+Client  -----------------------------------------------------> Server -> Let's send login page as response 
+        <----------------------------------------------------
+        HTTP 200 Response with response of "/login" 
+
+Step 3: 
+        [along with Username/password]
+        HTTP POST Request to /login?ReturnUrl=/some-route
+Client  -----------------------------------------------------> Server -> Yes, the user is authenticated.
+                                                                        Let's now redirect the client to    
+                                                                        "/some-route".
+        <----------------------------------------------------
+        HTTP 302 Response with Location=/some-route
+
+Step 4: 
+        HTTP GET Request to /some-route
+Client  -----------------------------------------------------> Server -> Yes, the user is now authenticated.
+                                                                        We can send the response of 
+                                                                        "/some-route" page.
+        <----------------------------------------------------
+        HTTP 200 Response with response of "/some-route"
+
+
+
+
+        [HttpPost]
+        public async Task<IActionResult> Login(LoginDTO login, string? ReturnUrl)
+        {
+            if (!ModelState.IsValid)
+            {
+                var errors = ModelState.Values.SelectMany(temp => temp.Errors).Select(temp => temp.ErrorMessage);
+                return Ok(errors);
+            }
+
+            var result = await _signInManager.PasswordSignInAsync(login.Email, login.Password, isPersistent: false, lockoutOnFailure: false);
+
+            if(result.Succeeded)
+            {
+                
+    //            if(!string.IsNullOrEmpty(ReturnUrl) && Url.IsLocalUrl(ReturnUrl))
+    //            {
+    //                return LocalRedirect(ReturnUrl);
+				//}
+					//return RedirectToAction(nameof(PersonController.Index, "Persons")
+				return Ok("Login Successful");
+            }
+            else
+            {
+                var error = "Invalid email or password";
+                return Ok(error);
+            }
+            //if wrong info is provided then lockout the account from login 
+
+        }
+
+
+<form asp-controller="Account" asp-action="Login" asp-route-ReturnUrl="@Context.Request.Query["ReturnUrl"]" method="post">
+//so while login we can send that return value back to the login action --> and the return url is added by the 
+Authorization policy url 
+
+
+
+Conventional Routing 
+=====================
+1. Attribute Routing
+2. Conventional Routing
+
+    -Conventional routing is a type of routing system in asp.net core that defines route templates 
+applied on all controllers in the entire application.
+
+You can override this using attribute Routing on a specific action method.
+
+
+endpoints.MapControllerRoute(
+    name: "default",
+    pattern: "{controller=Person}/{action=Index}/{id?}"
+)
+
+
+
+
+User Roles 
+==========
+
+    -Customer Role 
+    -Admin Role
+    -Employee Role 
+
+AspNetRoles table stores all available roles
+AspNetUserRoles table stores role and user mapping 
+
+
+
+ [HttpPost]
+ public async Task<IActionResult> Register(RegisterDTO registerDTO)
+ {
+     //Check for validation errors
+     if (ModelState.IsValid == false)
+     {
+         ViewBag.Errors = ModelState.Values.SelectMany
+             (temp => temp.Errors).Select(temp => temp.ErrorMessage);
+         return Ok(ViewBag.Errors);
+     }
+
+     ApplicationUser user = new ApplicationUser()
+     {
+         Email = registerDTO.Email,
+         PhoneNumber = registerDTO.Phone,
+         UserName = registerDTO.Email,
+         PersonName = registerDTO.PersonName,
+     };
+
+     IdentityResult result = await _userManager.CreateAsync(user, registerDTO.Password);
+
+     if (result.Succeeded)
+     {
+         if(registerDTO.UserType == Enums.UserTypeOptions.Admin)
+         {
+             //Create 'Admin' role
+             if (await _roleManager.FindByNameAsync(UserTypeOptions.Admin.ToString()) is null );
+             {
+                 ApplicationRole applicationRole = new ApplicationRole()
+                 {
+                     Name = UserTypeOptions.Admin.ToString(),
+                 };
+                 _roleManager.CreateAsync(applicationRole);
+
+             }
+             //Add the new user into 'Admin' role 
+             await _userManager.AddToRoleAsync(user,UserTypeOptions.Admin.ToString()); 
+
+         }
+         else
+         {//Create 'User' role
+             if (await _roleManager.FindByNameAsync(UserTypeOptions.User.ToString()) is null );
+             {
+                 ApplicationRole applicationRole = new ApplicationRole()
+                 {
+                     Name = UserTypeOptions.User.ToString(),
+                 };
+                 _roleManager.CreateAsync(applicationRole);
+
+             }
+				//Add the new user into 'Admin' role //The User Role is the Default Role
+				await _userManager.AddToRoleAsync(user, UserTypeOptions.User.ToString());
+			}
+         //SignIn
+         await _signInManager.SignInAsync(user, isPersistent: false);
+         return RedirectToAction(nameof(HomeController.Index), "Home");
+     }
+     else
+     {
+         foreach (IdentityError error in result.Errors)
+         {
+             ModelState.AddModelError("Register", error.Description);
+         }
+     }
+		//TO DO: Store user registration details into Identity database
+
+     return Ok(result.Errors);
+ }
+
+
+
+Areas 
+=====
+
+Area is a group of related controllers, views and models that are related to specific module or 
+    specific user.
+
+ASP.NET Core Application-
+    -Area 1 
+        -Controllers, Views, Models 
+    -Area 2
+        -Controllers, Views, Models 
+    -Area 3 
+        -Controllers, Views, Models 
+
+app.UseEndpoints(endpoints =>{
+    endpoints.MapControllerRoute(
+        name: "areas",
+        pattern: "{area:exists}/{controller=Home}/{action=Index}" //exists means this particular parameter is mandatory 
+        //Admin/Home/Index
+    );
+
+    endpoints.MapControllerRoute(
+        name: "default",
+        pattern: "{controller=Person}/{action=Index}/{id?}"
+    );
+})
+
+
+
+
+Role Based Authenticatication 
+=============================
+    User-role defines type of the user that has access to specific resource of the application 
+Examples: Administrator role, Customer role etc.
+                has access to
+Administrator ----------------> Page    page    page
+
+                Has Access to 
+Customer      ----------------> Page    Page    Page
+
+
+namespace Identity_API.Areas.Admin.Controllers
+{
+	[Area("Admin")]
+	[Authorize(Roles = "Admin")]
+	public class HomeController : Controller
+	{
+		//[Authorize(Roles = "Admin")]
+
+		public IActionResult Index()
+		{
+			return View();
+		}
+	}
+}
+
+
+Custom Authorization Policies 
+=============================
+->remove [AllowAnonymous]  and apply policy
+builder.Services.AddAuthorization(options =>
+{
+	var policy = new AuthorizationPolicyBuilder().RequireAuthenticatedUser().Build();
+	options.FallbackPolicy = policy;//it applies authorization filter for all the actions methods
+									//to give access to AccountsControler we can use [AllowAnonymous]
+									//we can also add [AllowAnonymous] on ActionMethod so that authenticaion and authorization
+									//will get bypassed for these methods only in a controller 
+
+	options.AddPolicy("NotAuthenticated", policy =>
+	{
+		policy.RequireAssertion(context =>
+		{
+			return !context.User.Identity.IsAuthenticated;
+			//if user is not authenticated then only give him access with this
+			//policy
+		});
+	});
+
+});
+
+
+
+        [HttpGet]
+        [Authorize("NotAuthenticated")]
+        public IActionResult Register()
+        {
+            return View();
+        }
+
+
+
+HTTPS 
+=====
+                        Establish a TCP connection
+client              ---------------------------------------> server
+                        Accept TCP connection
+                    <---------------------------------------
+
+                    Sends per-request message
+Client              ----------------------------------------> server
+
+Verify the          <----------------------------------------
+certificate           Sends server public key & certificate
+
+
+
+                            Sends a message with "client random" number.
+Client                      -----------------------------------------------> server     Generate a session-key 
+Generate a session-key                                                                  with "client random" and
+with "client random"                                                                    "server random"
+and "server random"                                                                      values.
+values.                        Sends a message with "server random" number 
+                            <-----------------------------------------------
+                            Sends server public key & certificate
+
+                Sends HTTP request encrypted using session-key
+client      ----------------------------------------------------------> server Decrypts the encrypted
+                                                                        request using session-key
+
+                Sends HTTP response encrypted using session-key
+client      <----------------------------------------------------------> server 
+Decrypts the 
+encrypted 
+response using 
+session-key 
+
+
+
+
+			app.UseHsts(); //informces the browser to enamble https for all the request
+			app.UseHttpsRedirection();//it tells browser to use HTTPS 
+			app.UseStaticFiles();
+			app.UseRouting();   //Identifying action method based on route
+			app.UseAuthentication();//Reading Identity cookie
+
+
+
+XSRF --->its a atack
+====
+    XSRF (Cross Site Request Forgery - CSRF) is a process of making a request to a web server from another 
+    domain, using an existing authentication of the same web server. 
+Eg: attacker.com creates a form that sends malicious request to original.com
+
+
+-in views you must use form tag helpers and you should add [ValidateAntiForgeryToken] 
+to the relevant action method.
+-if you dont use tag helper you have to write manual code to generate the form token
+
+-adds half token in cookie(AntiForgeryToken)
+-and half token in form(formtoken)
+
+
+-Anti forgery token (cookie token + form token) gets generated only when you 
+    have a form in your view; not always.
+
+-we can add [ValidateAntiForgeryToken] globally with global filter
+
+			builder.Services.AddControllersWithViews(options =>
+			{
+				options.Filters.Add(new AutoValidateAntiforgeryTokenAttribute());
+			});
+
+->ValidateAntiforgeryTokenAttribute will apply it to get methods as well
+    we dont want this thats why use AutoValidateAntiforgeryTokenAttribute
+

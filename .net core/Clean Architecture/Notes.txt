@@ -1,0 +1,35 @@
+Clean Architecture
+==================
+    Instead of "business logic" depend on "data access logic", this dependency is inverted;
+that means, the "data access logic" depend on "business logic".
+
+Benefit: The business logic is highly clean-separated, independent of data storage and UI,
+            unit-testable 
+
+-clean Architecture is most popular and recomanded to use by most architects 
+-so what is difference between regular 3 tire or 4 tire architecture and clean architecture 
+
+Benefits 
+--------
+Changing external system
+    Allows you to change external systems (external APIs / third party services) easily,
+    without affecting the application core. 
+
+database independent 
+    The application core doesn't depend on specific databases; so you can change it any 
+    time, without affecting the application core.
+
+Scalable 
+    You can easily scale-up or scale-out, without really affecting overall architecture of 
+    the application. 
+
+
+Testable 
+    The application core doesn't depend on any other external APIs or repositories; so 
+that you can write unit tests against business logic services easily by mocking essential 
+repositories.
+
+
+-Clean architecture is earlier named as "Hexagonal architecture", "Onion architecture",
+    "Domain-Driven Design", Vertical Slice Architecture". Over time, it is popular 
+    as "clean architecture".

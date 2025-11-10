@@ -1,0 +1,19 @@
+{
+  "Version": 1,
+  "Hash": "2DQjKvAaL1FnIf3jOGMsNlG2kE57ZP7xZuoe7TigvqY=",
+  "Source": "View Components",
+  "BasePath": "_content/View Components",
+  "Mode": "Default",
+  "ManifestType": "Build",
+  "ReferencedProjectsConfiguration": [],
+  "DiscoveryPatterns": [
+    {
+      "Name": "View Components\\wwwroot",
+      "Source": "View Components",
+      "ContentRoot": "F:\\Interview Preperation\\.net core\\Views\\View Components\\View Components\\View Components\\wwwroot\\",
+      "BasePath": "_content/View Components",
+      "Pattern": "**"
+    }
+  ],
+  "Assets": []
+}

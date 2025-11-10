@@ -1,0 +1,426 @@
+Introduction to Web API 
+=======================
+What is ASP.NET Core Web API 
+
+    - ASP.NET Core Web API is a Component (part) of ASP.NET Core, which is 
+        used create HTTP-based RESTful services (also known as HTTP services) 
+        that can be consumed (invoked) by wide range of client applications such
+        as single-page web applications, mobile applications etc.
+
+        Asp.Net Core 
+            -MVC
+            -Web API 
+            -Blazer 
+            -Razor Pages 
+
+
+-RESTful services (Representational State Transfer) is an architecture style
+    that defines to create HTTP services that receives HTTP 
+    GET, 
+    POST,
+    PUT,
+    DELETE 
+        requests; perform CRUD operations on the appropriate data source; 
+    and returns JSON/XML data as response to the client.
+    -and server should not store any kind of session information related 
+        to clients so the server is going to be completely session less 
+    -the server does'nt remember to client and client has to introduces
+     his identity for each individual requests 
+
+
+    Browser /Client       HTTP request
+        XMLHttpRequest    ------->                  Server 
+        [or]        HTTP response(JSON/XML)       (Web API Controller)
+        fetch()           <-------
+
+
+
+
+Creating Web API Project 
+========================
+-select template ASP.NET Core Web API -template 
+-use HTTPS (enable)
+-check Use controllers (uncheck to use minimal APIs) 
+-uncheck Enable OpenAPI support (Swagger)
+
+-Initially we have sample controller and a sample model and program.cs 
+    configuration for web API 
+
+-all the concepts like environment, configuration etc are available as 
+    it is no change 
+-the biggest difference is any thing related to views is not available here 
+-it strictly contains controllers and models and does'nt contain anything 
+    related to views
+    -all the view related concepts are not available in this project 
+-still modelbinding and validation works 
+
+-you can add app.UseHsts();
+    -it forces the clients/browsers to enable https protocol 
+-now you only have to crate an URL for HTTPs protocol 
+
+
+Web API Controllers 
+===================
+Should be either or both:
+-The class name should be suffixed with "Controller"
+    Eg: ProductsController
+-The [ApiController] attribute is applied to same class or to its base 
+    class.
+
+Controller 
+
+[ApiController]
+class ClassNameController
+{
+    //action method here 
+}
+
+Optional:
+-Is a public class.
+-Inherited from 
+    Microsoft.AspNetCore.Mvc.ControllerBase. 
+
+-mvc controller inherits from Controller class and 
+    Web api controller inherits from ControllerBase class 
+-Controller class inherits ControllerBase class 
+-Controller class add extra methods and properties which are required to 
+    create views 
+
+
+-The web api controllers must have an attribute called [ApiController]
+    -this specifies that these actions methods are going to be 
+    web api action methods but not regular mvc endpoints or action methods 
+    -so they are not gonna render a view at any cost 
+-[ApiController] enforces the controller must to have attribute routing 
+    [Route("[controller]")]
+    ie with route attribute and also automatically returns bad request 
+    result in case any error found in model state 
+    -while model binding it found one or more errors it automatically 
+    returns bad request with 400 status code so you need not check mannualy
+
+    -so
+    [ApiControllers]
+    [Route("[controller]")] and 
+    ControllerBase 
+    these three are the mandatory things
+
+-crete api controller empty file 
+
+[Route(api/[controller])]
+[ApiController]
+public class TestController: ControllerBase
+{
+    public string Get(){
+        return "hello";
+    }
+}
+
+
+in launchSettings.json you can set "launchUrl": "api/test"
+-you will use Get, Put, Delete, Post as prefix for every method 
+ you can give any other different name but expecitly you have to 
+ mention as [HttpGet] or [HttpPost] or [HttpDelete] etc. 
+-you can return any dot net types simple or complex types 
+
+[Route(api/[controller])]
+[ApiController]
+public class TestController: ControllerBase
+{
+    [HttpPost]
+    public string Method()
+    {
+        return "Hello World";
+    }
+}
+
+
+
+EntityFrameworkCore with Web API 
+================================
+
+    EntityFrameworkCore is light-weight, extensible and cross-platform
+framework for accessing databases in .NET applications.
+It is the most-used database framework for Asp.Net Core Apps. 
+
+.Net Core App   --> EntityFrameworkCore --> Database 
+
+-search for Microsoft.EntityFrameworkCore.SqlServer 
+-Microsoft.EntityFrameworkCore.Tools -> it lets you use package manager 
+    console in order to update the database and add migrations 
+
+-for this simple project place models in the same project
+-for large project you can you clean architecture as we have used in mvc 
+-crate folder Models 
+-create model class City 
+
+public class City
+{
+    [Key]
+    public Guid CityId{get; set;}
+    public string? CityName{get; set;}
+}
+
+-now configure the db context 
+-add new folder DatabaseContext 
+-add ApplicationDbContext.cs
+-here constructor initializes the DbContext Options so that you can 
+    configure dbcontext options right from the program.cs file 
+    while adding dbcontexts to the services 
+-in order to create sample seed data (sample records in the city table 
+    when it is crated)
+
+using Microsoft.EntityFrameworkCore;
+
+public class ApplicationDbContext : ApplicationDbContext
+{
+
+    public ApplicationDbContext(DbContextOptions options) : base(options) 
+    {
+
+    }
+    //incase of no options this constructor will execute
+    public ApplicationDbContext()
+    {
+
+    }
+
+    public virtual DbSet<City> cities {get; set;}
+
+    protected override void OnModelCreating(ModelBuilder modelBuilder)
+    {
+        base.OnModelCreating(modleBuilder);
+
+        modelBuilder.Entity<City>().HasData(
+            new City(){
+                CityId = "guid", 
+                CityName = "New York"
+                }
+            )
+
+        modelBuilder.Entity<City>().HasData(
+            new City(){
+                CityId = "guid2",
+                CityName = "London" 
+                }
+            )
+    }
+}
+
+-now we have to add dbcontext as a service in the startup logic 
+
+builder.Services.AddDbContext<ApplicationDbContext>
+(
+    options=>
+    {
+        options.UseSqlServer(builder.Configuration.GetConnectionString("Default"));
+    }
+);
+
+
+-still we have not configure the connection string 
+-in appsettings file add connection string
+"ConnectionString":
+{
+    "Default":"your connection string"
+}
+
+-Open package manager console 
+>Add-Migration Initial 
+-It generates the script to crate city table automatically
+-to execute this script run the following command 
+>Update-Database 
+
+
+Web API Controllers with EF Core - Part 1
+=========================================
+-we are not going to maintain data access layer or service layer 
+    we are adding linq query directly inside controller 
+-but in real projects we prefer using clean architecture separating 
+    buisiness logic from the controller 
+
+
+-add a new controller 
+-select API Controller actions, using Entity Framework 
+-it will automatically create all types of action method with the selected 
+    model and dbcontext-> select -> City and ApplicationDbContext 
+
+-it will generate the following code
+
+[Route("api/[controller]")]
+[ApiController]
+public class CitiesController : ControllerBase
+{
+    private readonly ApplicationDbContext _context;
+    public CitiesController(ApplicationDbContext context)
+    {
+        _context = context;
+    }
+
+    // GET: api/Cities 
+    [HttpGet]
+    public async Task<ActionResult<IEnumerable<City>>> GetCities()
+    {
+        if(_context.Cities == null)
+        {
+            return NotFound();
+        }
+        return await _context.Cities.ToListAsync();
+    }
+
+    // GET: api/Cities/5
+    [HttpGet("{id}")]
+    public async Task<ActionResult<City>> GetCity(Guid id)
+    {
+        if(_context.Cities == null) 
+        {
+            return NotFound();
+        }
+        var city = await _context.Cities.FindAsync(id);
+        if(city == null)
+        {
+           ... 
+        }
+    }
+
+    //PUT: api/Citeis/5
+    [HttpPut("{id}")]
+    public async Task<IActionResult> PutCity(Guid id, City city){
+
+    }
+
+    //POST: api/Cities 
+    [HttpPost]
+    public async Task<ActionResult<City>> PostCity(City city)
+    {
+        
+    }
+
+    //DELETE: api/Cities/5 
+    [HttpDelete("{id}")]
+    public async Task<IActionResult> DeleteCity(Guid id)
+    {
+
+    }
+
+    private bool CityExists(Guid id)
+    {
+
+    }
+}
+
+-lets test 
+-if get error disable ssl verification in Postman 
+
+
+Web API Controllers with EFCore Part:2
+======================================
+-there are several benifits of adding [ApiController] 
+    -it enforces developers to use attribute routing without fail(ie use [Route("api/[controller]")])
+    -the rule is you must enable attribute routing for all web api controllers 
+    -the benifit here is that the developers have freedom to use any routes in any patterns 
+        individually for every controller instead of following same pattern for all the controllers 
+        
+    -incase you dont add [ApiController]
+        -where ever you would like to read the json data you have to explicitly mention 
+            [FromBody] 
+            other wise it don't work by default it reads data from query string and 
+            request body 
+
+    -incase of any model validation error it automatically sends http 400 bad request response
+
+
+Web API Controllers with EFCore Part:2
+======================================
+
+try
+{
+    await _context.SaveChangesAsync();
+}catch(DbUpdateConcurrencyException)
+{
+    if(!CityExists(cityID))
+    {
+        return NotFound();
+    }
+    else 
+    { 
+        throw;
+    }
+    return NoContent();//this returns only status code and not the message
+}
+
+-PutCity(Guid cityId, [Bind(nameof(City.CityID)), nameof(City.CityName))] City city)
+
+-The bind attribute only binds the specified properties and not other properties which 
+    may come from the request -> it protects from overposting attacks.
+
+
+ProblemDetails
+==============
+-when you want to report an error to the client instead of returning a bad request 
+    there is another prefered way that BadRequest.
+    return Problem(detail:"Invalid CityID", statusCode:400, title: "City Search");
+
+ProblemDetails
+--------------
+    public class ProblemDetails
+    {
+        string? Type {get; set;}//URI references that identifies the problem type 
+        string? Title {get; set;}//Summary of the problem type 
+        int? Status {get; set;}//HTTP response status code 
+        string Detail {get; set;}//Explanation of the problem 
+    }
+
+ValidationProblemDetails -> automatically sends response while model validation
+------------------------
+    public class ValidationProblemDetails : ProblemDetails 
+    {
+        string? Type {get; set;}//URI references that identifies the problem type 
+        string? Title {get; set;}//Summary of the Problem type 
+        int? Status {get; set;}//HTTP response status code 
+        string? Detail {get; set;}//Explanation of the problem 
+        IDictionary<string, string[]> Errors {get; set;} //List of validation errors 
+    }
+
+
+
+if you have following validation 
+public class City
+{
+    [Key]
+    public Guid CityID{get; set;}
+
+    [Required(ErrorMessage = "City Name can't be blank")]
+    public string? CityName{get; set;}
+}
+
+>Add-Migration CityNameRequired 
+>Update-Database 
+
+
+-incase of validation model error the response is sent automatically due to the 
+    [ApiController]
+-or else it will be equevalant of sending following 
+
+    if(ModelState.IsValid == false)
+    {
+        return ValidationProblem(ModelState);
+    }
+
+
+IActionResult [vs] ActionResult<T> 
+==================================
+
+IActionResult 
+    public interface IActionResult 
+    {
+        Task ExecuteResultAsync(ActionContext context); //converts an object into response
+    }
+
+ActionResult<T>
+    public sealed class ActionResult<T>
+    {
+        IActionResult Convert(); //converts the object into ObjectResult 
+    }
+
+ControllerBase
+==============

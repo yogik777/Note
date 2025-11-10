@@ -1,0 +1,48 @@
+Project Overview | Contacts Manager 
+
+CRUD Operations - Project Overview
+
+
+xUnit - Basics 
+
+- xUnit is the free, open source unit testing tool for .NET Framework.
+
+    -Easy and extensible.
+    -Best to use with a mocking framework called "Moq".
+
+
+
+    public class UnitTest1
+	{
+		[Fact]
+		public void Test1()
+		{
+			//Arrange
+			MyMath mm = new MyMath();
+			int input1 = 10, input2 = 5;
+			int expected = 15;
+
+			//Act 
+			int actual = mm.Add(input1, input2);
+
+			//Assert 
+			Assert.Equal(expected, actual);
+
+		}
+	}
+
+
+
+    internal class MyMath
+	{
+		public int Add(int a, int b)
+		{
+			int c = a + b;
+			return c;
+		}
+	}
+
+
+ArgumentNullException	--> when argument is null
+ArgumentException 		--> When Argument is Wrong Like duplicate country name 
+

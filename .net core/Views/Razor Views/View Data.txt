@@ -1,0 +1,108 @@
+ViewData is a dictionary object that is automatically created
+ up on receiving a request and will be automatically deleted
+  before sending response to the client.
+
+-a key(in dictionary) cannot be duplicate and cannot be null.
+
+It is mainly used to send data from controller to view.
+
+    Controller              View
+      Action            Presentation Logic &
+      
+      ViewData          => ViewData
+
+
+
+ViewData is a property of a ControllerBase class and is of ViewDataDictionary type
+ ViewDataDictionary is a child of IDictionary<string, object?>
+ key is of string and value is of object type
+
+
+ViewData is a property of Microsoft.AspNetCore.Mvc.Controller class and 
+    Microsoft.AspNetCore.Mvc.Razor.RazorPage class.
+
+All the views are derived from RazorPage class.
+
+It is of Microsoft.AspNet.Mvc.ViewFeatures.ViewDataDictionary type.
+
+
+It is derived from IDictionary<KeyValuePair<string, object>> type.
+That means, it acts as a dictionary of key/value pairs.
+Key is of string type.
+Value if of object type.
+
+[Route("home")]
+[Route("/")]
+public IActionResult Index()
+{
+    ViewData["pageTitle"] = "Hi this is title from variable!!!";
+    List<Person> people = new List<Person>()
+    {
+        new Person()
+        {
+            Name = "Yogesh",
+            DateOfBirth = DateTime.Parse("2001-05-6"),
+            PersonGender = Gender.Male
+        },
+        new Person()
+        {
+            Name = "Shubham",
+            DateOfBirth = DateTime.Parse("2000-09-30"),
+            PersonGender = Gender.Male
+        },
+        new Person()
+        {
+            Name = "Poonam",
+            PersonGender = Gender.Female
+        }
+    };
+
+    ViewData["people"] = people;
+    return View();  //Views/Home/Index.cshtml
+                    //return new ViewResult() { ViewName = "abc" };
+                    //return View("abc");		//abc.cshtml
+}
+
+
+@using ViewsExample.Models;
+
+<!DOCTYPE html>
+<html>
+    <head>
+    <title>@ViewData["pageTitle"]</title>
+        <meta charset="utf-8" />
+    </head>
+    <body>
+        <h1>Welcome</h1>
+            
+            @{
+                List<Person>? people = (List<Person>?)ViewData["people"];
+                if(people is null)
+                {
+                    people = new List<Person>();
+                }
+            }
+
+    @foreach(Person person in people)
+    {
+        <text>this is static text</text>
+        @: Hello to
+        <div>
+            @person.Name
+            <span>, </span>
+            <span>@person.PersonGender</span>
+            @if (person.DateOfBirth != null)
+            {
+                <span>@person.DateOfBirth.Value.ToString("MM/dd/yyyy")</span>
+                
+            }
+        </div>
+    }
+
+</body>
+</html>
+
+
+-- Bootstrap is not advisable for real world project --bcz bootstrap ends with all the applications 
+    look in the same way.
+-- but in real world every website wants to have its unique style.

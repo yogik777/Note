@@ -1,0 +1,56 @@
+Strongly Typed View is a view that is bound to a specified model class.
+It is mainly used to access the model object / model collection easily
+    in the view.
+
+
+            @model ModelClassName
+    View    --------------------->   Model
+
+Presentation Logic &            Data Properties
+@Model.PropertyName
+
+
+you can access model by using predefined property called Model
+you have to mention type of the model in the view
+    eg. @model IEnumerable<Person> 
+-it is advisable to mention the model class in the @model directive
+
+
+Benefits of Strongly Typed Views
+----------------------------------
+
+-> You will get Intellisense while accessing model Properties
+    in strongly typed views, since the type of model class was mentioned 
+    at @model directive.
+
+-> Property names are compile-time checked; and shown as errors in case of 
+    misspelled / non-existing properties in strongly typed views.
+
+-> You will have only one model per one view in strongly typed views.
+
+-> Easy to identify which model is being accessed in the view.
+
+
+Helper method in Controller to invoke a View 
+----------------------------------------------
+
+return View(); //View name is the same name as the current action method.
+
+return View(object Model); // View name is the same name as the current 
+    action method & the view can be a strongly-typed view to receive the 
+    supplied model object
+
+return View(string ViewName); //View name is explicitly specified.
+
+return View(string ViewName, object Model); //View name is explicitly   
+    specified & the view can be a strongly-typed view to receive the 
+    supplied model object.
+
+
+
+-> Strongly typed view can be bound to only single model class 
+
+
+
+
+

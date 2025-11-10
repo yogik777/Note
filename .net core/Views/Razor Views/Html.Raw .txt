@@ -1,0 +1,50 @@
+Html.Raw()
+
+@{
+    string variable = "html code";
+}
+
+@Html.Raw(variable) //prints the html markup without encoding
+                      (converting html tags into 
+                        plain text)
+
+-use this method with caution in real world project
+    because you are taking that value from user input somewhere
+    and user can insert any malacious code into that variable 
+    and malicious code get executed by that statement
+    it will be harmful in security perspective.
+    So always use that value from the controller
+
+
+@{
+    double? GetAge(DateTime? dateOfBirth)
+    {
+        if (dateOfBirth is not null)
+        {
+            return Math.Round(((DateTime.Now - dateOfBirth.Value).TotalDays / 365.25));
+        }
+        else
+        {
+            return null;
+        }
+    }
+
+    // //following is a field in a RazorView
+    // int x = 10;
+
+    // //following is a Property in a RazorView 
+    // string Name { get; set; } = "Hello name";
+
+    string alertMessage = $"<script>alert('{people.Count} people found')</script>";
+}
+
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>@appTitle</title>
+        <meta charset="utf-8" />
+    </head>
+    <body>
+        @Html.Raw(alertMessage)
+    </body>
+</html>

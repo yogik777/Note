@@ -1,0 +1,214 @@
+Swagger / OpenAPI Basics 
+========================
+
+
+What is Swagger 
+---------------
+    Swagger is a set of open-source tools that help developers to generate 
+    interactive UI to document, test RESTful services.
+
+    Swagger is a set of tools to implement Open API. 
+
+Swashbuckle.AspNetCore  -> (Framework that makes it easy to use swagger in asp.net core)
+
+Swagger     -> (Set of tools to generate UI to document & test RESTful services)
+
+Open API    -> (Specification that defines how to write API specification in 
+                    JSON)
+
+install packages 
+
+->Microsoft.AspNetCore.OpenApi -->lets you use openApi specifications in your web application
+->Swashbuckle.AspNetCore --> this will also install the Swagger, swaggerGen, swaggerUI package 
+
+
+//Swagger 
+builder.Services.AddEndpointsApiExplorer();  //Generates description for all endpoints 
+- It enables swagger to read metadata (HTTP method, URL, attributes etc.) of 
+    endpoints (Web API action methods).
+
+builder.services.AddSwaggerGen();   //generates OpenAPI specification 
+- It configures swagger to generate documentation for API's endpoints.
+
+
+app.UseSwagger();   //creates endpoint for swagger.json 
+app.UseSwaggerUI();   //creates swagger UI for testing all Web API endpoints / action methods 
+
+
+
+in launchSettings.json set launchUrl to "swagger" 
+
+
+
+
+Swagger Documentation Comments 
+==============================
+-by default no documentation is provided 
+-enable documentation Comments in swagger 
+1. Add XML documentation comments for your Action methods 
+2. convert XML documentation comments into an XML file within the same project 
+    -> Right click on web api project go to Properties 
+    -> Build --> output --> XML documentation file path 
+    -> mention path of your xml document -> api.xml 
+
+->the same comments we write will get automatically added into this file 
+->Every time you build the solution the api.xml will get regenerated.
+3. while calling AddSwaggerGen() in order to generate open api specification.
+    we have to ask swagger to include those xml comments 
+
+    builder.Services.AddSwaggerGen(options => {
+        options.IncludeXmlComments(Path.Combine(AppContext.BaseDirectory, "api.xml"));
+    })
+
+Content Negotiation 
+===================
+    Content negotiation is the process of selecting the appropriate format or 
+language of the content to be exchanged between the client (browser) and Web API 
+
+                HTTP request 
+                Content-Type: application/json 
+                Accept: application/json
+            -------------------------------------->
+Browser /                                              (Server)Web Api Controller
+Client 
+            <--------------------------------------
+                HTTP response 
+                Content-Type: application/json 
+
+
+builder.Services.AddControllers(options =>
+{
+    options.Filters.Add(new ProducesAttribute("application/json"));//(response)now default content type of 
+                                                    //action methods is this one.
+    options.Filters.Add(new ConsumesAttribute("application/json"));//request body content type 
+})
+
+for perticular action method customize 
+
+[HttpGet]
+[Produces("application/xml")]
+public async Task<ActionResult<IEnumerable<City>>> GetCities()
+{
+    var cities = await _context.Cities.OrderBy(temp.CityName).ToListAsync();
+    return cities;
+}
+
+-but xml serialization is bydefault not enabled in Asp.net core 
+
+builder.Services.AddControllers(options =>
+{
+    options.Filters.Add(new ProducesAttribute("application/json"));//(response)now default content type of 
+                                                    //action methods is this one.
+    options.Filters.Add(new ConsumesAttribute("application/json"));//request body content type 
+}).AddXmlSerializerFormatters();
+
+
+
+API Versions 
+============
+    API Versioning is the practice of transparently managing changes to your API, where 
+the client requests a specific version of API; and the server executes the same version 
+of the API code. 
+-maintaining multiple versions of the same endpoint 
+
+            HTTP request to API v1
+            ------------------------->              ---> Controller v1 
+            <-------------------------
+Client                                      Server 
+            HTTP request to API v2 
+            ------------------------->              ---> Controller v2 
+            <-------------------------
+
+step 1: maintain two copies of the same controllers 
+folder structure
+/controllers/v1/CitiesController.cs 
+/controllers/v2/CitiesController.cs 
+
+step 2: api versioning in the swagger level
+-install package -> Asp.Versioning.Mvc 
+    -The "Microsoft.AspNetCore.Mvc.Versioning" package was changed to "Asp.Versioning.Mvc".
+    So use "Asp.Versioning.Mvc" package (latest version) instead. 
+    -Also there are few changes in the code as well.
+    -Updated code is in the Github repository of this lecture.
+-The "Microsoft.AspNetCore.Mvc.Versioning.ApiExplorer" package was changed to 
+    "Asp.Versioning.Mvc.ApiExplorer".
+    -So use "Asp.Versioning.Mvc.ApiExplorer" package (latest version) instead.
+    -Also, there are few changes in the code as well.
+    -Updated code is in the Github repository of this lecture.
+
+builder.Services.AddApiVersioning(config => 
+{
+    config.ApiVersionReader = new UrlSegmentApiVersionReader();
+});
+
+[Route("api/v{version:apiVersion}/[controller]")]
+[ApiController]
+public class CustomControllerBase : ControllerBase 
+{
+
+}
+
+
+
+
+/controllers/v1/CitiesController.cs
+[ApiVersion("1.0")]
+public class CitiesController : CustomControllerBase 
+{
+
+}
+
+/controllers/v2/CitiesController.cs
+[ApiVersion("2.0")]
+public class CitiesController : CustomControllerBase 
+{
+    
+}
+
+ApiVersionReader has 3 options 
+    -QueryStringApiVersionReader 
+    -HeaderApiVersionReader 
+    -UrlSegmentApiVersionReader 
+
+builder.Services.AddApiVersioning(config => 
+{
+    //reads version number from request url at "apiVersion" constraint 
+    //config.ApiVersionReader = new UrlSegmentApiVersionReader();
+
+    //config.ApiVersionReader = new QueryStringApiVersionReader("api-version");
+    //reads version number from request query string called "api-version"
+
+    //reads version number from request header called "api-version". Eg: api-version: 1.0
+    config.ApiVersionReader = new HeaderApiVersionReader();
+
+
+    config.DefaultApiVersion = new ApiVersion(1, 0);
+    config.AssumeDefaultVersionWhenUnspecified = true;
+});
+
+
+when we were doing this swagger was not working now we have to resolve that 
+-you have to enable swagger documentation for every individual api-version 
+
+    builder.Services.AddSwaggerGen(options => {
+        options.IncludeXmlComments(Path.Combine(AppContext.BaseDirectory, "api.xml"));
+        options.SwaggerDoc("v1", new Microsoft.OpenApi.Models.OpenApiInfo(){
+            Title = "Cities Web API", Version = "1.0"});
+        });
+        options.SwaggerDoc("v2", new Microsoft.OpenApi.Models.OpenApiInfo(){
+            Title = "Cities Web API", Version = "2.0"});
+        });
+
+    })//generates OpenAPI specification
+
+    builder.Services.AddVersionedApiExplorer(options =>{
+        options.GroupNameFormat = "'v'VVV"//v1 
+        options.SubstituteApiVersionInUrl = true;
+    });
+
+app.UseSwaggerUI(options =>
+{
+    options.SwaggerEndpoint("/swagger/v1/swagger.json", "1.0");
+    options.SwaggerEndpoint("/swagger/v2/swagger.json", "2.0");
+
+});   //creates swagger UI for testing all Web API endpoints / action methods 

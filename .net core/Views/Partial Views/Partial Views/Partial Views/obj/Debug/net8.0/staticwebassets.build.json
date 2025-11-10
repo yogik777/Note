@@ -1,0 +1,19 @@
+{
+  "Version": 1,
+  "Hash": "GDJ6OochE7pWe+D/PoQWWRoNwJbWa61+phiiVHa6Pr8=",
+  "Source": "Partial Views",
+  "BasePath": "_content/Partial Views",
+  "Mode": "Default",
+  "ManifestType": "Build",
+  "ReferencedProjectsConfiguration": [],
+  "DiscoveryPatterns": [
+    {
+      "Name": "Partial Views\\wwwroot",
+      "Source": "Partial Views",
+      "ContentRoot": "F:\\Interview Preperation\\.net core\\Views\\Partial Views\\Partial Views\\Partial Views\\wwwroot\\",
+      "BasePath": "_content/Partial Views",
+      "Pattern": "**"
+    }
+  ],
+  "Assets": []
+}

@@ -1,0 +1,107 @@
+1. Authorization Filters
+    Run first and are used to enforce authentication and authorization policies.
+    Examples: AuthorizeFilter
+    Purpose: Ensures the user is authorized to access a resource.
+
+2. Resource Filters
+    Run after authorization and before model binding.
+    Useful for caching or short-circuiting requests early in the pipeline.
+    IResourceFilter
+    public void OnResourceExecuting(ResourceExecutingContext context)
+    public void OnResourceExecuted(ResourceExecutedContext context)
+
+3. Action Filters
+    Run before and after an action method executes.
+    Can manipulate the action's inputs and outputs.
+    IActionFilter
+    public void OnActionExecuting(ActionExecutingContext context)
+    public void OnActionExecuted(ActionExecutedContext context)
+
+4. Exception Filters
+    Run when an unhandled exception occurs.
+    Used for global error handling or logging.
+    IExceptionFilter
+    public void OnException(ExceptionContext context)
+
+5. Result Filters
+    Run before and after the action result is executed.
+    Useful for modifying or logging results.
+    IResultFilter
+    public void OnResultExecuting(ResultExecutingContext context)
+    public void OnResultExecuted(ResultExecutedContext context)
+
+
+You can register filters at:
+1. Global Level (applies to all controllers/actions):
+public void ConfigureServices(IServiceCollection services)
+{
+    services.AddControllersWithViews(options =>
+    {
+        options.Filters.Add(new ActionFilterExample());
+    });
+}
+
+2. Controller Level (applies to all actions in a controller):
+[ServiceFilter(typeof(ActionFilterExample))]
+public class HomeController : Controller
+{
+    public IActionResult Index()
+    {
+        return View();
+    }
+}
+
+3.Action Level (applies to a specific action):
+[ServiceFilter(typeof(ActionFilterExample))]
+public IActionResult About()
+{
+    return View();
+}
+
+Custom Filter Attributes
+-You can create a custom filter by implementing the appropriate filter interface or inheriting from Attribute.
+public class CustomActionFilterAttribute : Attribute, IActionFilter
+{
+    public void OnActionExecuting(ActionExecutingContext context)
+    {
+        // Logic before action execution
+    }
+
+    public void OnActionExecuted(ActionExecutedContext context)
+    {
+        // Logic after action execution
+    }
+}
+
+Usage:
+[CustomActionFilter]
+public IActionResult MyAction()
+{
+    return View();
+}
+
+
+
+Filters [vs] Middleware 
+-----------------------
+Middleware
+----------
+-Middleware pipeline is a superset of Filter pipeline, which contains the full-set of all middlewares 
+	added to the ApplicationBuilder in the application's startup code (Program.cs).
+
+-Middleware pipeline execute for all requests. 
+
+-Middleware handles application-level functionality such as Logging, HTTPS redirection, Performance 
+	profiling, Exception handling, Static files, Authentication etc. by accessing low-level abstractions
+	such as HttpContext
+
+
+Filter 
+------
+-Filter pipeline is a subset of Middleware pipeline which executes under "EndPoint Middleware".
+
+-In addition, filter pipeline executes for requests that reach "EndPoint Middleware".
+
+-Filters handle MVC-specific functionlity such as manipulating or accessing ViewData, ViewBag,
+	ModelState, Action result, Action parameters etc. 
+y

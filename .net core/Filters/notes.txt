@@ -1,0 +1,432 @@
+Introduction to Filters 
+========================
+-it is not related to repository layer or service layer 
+
+
+-Filters are the code blocks that execute before/after specific stages in 
+    "Filter Pipeline"
+-Filters perform specific tasks such as authorization, caching, exception handling etc.
+
+
+Endpoint Middleware-> Filter Pipeline 
+                         Filters(before) --> Action method --> Filters(after)
+
+sequence:
+    (entry)
+    ->Authorization Filter (OnAuthorization)---------------->
+    ->Resource Filter (OnResourceExecuting)
+    -->ModelBinding & Validation 
+    ->Action Filter (OnActionExecuting)
+    -->Action method
+    ->Action Filter (OnActionExecuted)
+    ->Exception Filter (OnException)----------------------?
+    ->Result Filter (OnResultExecuting)
+    -->IActionResult execution 
+    ->Result Filter (OnResultExecuted)
+    ->Resource Filter (OnResourceExecuted)
+    (exit)
+
+
+Action Filter
+=============
+
+
+When it runs 
+    -Runs immediately before and after an action method executes.
+
+'OnActionExecuting' method 
+    -It can access the action method parameters, read them & do necessary manipulation on them.
+    -It can validate action method parameters.
+    -It can short-circuit the action (prevent action method from execution)
+        and return a different IActionResult.
+    
+'OnActionExecuted" method 
+    -It can manipulate the ViewData.
+    -It can change the result returned from the action method.
+    -It can throw exception to either return the exception to the exception 
+        filter (if exists); or return the error response to the browser.
+
+
+	public class PersonsListActionFilter : IActionFilter
+	{
+		private readonly ILogger<PersonsListActionFilter> _logger;
+		public PersonsListActionFilter(ILogger<PersonsListActionFilter>logger)
+		{
+			_logger = logger;
+		}
+		public void OnActionExecuted(ActionExecutedContext context)
+		{
+			//context.HttpContext.Request.
+			_logger.LogInformation("PersonListActionFilter.OnActionExecuted method");
+		}
+
+		public void OnActionExecuting(ActionExecutingContext context)
+		{
+			_logger.LogInformation("PersonsListActionFilter.OnActionExecuting method");
+		}
+	}
+
+
+    	[TypeFilter(typeof(PersonsListActionFilter))]
+		public IActionResult Index()
+		{
+			return Ok("hello");
+		}
+
+
+Parameter Validation in Action 
+------------------------------
+-access action parameters -> 
+if(context.ActionArguments.ContainsKey("searchBy"))
+{
+    string? searchBy = Convert.ToString(context.ActionArguments["searchBy"]);
+}
+if(!string.IsNullOrEmpty(searchBy))
+{
+
+}
+
+
+
+Filter Arguments 
+================
+Type Filter - with Arguments 
+----------------------------
+When it runs
+    You can supply an array of arguments that will be supplied as constructor
+    arguments of the filter class.
+
+How to send arguments in controller 
+    [TypeFilter(typeof(FilterClassName), Arguments = new object[]{arg1, arg2})]
+    public IActionResult ActionMethod()
+    {
+        ...
+    }
+
+How to receive arguments in filter's constructor 
+    public FilterClassName(IService service, type param1, type param2)
+    {
+        ...
+    }
+
+
+Global Filters 
+==============
+Filter Scopes 
+
+[Filter] //global-level filter 
+Asp.Net Core Project 
+
+    [Filter]    //class-level filter
+    class Controller 
+    {
+        [Filter]    //method-level filter 
+        Action Method
+    }
+
+What are global filters?
+    -> Global filters are applied to all action methods of all controllers in the
+        project 
+
+How to add global filters in Program.cs?
+    ->
+    builder.Services.AddControllersWithViews(options=>{
+        options.Filters.Add<FilterClassName>();//add by type 
+        //or 
+        options.Filters.Add(new FilterClassName());//add filter instance
+    })
+
+
+    eg 
+    builder.Services.AddControllersWithViews(options=>{
+        var logger = builder.Services.BuildServicesProvider()
+                        .GetRequiredService<ILogger<ResponseHeaderActionFilter>>();
+
+        options.Filters.Add(new ResponseHeaderActionFilter(logger, "My-Key-From-Global", "My-Value-From-Global"));
+    });
+
+
+filter order
+    ->Global Filter (OnActionExecuting)
+    ->Controller Filter (OnActionExecuting)
+    ->Method Filter (OnActionExecuting)
+    -->Action Method 
+    ->Method Filter (OnActionExecuted)
+    ->Controller Filter (OnActionExecuted)
+    ->Global Filter (OnActionExecuted)
+
+
+
+Custom Order of Filters 
+=======================
+Filters with the lowest order number run first.
+
+If the order number is same for two or more filters, the filter with 
+broader scope will execute first.
+
+The order of "after filter methods" is the reverse of order of order of 
+"before filter method".
+
+
+    ->Global Filter (OnActionExecuting) | Order = 0
+    ->Method Filter (OnActionExecuting) | Order = 1
+    ->Controller Filter (OnActionExecuting) | Order = 2 
+    --> Action Method 
+    ->Controller Filter (OnActionExecuted) | Order = 2
+    ->Method Filter (OnActionExecuted) | Order = 1 
+    ->Controller Filter (OnActionExecuted) | Order = 2
+
+
+    [TypeFilter(typeof(FilterClassName), Arguments = new object[]{arg1, arg2}, Order = 2)]
+    public IActionResult ActionMethod()
+    {
+        ...
+    }
+
+
+
+Async filter
+============
+Asynchronous Action Filter 
+--------------------------
+-instead of writing two methods you will write only one method 
+
+public class FilterClassName : IAsyncActionFilter, IOrderedFilter 
+{
+    public int Order {get; set;} //Defines sequence of execution 
+
+    public FilterClassName(int order)
+    {
+        Order = order;
+    }
+
+    public async Task OnActionExecutionAsync(ActionExecuting context, 
+                                                    ActionExecutionDelegate next)
+    {
+        //TO DO: before logic here 
+        await next();//calls the subsequent filter or action method 
+        //TO DO: after logic here 
+    }
+}
+
+Short-Circuiting Action Filter 
+==============================
+-When a filter short-circuits (by assigning "Result" property of the context), it skips all remaining
+    filters and action method; and directly sends the given result as response to the browser 
+-not calling next() also short-circuits.
+
+
+PersonCreateAndEditPostActionFilter 
+-----------------------------------
+public class PersonCreateAndEditPostActionFilter : IAsyncActionFilter
+{
+    private readonly ICountriesService _countriesService;
+    public PersonCreateAndEditPostActionFilter(IContriesService countriesService)
+    {
+        _countriesService = countriesService;
+    }
+
+    public async Task OnActionExecutionAsync(ActionExecuting context, ActionExecutionDelegate next)
+    {
+        if(context.Controller is PersonController personsController){// check if Controller is of type PersonController and assign it to personController
+
+            //TO DO: before logic 
+            if(!personsController.ModelState.IsValid)
+            {
+                List<CountryResponse> countries = await _countriesService.getAllCountries();
+                personsController.ViewBag.Countries = countries.Select(temp=>
+                new SelectListItem(){
+                    Text = temp.CountryName, Value=temp.CountryId.ToString()
+                });
+
+                personsController.ViewBag.Errors = personsController.ModelState.Values.SelectMany(v => v.Errors).
+                                        Select(e => e.ErrorMessage).ToList();
+                
+                var personRequest = context.ActionArguments['personRequest'];//read action parameters
+                //for the add method parameter name is personAddRequest 
+                //for the update method parameter name is personUpdateRequest 
+                //in action method rename that to -> personRequest 
+
+
+                context.Result = personsController.View(personAddRequest); //short-circuits or skips the subsequent filters 
+                //when we add into context.Result then subsequent filters and action method 
+                    will not execute 
+                //it directly executes the result 
+            }
+            else 
+            {
+                await next(); //invokes the subsequent filter & action method  
+            }
+        }else 
+        {
+            await next(); //invokes the subsequent filter & action method  
+        }
+
+        
+    }
+}
+
+
+Result Filter 
+=============
+When it runs 
+    - Runs immediately before and after an IActionResult executes 
+
+'OnResultExecuting' method
+    -It can access the IActionResult returned by the action method.
+    -It can continue executing the IActionResult normally, by not assigning 
+        "Result" property of the context 
+    -It can short-circuit the action (prevent IActionResult from execution) and 
+        return a different IActionResult.
+
+'OnResultExecuted' method 
+    -It can manipulate the last-moment changes in the response, such as adding 
+        necessary response headers.
+    -It should not throw exceptions because, exceptions raised in result 
+        filters would not be caught by the exception filter.
+
+synchronous Result Filter
+-------------------------
+Result filter along with IOrderedFilter 
+
+public class FilterClassName : IResultFilter, IOrderedFilter 
+{
+    public int Order {get; set;} //Defines sequence of execution 
+
+    public FilterClassName(int order)
+    {
+        Order = order;
+    }
+
+    public void OnResultExecuting(ResultExecutingContext context)
+    {
+        //TO DO: before logic here 
+    }
+
+    public void OnResultExecuted(ResultExecutedContext context)
+    {
+        //TO DO: after logic here 
+    }
+}
+
+
+Asynchronous Result Filter
+--------------------------
+Asynchronous Result Filter 
+
+public class FilterClassName : IAsyncResultFilter, IOrderedFilter
+{
+    public int Order {get; set;} //Defines sequence of execution
+
+    public FilterClassName(int order)
+    {
+        Order = order;
+    }
+
+    public async Task OnResultExecutionAsync(ResultExecutingContext context, 
+                                                ResultExecutingDelegate next)
+    {
+        //TO DO: before logic here 
+        await next();
+        //TO DO: after logic here 
+
+    }
+}
+
+
+
+Resource Filter 
+===============
+-runs after authorization filter and before Model Binding and Validation
+-and at the very end of the filter pipeline 
+
+
+when it runs 
+    -> Runs immediately after Authorize Filter and after Result Filter executes. 
+
+'OnResourceExecuting' method 
+    -> It can do some work before model binding. Eg: Adding metrics to an 
+        action method.
+    -> It can change the way how model binding works (invoking a custom model 
+        binder explicitly).
+    -It can short-circuit the action (prevent IActionResult from execution)
+        and return a different IActionResult. Eg: Short-circuit if an 
+        unsupported content type is required.
+
+'OnResourceExecuted' method 
+    -> It can read the response body and store it in cache 
+
+Synchronous Resource Filter 
+---------------------------
+Resource filter along with IOrderedFilter 
+
+public class FilterClassName: IResourceFilter, IOrderedFilter 
+{
+    public int Order {get; set;} //Defines sequence of execution 
+    public FilterClassName(int order)
+    {
+        Order = order;
+    }
+
+    public void OnResourceExecuting(ResourceExecutingContext context)
+    {
+        //TO DO: before logic here 
+    }
+
+    public void OnResourceExecuted(ResourceExecutedContext context)
+    {
+        //TO DO: after logic here
+    }
+}
+
+Asynchronous Resource Filter 
+----------------------------
+public class FilterClassName : IAsyncResourceFilter, IOrderedFilter 
+{
+    public int Order {get; set;} //Defines sequence of execution 
+
+    public FilterClassname(int order)
+    {
+        Order = order;
+    }
+
+    public async Task OnResourceExecutionAsync(ResourceExecutingContext context,
+    ResourceExecutingDelegate next)
+    {
+        //TO DO: before logic here 
+        await next();
+        //TO DO: after logic here
+    }
+}
+
+
+public class FeatureDisabledResourceFilter : IAsyncResourceFilter
+{
+    public async Task OnResourceExecutionAsync(ResourceExecutingContext context, ResourceExecutionDelegate next)
+    {
+
+        _logger.LogInformation("{FilterName}.{MethodName} - before", nameof(FeatureDisabledResourceFilter),
+                                                                    nameof(OnResourceExecutionAsync));
+
+        if(_isDisabled)
+        {
+            //return context.Result = new NotFoundResult();//404 - Not Found 
+
+            context.Result = new StatusCodeResult(501); //501 - Not Implemented 
+        }else{
+            //TO DO: before logic
+            await next();
+        }
+
+        //TO DO: after logic 
+                _logger.LogInformation("{FilterName}.{MethodName} - after", nameof(FeatureDisabledResourceFilter),
+                                                                    nameof(OnResourceExecutionAsync));
+    }
+}
+
+[HttpPost]
+[TypeFilter(typeof(FeatureDisabledResourceFilter), Arguments = new object[]{ false })]
+public async Task<IActionResult>Create(PersonAddRequest personRequest)
+{
+
+}

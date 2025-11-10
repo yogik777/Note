@@ -1,0 +1,144 @@
+Partial Views 
+=============
+-Partial view is a razor markup file (.chtml) that can't be invoked individually from 
+    the controller; but can be invoked from any view within the same web application.
+
+
+        View                        will invoke         Partial View
+<partial name="partial view name">  =============>  Partial view content here 
+                                <=====================
+                               return the rendered html
+
+Invoking Partial Views 
+----------------------
+<partial name="partial view name"/>
+-Returns the content to the parent view. 
+
+@await Html.PartialAsync("partial view name")
+-Returns the content to the parent view.
+
+@{ await Html.RenderPartialAsync("partial view name"); }
+-Streams the content to the browser.
+-should be invoked in a code block
+-but instead of returning the content of the partial view to the parent view 
+    it streams content directly to the browser. 
+-so it improves the performance 
+-so for performance in large scale code the RenderPartialAsync() is recommended 
+
+-first two methods has a return value which you can use 
+-but the third method return void because it directly sends response to the browser 
+
+
+_ViewImports.cshtml
+@addTagHelper "*, Microsoft.AspNetCore.Mvc.TagHelpers"
+
+_ListPartialView.cshtml
+<div class="list-container">
+    <h3>Cities</h3>
+    <ul class="list">
+        <li>London</li>
+        <li>Paris</li>
+        <li>New York</li>
+        <li>Tokyo</li>
+        <li>Rome</li>
+    </ul>
+</div>
+
+Index.cshtml
+<h1>Home</h1>
+<partial name="_ListPartialView"></partial>
+
+
+About.cshtml
+<h1>About</h1>
+<p>
+    Lorem Ipsum is simply dummy text of the printing and typesetting industry. 
+    Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, 
+    when an unknown printer took a galley of type and scrambled it to make a type 
+    specimen book. It has survived not only five centuries, but also the leap into 
+    electronic typesetting, remaining essentially unchanged. It was popularised in 
+    the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, 
+    and more recently with desktop publishing software like Aldus PageMaker including 
+    versions of Lorem Ipsum.
+</p>
+<partial name="_ListPartialView"/>
+@await Html.PartialAsync("_ListPartialView")
+@{
+    await Html.RenderPartialAsync("_ListPartialView");
+}
+
+-you can invoke partial view in same view as many number of times you want.
+
+
+
+
+Partial Views with ViewData 
+===========================
+-When partial view is invoked, it receives a copy of the parent view's ViewData object.
+-So, any changes made in the ViewData in the partial view, do NOT effect the ViewData of 
+    the parent view.
+-Optionally, you can supply a custom ViewData object to the partial view, if you don't 
+    want the partial view to access the entire ViewData of the parent view.
+
+                                                    copy
+(Controller(Action(ViewData))) --> (View(ViewData)) ----> (Partial View(ViewData))
+
+Invoking Partial Views with View Data 
+-------------------------------------
+@{ await Html.RenderPartialAsync("partial view name", ViewData); }
+
+<partial name="partial view name" view-data="ViewData" />
+
+Index.cshtml
+<h1>Home</h1>
+@{
+    var myViewData = new ViewDataDictionary(ViewData);
+    myViewData["ListTitle"] = "Countries";
+    myViewData["ListItems"] = new List<string>
+            {
+                "India",
+                "USA",
+                "Canada",
+                "Japan",
+                "Germany"
+            };
+}
+<partial name="_ListPartialView" view-data="myViewData"></partial>
+
+
+_ListPartialView.cshtml
+<div class="list-container">
+    <h3>@ViewBag.ListTitle</h3>
+    <ul class="list">
+        @foreach(string item in ViewBag.ListItems)
+        {
+            <li>@item</li>
+        }
+    </ul>
+</div>
+
+
+
+Strongly Typed Partial Views 
+============================
+-Strongly typed Partial View is a partial view that is bound to a specified model 
+    class. 
+-So, it gets all the benefits of a strongly typed view.
+
+                             @Model ModelClassName
+Partial View        =======================================> Model 
+Presentation logic & 
+                                                            Data Properties
+@Model.PropertyName
+
+
+
+PartialViewResult 
+=================
+-PartialViewResult can represent the content of a partial. 
+-Generally useful to fetch partial view's content into the browser, by making an 
+    asynchronous request (XMLHttpRequest / fetch request) from the browser. 
+
+asynchronous request    -------> 
+                                                    return PartialResult 
+response body (content of partial view) <-----

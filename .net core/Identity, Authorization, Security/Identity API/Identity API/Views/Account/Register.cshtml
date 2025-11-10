@@ -1,0 +1,104 @@
+﻿@model RegisterDTO
+@{
+    ViewBag.Title = "Register";
+    ViewBag.CurrentUrl = "~/Account/Register";
+}
+
+
+<div class="form-container">
+    Already Registered? <a asp-action="Login" asp-controller="Account">Login</a>
+    <h2>Register</h2>
+    
+    <form asp-controller="Account" asp-action="Register" method="post">
+
+        @*PersonName*@
+        <div>
+            <div>
+                <label asp-for="PersonName">Name</label>
+            </div>
+            <div>
+                <input asp-for="PersonName" />
+                <span asp-validation-for="PersonName"></span>
+            </div>
+        </div>
+
+        @*Email*@
+        <div>
+            <div>
+                <label asp-for="Email">Name</label>
+            </div>
+            <div>
+                <input asp-for="Email" />
+                <span asp-validation-for="Email"></span>
+            </div>
+        </div>
+
+        @*Password*@
+        <div>
+            <div>
+                <label asp-for="Password">Password</label>
+            </div>
+            <div>
+                <input asp-for="Password" />
+                <span asp-validation-for="Password"></span>
+            </div>
+        </div>
+
+        @*ConfirmPassword*@
+        <div>
+            <div>
+                <label asp-for="ConfirmPassword">Confirm Password</label>
+            </div>
+            <div>
+                <input asp-for="ConfirmPassword" />
+                <span asp-validation-for="ConfirmPassword"></span>
+            </div>
+        </div>
+
+        @*Phone*@
+        <div>
+            <div>
+                <label asp-for="Phone">Phone</label>
+            </div>
+            <div>
+                <input asp-for="Phone" />
+                <span asp-validation-for="Phone"></span>
+            </div>
+        </div>
+
+        @*Register button*@
+        <div>
+            <div></div>
+            <div>
+                <button type="submit">Register</button>
+                <div asp-validation-summary="All">
+                    @if(ViewBag.Errors != null)
+                    {
+                       <div> 
+                           <ul>
+                               @foreach(string error in ViewBag.Errors)
+                                {
+                                    <li>@error</li>
+                                }
+                            </ul>
+                       </div>
+                    }
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+@section scripts
+{
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"
+            asp-fallback-test="window.jQuery"
+            asp-fallback-src="~/jquery.min.js"
+    ></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.4/jquery.validate.min.js" 
+            asp-fallback-test="window.jQuery.validator"
+            asp-fallback-src="~/jquery.validate.min.js"></script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validation-unobtrusive/3.2.12/jquery.validate.unobtrusive.min.js"
+            asp-fallback-test="window.jQuery.validator.unobstrusive"
+            asp-fallback-src="~/jquery.validate.unobtrusive.min.js"></script>
+}

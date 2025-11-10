@@ -1,0 +1,28 @@
+F:\Interview Preperation\.net core\Views\Partial Views\Partial Views\Partial Views\bin\Debug\net8.0\appsettings.Development.json
+F:\Interview Preperation\.net core\Views\Partial Views\Partial Views\Partial Views\bin\Debug\net8.0\appsettings.json
+F:\Interview Preperation\.net core\Views\Partial Views\Partial Views\Partial Views\bin\Debug\net8.0\Partial Views.staticwebassets.runtime.json
+F:\Interview Preperation\.net core\Views\Partial Views\Partial Views\Partial Views\bin\Debug\net8.0\Partial Views.exe
+F:\Interview Preperation\.net core\Views\Partial Views\Partial Views\Partial Views\bin\Debug\net8.0\Partial Views.deps.json
+F:\Interview Preperation\.net core\Views\Partial Views\Partial Views\Partial Views\bin\Debug\net8.0\Partial Views.runtimeconfig.json
+F:\Interview Preperation\.net core\Views\Partial Views\Partial Views\Partial Views\bin\Debug\net8.0\Partial Views.dll
+F:\Interview Preperation\.net core\Views\Partial Views\Partial Views\Partial Views\bin\Debug\net8.0\Partial Views.pdb
+F:\Interview Preperation\.net core\Views\Partial Views\Partial Views\Partial Views\obj\Debug\net8.0\Partial Views.GeneratedMSBuildEditorConfig.editorconfig
+F:\Interview Preperation\.net core\Views\Partial Views\Partial Views\Partial Views\obj\Debug\net8.0\Partial Views.AssemblyInfoInputs.cache
+F:\Interview Preperation\.net core\Views\Partial Views\Partial Views\Partial Views\obj\Debug\net8.0\Partial Views.AssemblyInfo.cs
+F:\Interview Preperation\.net core\Views\Partial Views\Partial Views\Partial Views\obj\Debug\net8.0\Partial Views.csproj.CoreCompileInputs.cache
+F:\Interview Preperation\.net core\Views\Partial Views\Partial Views\Partial Views\obj\Debug\net8.0\Partial Views.MvcApplicationPartsAssemblyInfo.cache
+F:\Interview Preperation\.net core\Views\Partial Views\Partial Views\Partial Views\obj\Debug\net8.0\Partial Views.RazorAssemblyInfo.cache
+F:\Interview Preperation\.net core\Views\Partial Views\Partial Views\Partial Views\obj\Debug\net8.0\Partial Views.RazorAssemblyInfo.cs
+F:\Interview Preperation\.net core\Views\Partial Views\Partial Views\Partial Views\obj\Debug\net8.0\staticwebassets.build.json
+F:\Interview Preperation\.net core\Views\Partial Views\Partial Views\Partial Views\obj\Debug\net8.0\staticwebassets.development.json
+F:\Interview Preperation\.net core\Views\Partial Views\Partial Views\Partial Views\obj\Debug\net8.0\staticwebassets\msbuild.Partial Views.Microsoft.AspNetCore.StaticWebAssets.props
+F:\Interview Preperation\.net core\Views\Partial Views\Partial Views\Partial Views\obj\Debug\net8.0\staticwebassets\msbuild.build.Partial Views.props
+F:\Interview Preperation\.net core\Views\Partial Views\Partial Views\Partial Views\obj\Debug\net8.0\staticwebassets\msbuild.buildMultiTargeting.Partial Views.props
+F:\Interview Preperation\.net core\Views\Partial Views\Partial Views\Partial Views\obj\Debug\net8.0\staticwebassets\msbuild.buildTransitive.Partial Views.props
+F:\Interview Preperation\.net core\Views\Partial Views\Partial Views\Partial Views\obj\Debug\net8.0\staticwebassets.pack.json
+F:\Interview Preperation\.net core\Views\Partial Views\Partial Views\Partial Views\obj\Debug\net8.0\scopedcss\bundle\Partial Views.styles.css
+F:\Interview Preperation\.net core\Views\Partial Views\Partial Views\Partial Views\obj\Debug\net8.0\Partial Views.dll
+F:\Interview Preperation\.net core\Views\Partial Views\Partial Views\Partial Views\obj\Debug\net8.0\refint\Partial Views.dll
+F:\Interview Preperation\.net core\Views\Partial Views\Partial Views\Partial Views\obj\Debug\net8.0\Partial Views.pdb
+F:\Interview Preperation\.net core\Views\Partial Views\Partial Views\Partial Views\obj\Debug\net8.0\Partial Views.genruntimeconfig.cache
+F:\Interview Preperation\.net core\Views\Partial Views\Partial Views\Partial Views\obj\Debug\net8.0\ref\Partial Views.dll

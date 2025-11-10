@@ -1,0 +1,96 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "F:\\Interview Preperation\\.net core\\Model binding and validation\\validation practice\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{2C3140E9-F177-4A4D-BF52-93592F560E1F}|validation practice\\validation practice.csproj|f:\\interview preperation\\.net core\\model binding and validation\\validation practice\\validation practice\\custom validators\\customvalidator.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{2C3140E9-F177-4A4D-BF52-93592F560E1F}|validation practice\\validation practice.csproj|solutionrelative:validation practice\\custom validators\\customvalidator.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{2C3140E9-F177-4A4D-BF52-93592F560E1F}|validation practice\\validation practice.csproj|f:\\interview preperation\\.net core\\model binding and validation\\validation practice\\validation practice\\controllers\\homecontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{2C3140E9-F177-4A4D-BF52-93592F560E1F}|validation practice\\validation practice.csproj|solutionrelative:validation practice\\controllers\\homecontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{2C3140E9-F177-4A4D-BF52-93592F560E1F}|validation practice\\validation practice.csproj|f:\\interview preperation\\.net core\\model binding and validation\\validation practice\\validation practice\\models\\person.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{2C3140E9-F177-4A4D-BF52-93592F560E1F}|validation practice\\validation practice.csproj|solutionrelative:validation practice\\models\\person.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{2C3140E9-F177-4A4D-BF52-93592F560E1F}|validation practice\\validation practice.csproj|f:\\interview preperation\\.net core\\model binding and validation\\validation practice\\validation practice\\models\\errorviewmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{2C3140E9-F177-4A4D-BF52-93592F560E1F}|validation practice\\validation practice.csproj|solutionrelative:validation practice\\models\\errorviewmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 3,
+          "Children": [
+            {
+              "$type": "Bookmark",
+              "Name": "ST:128:0:{1fc202d4-d401-403c-9834-5b218574bb67}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{d78612c7-9962-4b83-95d9-268046dad23a}"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "HomeController.cs",
+              "DocumentMoniker": "F:\\Interview Preperation\\.net core\\Model binding and validation\\validation practice\\validation practice\\Controllers\\HomeController.cs",
+              "RelativeDocumentMoniker": "validation practice\\Controllers\\HomeController.cs",
+              "ToolTip": "F:\\Interview Preperation\\.net core\\Model binding and validation\\validation practice\\validation practice\\Controllers\\HomeController.cs",
+              "RelativeToolTip": "validation practice\\Controllers\\HomeController.cs",
+              "ViewState": "AgIAABIAAAAAAAAAAAAAACgAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-01-21T11:16:31.458Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "CustomValidator.cs",
+              "DocumentMoniker": "F:\\Interview Preperation\\.net core\\Model binding and validation\\validation practice\\validation practice\\Custom Validators\\CustomValidator.cs",
+              "RelativeDocumentMoniker": "validation practice\\Custom Validators\\CustomValidator.cs",
+              "ToolTip": "F:\\Interview Preperation\\.net core\\Model binding and validation\\validation practice\\validation practice\\Custom Validators\\CustomValidator.cs",
+              "RelativeToolTip": "validation practice\\Custom Validators\\CustomValidator.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA0AAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-01-21T11:12:08.526Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "ErrorViewModel.cs",
+              "DocumentMoniker": "F:\\Interview Preperation\\.net core\\Model binding and validation\\validation practice\\validation practice\\Models\\ErrorViewModel.cs",
+              "RelativeDocumentMoniker": "validation practice\\Models\\ErrorViewModel.cs",
+              "ToolTip": "F:\\Interview Preperation\\.net core\\Model binding and validation\\validation practice\\validation practice\\Models\\ErrorViewModel.cs",
+              "RelativeToolTip": "validation practice\\Models\\ErrorViewModel.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-01-21T11:08:36.147Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "Person.cs",
+              "DocumentMoniker": "F:\\Interview Preperation\\.net core\\Model binding and validation\\validation practice\\validation practice\\Models\\Person.cs",
+              "RelativeDocumentMoniker": "validation practice\\Models\\Person.cs",
+              "ToolTip": "F:\\Interview Preperation\\.net core\\Model binding and validation\\validation practice\\validation practice\\Models\\Person.cs",
+              "RelativeToolTip": "validation practice\\Models\\Person.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAYAAAArAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-01-21T11:01:40.555Z",
+              "EditorCaption": ""
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

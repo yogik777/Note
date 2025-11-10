@@ -1,0 +1,214 @@
+View Components 
+===============
+-View Components is a combination of a class (derived from Microsoft.AspNetCore.ViewComponent)
+    that supplied data, and a partial view to render that data. 
+
+-View component renders a chunk rather than a whole response.
+-Includes the same separation-of-concerns and testability benefits found with a 
+    controller and view.
+-Should be either suffixed with the word "ViewComponent" or should have [ViewComponent]
+    attribute.
+    Optionally, it can inherit System.AspNetCore.Mvc.ViewComponent.
+
+Invoking View Components
+------------------------
+
+@await Component.InvokeAsync("view component name");
+
+                    --or--
+
+<vc:view-component-name/>
+
+code
+----
+HomeController.cs 
+        [Route("/")]
+        public IActionResult Index()
+        {
+            return View();
+        }
+
+/Views/Home/Index.cshtml
+
+@{
+    ViewBag.Title = "Home";
+}
+
+@await Component.InvokeAsync("Grid")
+
+
+/ViewComponents/
+namespace View_Components.ViewComponents
+{
+    //[ViewComponent] this is optional if the class name is suffixed with View Component
+    public class GridViewComponent : ViewComponent
+    {
+        public async Task<IViewComponentResult> InvokeAsync()
+        {
+            return View("Sample");//invoked a partial view Views/Shared/Components/Grid/Default.cshtml
+        }
+    }
+}
+
+/Views/Shared/Components/Grid/Sample.cshtml or Default.cshtml
+namespace View_Components.ViewComponents
+{
+    //[ViewComponent] this is optional if the class name is suffixed with View Component
+    public class GridViewComponent : ViewComponent
+    {
+        public async Task<IViewComponentResult> InvokeAsync()
+        {
+            return View("Sample");//invoked a partial view Views/Shared/Components/Grid/Default.cshtml
+        }
+    }
+}
+
+
+ViewComponents with ViewData
+============================
+-The ViewComponent class can share ViewData object to the ViewComponent view.
+
+(View Component class (InvokeAsync( ViewData ) ) )      --> ViewComponent View (Presentation Logic & (ViewData))
+
+/Views/Shared/Components/Grid/Sample.cshtml or Default.cshtml
+<div class="box">
+    <h3>@ViewBag.Grid.GridTitle</h3>
+    <table class="table w-100">
+        <thead>
+            <tr>
+                <th>Sl. No</th>
+                <th>Name</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (Person item in ViewBag.Grid.Persons)
+            {
+                
+            <tr>
+                <td>@item.PersonName</td>
+                <td>@item.JobTitle</td>
+            </tr>
+
+            }
+        </tbody>
+    </table>
+</div>
+
+/ViewComponents/
+namespace View_Components.ViewComponents
+{
+    //[ViewComponent] this is optional if the class name is suffixed with View Component
+    public class GridViewComponent : ViewComponent
+    {
+        public async Task<IViewComponentResult> InvokeAsync()
+        {
+            PersonGridModel model = new PersonGridModel()
+            {
+                GridTitle = "Persons List",
+                Persons = new List<Person>()
+                {
+                    new Person()
+                    {
+                        PersonName = "John",
+                        JobTitle = "Manager"
+                    },
+                    new Person()
+                    {
+                        PersonName = "Jones",
+                        JobTitle = "Asst. Manager"
+                    },
+                    new Person()
+                    {
+                        PersonName = "William",
+                        JobTitle = "Clerk"
+                    }
+                }
+            };
+            ViewData["Grid"] = model;
+            return View("Sample");//invoked a partial view Views/Shared/Components/Grid/Default.cshtml
+        }
+    }
+}
+
+Strongly Typed View Components 
+==============================
+-Strongly Typed ViewComponent's view is tightly bound to a specified model class.
+-So, it gets all the benefits of a strongly typed view.
+
+
+/ViewComponents/
+  return View("Sample", model);//invoked a partial view Views/Shared/Components/Grid/Default.cshtml
+
+
+/Views/Shared/Components/Grid/Sample.cshtml or Default.cshtml
+@model PersonGridModel
+
+<div class="box">
+    <h3>@Model.GridTitle</h3>
+    <table class="table w-100">
+        <thead>
+            <tr>
+                <th>Sl. No</th>
+                <th>Name</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (Person item in @Model.Persons)
+            {
+                
+            <tr>
+                <td>@item.PersonName</td>
+                <td>@item.JobTitle</td>
+            </tr>
+
+            }
+        </tbody>
+    </table>
+</div>
+
+
+View Components with Parameters 
+===============================
+-You can supply one or more parameters to the view component class.
+-The parameters are received by InvokeAsync method of the view component class.
+-All the parameters of view component are mandatory (must supply a value).
+
+Parent View 
+-----------
+@await Component.InvokeAsync("view component name", new { 
+    param1 = value1, 
+    param2 = value,
+    ...
+    })
+
+View Component class 
+--------------------
+InvokeAsync(datatype param1, datatype param2, ...)
+{
+    ....
+}
+
+
+Invoking ViewComponent with parameters 
+--------------------------------------
+@await Component.InvokeAsync("view component name", new { param = value });
+
+<vc:view-component-name param="value"/>
+
+ViewComponentResult
+===================
+ViewComponent can represent the content of a view component. 
+-Generally useful to fetch view component's content into the browser, by 
+    making an asynchronous request (XMLHttpRequest / fetch request) from 
+    the browser. 
+
+asynchronous Request 
+-------------------------> 
+                                            return ViewComponentResult 
+<---------------------------------------
+response body (content of view component)
+
+
+/Controllers 
+
+return ViewComponent("Grid", new { grid = personGridModel })

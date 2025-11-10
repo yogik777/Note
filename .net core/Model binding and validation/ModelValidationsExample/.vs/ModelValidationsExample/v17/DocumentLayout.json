@@ -1,0 +1,160 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "F:\\Interview Preperation\\.net core\\Model binding and validation\\ModelValidationsExample\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{465AF29B-E6EF-487F-AE97-0A163F4B7FA3}|ModelValidationsExample\\ModelValidationsExample.csproj|f:\\interview preperation\\.net core\\model binding and validation\\modelvalidationsexample\\modelvalidationsexample\\customvalidators\\daterangevalidatorattribute.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{465AF29B-E6EF-487F-AE97-0A163F4B7FA3}|ModelValidationsExample\\ModelValidationsExample.csproj|solutionrelative:modelvalidationsexample\\customvalidators\\daterangevalidatorattribute.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{465AF29B-E6EF-487F-AE97-0A163F4B7FA3}|ModelValidationsExample\\ModelValidationsExample.csproj|f:\\interview preperation\\.net core\\model binding and validation\\modelvalidationsexample\\modelvalidationsexample\\models\\person.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{465AF29B-E6EF-487F-AE97-0A163F4B7FA3}|ModelValidationsExample\\ModelValidationsExample.csproj|solutionrelative:modelvalidationsexample\\models\\person.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{465AF29B-E6EF-487F-AE97-0A163F4B7FA3}|ModelValidationsExample\\ModelValidationsExample.csproj|f:\\interview preperation\\.net core\\model binding and validation\\modelvalidationsexample\\modelvalidationsexample\\controllers\\homecontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{465AF29B-E6EF-487F-AE97-0A163F4B7FA3}|ModelValidationsExample\\ModelValidationsExample.csproj|solutionrelative:modelvalidationsexample\\controllers\\homecontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{465AF29B-E6EF-487F-AE97-0A163F4B7FA3}|ModelValidationsExample\\ModelValidationsExample.csproj|f:\\interview preperation\\.net core\\model binding and validation\\modelvalidationsexample\\modelvalidationsexample\\customvalidators\\minimumyearvalidationattribute.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{465AF29B-E6EF-487F-AE97-0A163F4B7FA3}|ModelValidationsExample\\ModelValidationsExample.csproj|solutionrelative:modelvalidationsexample\\customvalidators\\minimumyearvalidationattribute.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{465AF29B-E6EF-487F-AE97-0A163F4B7FA3}|ModelValidationsExample\\ModelValidationsExample.csproj|f:\\interview preperation\\.net core\\model binding and validation\\modelvalidationsexample\\modelvalidationsexample\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{465AF29B-E6EF-487F-AE97-0A163F4B7FA3}|ModelValidationsExample\\ModelValidationsExample.csproj|solutionrelative:modelvalidationsexample\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{465AF29B-E6EF-487F-AE97-0A163F4B7FA3}|ModelValidationsExample\\ModelValidationsExample.csproj|f:\\interview preperation\\.net core\\model binding and validation\\modelvalidationsexample\\modelvalidationsexample\\custommodelbinder\\personbinderprovider.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{465AF29B-E6EF-487F-AE97-0A163F4B7FA3}|ModelValidationsExample\\ModelValidationsExample.csproj|solutionrelative:modelvalidationsexample\\custommodelbinder\\personbinderprovider.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{465AF29B-E6EF-487F-AE97-0A163F4B7FA3}|ModelValidationsExample\\ModelValidationsExample.csproj|f:\\interview preperation\\.net core\\model binding and validation\\modelvalidationsexample\\modelvalidationsexample\\custommodelbinder\\personmodelbinder.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{465AF29B-E6EF-487F-AE97-0A163F4B7FA3}|ModelValidationsExample\\ModelValidationsExample.csproj|solutionrelative:modelvalidationsexample\\custommodelbinder\\personmodelbinder.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{465AF29B-E6EF-487F-AE97-0A163F4B7FA3}|ModelValidationsExample\\ModelValidationsExample.csproj|f:\\interview preperation\\.net core\\model binding and validation\\modelvalidationsexample\\modelvalidationsexample\\modelvalidationsexample.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|",
+      "RelativeMoniker": "D:0:0:{465AF29B-E6EF-487F-AE97-0A163F4B7FA3}|ModelValidationsExample\\ModelValidationsExample.csproj|solutionrelative:modelvalidationsexample\\modelvalidationsexample.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 5,
+          "Children": [
+            {
+              "$type": "Bookmark",
+              "Name": "ST:128:0:{1fc202d4-d401-403c-9834-5b218574bb67}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{d78612c7-9962-4b83-95d9-268046dad23a}"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "PersonBinderProvider.cs",
+              "DocumentMoniker": "F:\\Interview Preperation\\.net core\\Model binding and validation\\ModelValidationsExample\\ModelValidationsExample\\CustomModelBinder\\PersonBinderProvider.cs",
+              "RelativeDocumentMoniker": "ModelValidationsExample\\CustomModelBinder\\PersonBinderProvider.cs",
+              "ToolTip": "F:\\Interview Preperation\\.net core\\Model binding and validation\\ModelValidationsExample\\ModelValidationsExample\\CustomModelBinder\\PersonBinderProvider.cs",
+              "RelativeToolTip": "ModelValidationsExample\\CustomModelBinder\\PersonBinderProvider.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAYAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-12-09T12:36:06.401Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "PersonModelBinder.cs",
+              "DocumentMoniker": "F:\\Interview Preperation\\.net core\\Model binding and validation\\ModelValidationsExample\\ModelValidationsExample\\CustomModelBinder\\PersonModelBinder.cs",
+              "RelativeDocumentMoniker": "ModelValidationsExample\\CustomModelBinder\\PersonModelBinder.cs",
+              "ToolTip": "F:\\Interview Preperation\\.net core\\Model binding and validation\\ModelValidationsExample\\ModelValidationsExample\\CustomModelBinder\\PersonModelBinder.cs",
+              "RelativeToolTip": "ModelValidationsExample\\CustomModelBinder\\PersonModelBinder.cs",
+              "ViewState": "AgIAABEAAAAAAAAAAAAAACAAAAADAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-12-09T11:40:09.295Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 7,
+              "Title": "ModelValidationsExample.csproj",
+              "DocumentMoniker": "F:\\Interview Preperation\\.net core\\Model binding and validation\\ModelValidationsExample\\ModelValidationsExample\\ModelValidationsExample.csproj",
+              "RelativeDocumentMoniker": "ModelValidationsExample\\ModelValidationsExample.csproj",
+              "ToolTip": "F:\\Interview Preperation\\.net core\\Model binding and validation\\ModelValidationsExample\\ModelValidationsExample\\ModelValidationsExample.csproj",
+              "RelativeToolTip": "ModelValidationsExample\\ModelValidationsExample.csproj",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000758|",
+              "WhenOpened": "2024-12-09T11:38:29.098Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "DateRangeValidatorAttribute.cs",
+              "DocumentMoniker": "F:\\Interview Preperation\\.net core\\Model binding and validation\\ModelValidationsExample\\ModelValidationsExample\\CustomValidators\\DateRangeValidatorAttribute.cs",
+              "RelativeDocumentMoniker": "ModelValidationsExample\\CustomValidators\\DateRangeValidatorAttribute.cs",
+              "ToolTip": "F:\\Interview Preperation\\.net core\\Model binding and validation\\ModelValidationsExample\\ModelValidationsExample\\CustomValidators\\DateRangeValidatorAttribute.cs",
+              "RelativeToolTip": "ModelValidationsExample\\CustomValidators\\DateRangeValidatorAttribute.cs",
+              "ViewState": "AgIAAB4AAAAAAAAAAAAAwBQAAAAzAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-12-09T09:18:39Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "MinimumYearvalidationAttribute.cs",
+              "DocumentMoniker": "F:\\Interview Preperation\\.net core\\Model binding and validation\\ModelValidationsExample\\ModelValidationsExample\\CustomValidators\\MinimumYearvalidationAttribute.cs",
+              "RelativeDocumentMoniker": "ModelValidationsExample\\CustomValidators\\MinimumYearvalidationAttribute.cs",
+              "ToolTip": "F:\\Interview Preperation\\.net core\\Model binding and validation\\ModelValidationsExample\\ModelValidationsExample\\CustomValidators\\MinimumYearvalidationAttribute.cs",
+              "RelativeToolTip": "ModelValidationsExample\\CustomValidators\\MinimumYearvalidationAttribute.cs",
+              "ViewState": "AgIAABEAAAAAAAAAAAAgwCIAAAAPAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-12-09T08:37:24.029Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "HomeController.cs",
+              "DocumentMoniker": "F:\\Interview Preperation\\.net core\\Model binding and validation\\ModelValidationsExample\\ModelValidationsExample\\Controllers\\HomeController.cs",
+              "RelativeDocumentMoniker": "ModelValidationsExample\\Controllers\\HomeController.cs",
+              "ToolTip": "F:\\Interview Preperation\\.net core\\Model binding and validation\\ModelValidationsExample\\ModelValidationsExample\\Controllers\\HomeController.cs",
+              "RelativeToolTip": "ModelValidationsExample\\Controllers\\HomeController.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAgAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-10-20T13:53:15.218Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "Person.cs",
+              "DocumentMoniker": "F:\\Interview Preperation\\.net core\\Model binding and validation\\ModelValidationsExample\\ModelValidationsExample\\Models\\Person.cs",
+              "RelativeDocumentMoniker": "ModelValidationsExample\\Models\\Person.cs",
+              "ToolTip": "F:\\Interview Preperation\\.net core\\Model binding and validation\\ModelValidationsExample\\ModelValidationsExample\\Models\\Person.cs",
+              "RelativeToolTip": "ModelValidationsExample\\Models\\Person.cs",
+              "ViewState": "AgIAAA8AAAAAAAAAAAAAABsAAAAlAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-10-20T13:46:30.2Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "Program.cs",
+              "DocumentMoniker": "F:\\Interview Preperation\\.net core\\Model binding and validation\\ModelValidationsExample\\ModelValidationsExample\\Program.cs",
+              "RelativeDocumentMoniker": "ModelValidationsExample\\Program.cs",
+              "ToolTip": "F:\\Interview Preperation\\.net core\\Model binding and validation\\ModelValidationsExample\\ModelValidationsExample\\Program.cs",
+              "RelativeToolTip": "ModelValidationsExample\\Program.cs",
+              "ViewState": "AgIAAAUAAAAAAAAAAAAAwAoAAAAuAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-10-20T13:41:35.364Z"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

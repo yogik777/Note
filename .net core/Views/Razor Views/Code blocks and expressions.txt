@@ -1,0 +1,64 @@
+Razor Code Block
+================
+@{
+	c# / html code here
+
+}
+
+-> Razor code block is a C# code block that contains one or more lines of C# code that can 
+	contain any statements and local function.
+
+
+Razor Expressions
+=================
+@Expression
+
+--or--
+
+@(Expression)
+
+-> Razor expression is a C# expression (accessing a field, property or method call) that
+	returns a value.
+
+
+
+Views
+=====
+1. View contains HTML markup with Razor markup (C# code in view to render dynamic content).
+2. Razor is the view engine that defines syntax to write C# code in the view.
+	@ is the syntax of Razor syntax.
+3. View is NOT supposed to have lots of C# code.
+	Any code written in the view should relate to presenting the content (presentation logic).
+4. View should neither directly call the business model, nor call the controller's action methods.
+	But it can send requests to controllers.
+
+
+
+@using ViewsExample.Models;
+
+@{
+
+    string appTitle = "Hi this is title from variable!!!";
+    Person person = new Person()
+            {
+                Name = "Yogesh",
+                DateOfBirth = Convert.ToDateTime("2000-07-01")
+            };
+}
+
+
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>@appTitle</title>
+        <meta charset="utf-8" />
+    </head>
+    <body>
+        <h1>Welcome</h1>
+        <h2>Hello @person.Name</h2>
+    @{
+        double age = Math.Round((DateTime.Now - person.DateOfBirth).TotalDays / 365.25);
+    }
+    <h3>@age years old</h3>
+    </body>
+</html>

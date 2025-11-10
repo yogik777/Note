@@ -1,0 +1,277 @@
+Introduction to Environments 
+============================
+-An environment represents is a system in which the application is deployed and 
+     executed 
+-Development
+    The environment, where the developer makes changes in the code, commits 
+        code to the source control
+
+-Staging 
+    The environment, where the application runs on a server, from which other 
+        developers and quality controllers access the application.
+
+-Production 
+    The environment, where the real end-users access the application.
+
+    Shortly, it's where the application "live" to the audience 
+
+
+->based on your need you can configure your own environment 
+
+-we learn -configuring environment 
+          -read environment configuration in program.cs file and 
+           controllers 
+
+
+Environment in Launch Settings 
+==============================
+
+set Environent in launchSettings.json 
+-------------------------------------
+in launchSettings.json
+{
+    "profiles":
+    {
+        "profileName":
+        {
+            "environmentVariables":
+            {
+                "DOTNET_ENVIRONMENT": "EnvironmentNameHere",
+                "ASPNETCORE_ENVIRONMENT": "EnvironmentNameHere"
+            }
+        }
+    }
+}
+
+-create asp.net core empty web application.
+-properties folder has launchSettings.json
+
+-it has two profiles 1.kestrel server 2.IIS Express  
+-you can configure environment for every runtime profiles ie for kestrel server, IIS Express
+    server. 
+            "environmentVariables":
+            {
+                    "ASPNETCORE_ENVIRONMENT": "Development"
+            }
+
+    you can set environment by changing it to "Development", "Staging", "Production and 
+        "any other name"
+            "environmentVariables":
+            {
+                    "ASPNETCORE_ENVIRONMENT": "Staging"
+            }
+
+-create new folder /Controllers
+-add a controller 
+
+public class HomeController:Controller 
+{
+    [Route("/")]
+    public IActionResult Index()
+    {
+        return View();
+    }
+}
+
+-add default content to View
+@{
+    ViewBag.Title = "Home"
+}
+<h1>Home</h1> 
+
+-inside Views folder add Shared folder to add the layout view 
+-_Layout.cshtml
+
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>@ViewBag.Title</title>
+    <link href="~/StyleSheet.css" rel="stylesheet"/>
+</head>
+<body>
+    <div class="container">
+        <div class="page-content">
+        @RenderBody()
+        </div>
+    </div>
+</body>
+</html>
+
+-inside Views add ViewStart.cshtml 
+
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml"
+}
+
+
+
+-now changing environment does'nt make any difference in the output 
+    or in the code execution order, application will run as before 
+    -then what will be different with this environment name 
+
+-In the program.cs file you can check if the current environment is developer 
+    you can enable developer exception page  
+    but alternatively if the current environment is production you can enable 
+        the custom error page which is user friendly but not developer friendly 
+
+
+if(app.Environment.IsDevelopment())
+{
+    app.UseDeveloperExceptionPage();
+}
+-we have three methods IsDevelopment(), IsStaging() and IsProduction()
+
+-> in Program.cs ->app.Environment 
+
+    IWebHostEnvironment -> Properties
+        ->EnvironmentName 
+            Gets or sets name of the environment.
+            By default it reads the value from either DOTNET_ENVIRONMENT or 
+                ASPNETCORE_ENVIRONMENT.
+        ->ContentRootPath 
+            Gets or sets absolute path of the application folder. 
+            ->bydefault it is equevalant to the project location.
+            eg(c:/projectname)
+
+        methods
+            IsDevelopment()
+            Returns Boolean true, if the current environment name is "Development"
+
+            IsStaging()
+            Returns Boolean true, if the current environment name is "Staging"
+
+            IsProduction()
+            Returns Boolean true, if the current environment name is "Production" 
+
+            IsEnvironment(string environmentName)
+            Returns Boolean true, if the current environment name matches with the 
+                specified environment. 
+
+
+    "environmentVariables":
+            {
+                    "ASPNETCORE_ENVIRONMENT": "Beta"
+            }
+
+      if(app.Environment.IsEnvironment("Beta"))
+      {
+        app.UseDeveloperExceptionPage();
+      }      
+
+
+
+
+Environment in Controller 
+=========================
+-use case if you want to add additional log messages only in some environments etc 
+
+Access Environment
+------------------
+in Controller and other classes
+
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Hosting;
+
+public class ControllerName : Controller 
+{
+    private readonly IWebHostEnvironment _webHost;
+    public ControllerName(IWebHostEnvironment webHost)
+    {
+        _webHost=webHost;
+    }
+}
+
+
+
+
+Environment Tag Helper 
+======================
+
+<environment> tag helper 
+in View:
+<environment include="Environment1, Environment2">
+    html content here 
+</environment>
+
+-> It renders the content only when the current environment name matches with either 
+    of the specified environment names in the "include" property.
+
+<environment exclude="Environment1, Environment2"> 
+    html content here 
+</environment>
+
+-> It renders the content only when the current environment name doesn't match with 
+    either of the specified environment names in the "exclude" property.
+
+
+-> in Views folder create a file called _ViewImports.cshtml
+
+@addTagHelper "*,Microsoft.AspNetCore.Mvc.TagHelpers"
+
+
+-in index view
+
+<environment exclude="Development"> 
+    <button class="button button-green-back"> 
+        Button only for Development Environment
+    </button> 
+</environment>
+
+<environment exclude="Development"> 
+    <button class="button button-blue-back"> 
+        Button only for Except Development Environment
+    </button> 
+</environment>
+
+-in realworld application use of this is rear. seperate page will be created for 
+    developer and it will not be released for the end users 
+
+
+
+Process-Level Environment 
+=========================
+-remember that this launchSettings.json file is only for developer machine 
+    in case of staging server or production server you will not deploy this 
+    launchSettings.json file 
+-then here the question is in other that development machine in stagin and production
+    server how will you set environment variables
+    specificly "ASPNETCORE_ENVIRONMENT"
+
+
+    -Terminal 
+        -.Net Core Host
+            -Environment Variables 
+            -Application Code 
+
+-The environment variables are stored & accessible within the same process only. 
+
+-the framework will be available on that server but visual studio will not be available 
+    on those servers in that case you have to deploy the application in a specific folder 
+    and you have to start running your application through command prompt 
+    -in that case there is possibility of setting up environment variables through 
+     command prompt window itself.
+
+-so you will write a command in command prompt or powershell to setup the 
+    environment variable then you'll start the application using >dotnet run< command 
+
+-in windows search for Terminal 
+-move to the build folder 
+>dotnet run 
+-by default the launchSettings.json file will be read automatically because it is 
+    present in that folder 
+-while running the application you can provide an option to desable that file    
+>dotnet run --no-launch-profile 
+-in case you disable the launchProfile 
+    asp dot net core app takes default environment as "Production" 
+
+-the environment variables you set through this command prompt will be only read from 
+    this same command prompt but not from other process 
+    so in that case it is the most secure way to set the environment variables 
+
+>$Env:ASPNETCORE_ENVIRONMENT="Staging" 
+-it will be saved for same command prompt 
+-In normal command prompt use 
+>set ASPNETCORE_ENVIRONMENT="Staging"
+-Power shell is recommended than command prompt 

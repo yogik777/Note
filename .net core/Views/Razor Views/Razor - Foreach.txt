@@ -1,0 +1,81 @@
+Razor - foreach
+================
+
+@foreach(var variable in collection){
+    C# / html code here
+}
+
+
+@using ViewsExample.Models;
+
+@{
+    string appTitle = "Hi this is title from variable!!!";
+    List<Person> people = new List<Person>()
+    {
+        new Person()
+        {
+            Name = "Yogesh",
+            DateOfBirth = DateTime.Parse("2001-05-6"),
+            PersonGender = Gender.Male
+        },
+        new Person()
+        {
+            Name = "Shubham",
+            DateOfBirth = DateTime.Parse("2000-09-30"),
+            PersonGender = Gender.Male
+        },
+        new Person()
+        {
+            Name = "Poonam",
+            PersonGender = Gender.Female
+        }
+    };
+}
+
+
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>@appTitle</title>
+        <meta charset="utf-8" />
+    </head>
+    <body>
+        <h1>Welcome</h1>
+    @foreach (Person person in people)
+    {
+        <div>
+            @person.Name
+            <span>, </span>
+            <span>@person.PersonGender</span>
+            @if(person.DateOfBirth != null)
+            {
+                <span>@person.DateOfBirth.Value.ToString("MM/dd/yyyy")</span>
+            }
+        </div>
+    }
+</body>
+</html>
+
+--------------------------------------------------------------------------------------
+
+Razor - for 
+============
+@for(initialization; condition; iteration)
+{
+    C# / html code here
+}
+
+
+    @for (int i = 0; i<2; i++)
+    {
+        Person person = people[i];
+        <div>
+            @person.Name
+            <span>, </span>
+            <span>@person.PersonGender</span>
+            @if (person.DateOfBirth != null)
+            {
+                <span>@person.DateOfBirth.Value.ToString("MM/dd/yyyy")</span>
+            }
+        </div>
+    }

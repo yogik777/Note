@@ -1,0 +1,79 @@
+Logging 
+=======
+Logging is the process of recording runtime actions as they happen in real time.
+Helps us to understand the failures and performance bottlenecks of the application.
+
+
+.Net core app -> Logging Framework -> Logs ->  Console/Debug/EventLog/File/Database 
+
+
+ILogger 
+=======
+Debug 
+-----
+ILogger.LogDebug("log_message"); 
+    -> Logs that provide details & values of variables for debugging purpose 
+
+Information
+-----------
+ILogger.LogInformation("log_message");
+    -> Logs that track the general flow of the application execution.
+
+Warning
+------- 
+ILogger.LogWarning("log_message");
+    -> Logs that highlight an abnormal or unexpected event 
+
+Error 
+-----
+ILogger.LogError("log_message");
+    -> Logs to indicate that flow of execution is stopped due to a failure 
+
+Critical
+-------- 
+ILogger.LogCritical("log_message");
+    -> Logs to indicate unrecoverable application crash 
+
+
+
+Logging Configuration
+=====================
+
+in appsettings.json 
+-------------------
+{
+    "Logging":{
+        "LogLevel":{
+            "Default": "Debug | Information | Warning | Error | Critical"
+            "Microsoft.AspNetCore": "Debug | Information | Warning | Error | Critical"
+        }
+    }
+}
+
+
+Logging Providers 
+=================
+
+Logging provider specifies where to store / display logs.
+
+The built-in logging providers in asp.net core doesn't support file / database 
+logging providers. 
+
+.NET Core App -> Logging Framework -> Logs -> console/Debug/EventLog 
+
+
+ILogger in controller and other classes 
+=======================================
+
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Logging;
+
+public class ControllerName : Controller 
+{
+    private readonly ILogger<ClassName> _logger;
+
+    public ControllerName(ILogger<ClassName> logger)
+    {
+        _logger = logger; 
+    }
+}

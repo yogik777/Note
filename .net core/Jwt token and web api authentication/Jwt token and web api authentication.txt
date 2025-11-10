@@ -1,0 +1,672 @@
+Identity with Web API
+=====================
+
+- It is an API that manages users, passwords, profile data, roles, tokens, 
+	email confirmation, external logins etc.
+- It is by default build on top of EntityFrameworkCore; you can also create 
+	custom data stores.
+
+	Asp.Net Core App (Controllers)
+	Identity Manager (BL)				-> Eg: UserManager, RoleManager
+	Identity Store (Repository)		-> Eg: UserStore, RoleStore
+	Identity DbContext (DAL)
+	Data Source (Database)
+
+
+
+
+Register Endpoint:
+=================
+				HTTP request to
+			"api/v1/account/register"
+		------------------------------------>
+Browser										Server
+				HTTP Response
+		<------------------------------------
+
+
+-get package 
+	Microsoft.AspNetCore.Identity.EntityFrameworkCore 
+
+-create new folder /Identity 
+-create application user class 
+
+public class ApplicationUser:IdentityUser<Guid>
+{
+	public string? PersonName{get; set;}
+}
+
+-create class application role
+
+public class ApplicationRole: IdentityRole<Guid>
+{
+
+}
+
+-update application db context 
+
+public class ApplicationDbContext:IdentityDbContext<Application, ApplicationRole, Guid>
+{
+
+}
+
+
+-in Program.cs file we need to enable identity 
+//Identity
+builder.Services.AddIdentity<ApplicationUser, ApplicationRole>(options =>{
+	options.Password.RequiredLength = 5; 
+	options.Password.RequiredNonAlphanumeric = false;
+	options.Password.RequireUppercase = false;
+	options.Password.RequireLowercase = true;
+	options.Password.RequireDigit = true;
+})
+ .AddEntityFrameworkStores<ApplicationDbContext>()
+ .AddDefaultTokenProviders()
+ .AddUserStore<UserStore<ApplicationUser, ApplicationRole, ApplicationDbContext, Guid>>()
+ .AddRoleStore<RoleStore<ApplicationRole, ApplicationDbContext, Guid>>();
+
+
+
+ Register Endpoint 
+ =================
+
+Browser 		HTTP request to
+			"api/v1/account/register"
+/register 	------------------------------->		Server 
+					HTTP response
+			<-------------------------------
+
+
+-create folder /DTO 
+-add dto RegisterDTO.cs
+
+public class RegisterDTO
+{
+	[Required(ErrorMessage="Person Name can't be blank")]
+	public string PersonName{get; set;} = string.Empty;
+
+	[Required(ErrorMessage = "Person Name can't be blank")]
+	[EmailAddress(ErrorMessage = "Email should be in a proper email address format")]
+	[Remote(action:"IsEmailAlreadyRegister", controller:"Account", 
+	ErrorMessage = "Email is already in use")]
+	public string Email{get; set;} = string.Empty;
+
+	[Required(ErrorMessage = "Phone number can't be blank")]
+	[RegularExpression("^[0-9]*$", ErrorMessage = "Phone number should contain digits only")]
+	public string PhoneNumber{get; set;} = string.Empty;
+
+	[Required(ErrorMessage = "Password can't be blank")]
+	public string Password {get; set;} = string.Empty;
+
+	[Required(ErrorMessage = "Confirm Password can't be blank")]
+	[Compare("Password", ErrorMessage = "Password and confirm password)]
+}
+
+
+for Remote need to install a package 
+	-Microsoft.AspNetCore.Mvc.ViewFeatures 
+
+-add accounts controller - api controller 
+
+[AllowAnonymous]
+[ApiVersion("1.0")]
+public class AccountController: CustomControllerBase
+{
+	private readonly UserManager<ApplicationUser> _userManager;
+	private readonly SignInManager<ApplicationUser> _signInManager;
+	private readonly RoleManger<ApplicationRole> _roleManager;
+
+	public AccountController(
+		UserManager<ApplicationUser> userManager,
+		SignInManager<ApplicationUser> signInManager,
+		RoleManager<ApplicationRole> roleManager
+		)
+		{
+			_userManager = userManager;
+			_signInManager = signInManager;
+			_roleManager = roleManager;
+		}
+
+	[HttpPost("register")]
+	public async Task<ActionResult<ApplicationUser>>PostRegister(RegisterDTO register)
+	{
+		//validation 
+		if(ModelState.IsValid == false)
+		{
+			string errorMessage = string.Join(" | ",ModelState.Values.SelectMany(v => v.Errors).Select(e=>e.ErrorMessage));
+			return Problem(errorMessage);
+		}
+
+		//create user
+		ApplicationUser user = new ApplicationUser(){
+			Email = registerDTO.Email,
+			PhoneNumber = registerDTO.PhoneNumber,
+			UserName = registerDTO.Email,
+			PersonName = registerDTO.PersonName
+		}
+
+		IdentityResult result = await _userManager.CreateAsync(user, registerDTO.Password);
+
+		if(result.Succeeded)
+		{
+			//sign-in 
+			await _signInManager.SignInAsync(user, isPersistent: false);
+			return Ok(user);
+		}
+		else
+		{
+			string errorMessage = string.Join(" | ", result.Errors.Select(e => e.Description));
+			//error1 | error2 
+			return Problem(errorMessage);
+		}
+	}
+}
+
+[HttpGet]
+public async Task<IActionResult> IsEmailAlreadyRegistered(string email)
+{
+	ApplicationUser user = await _userManager.FindByEmailAsync(email);
+
+	if(user == null){
+		return Ok(true);
+	}
+	else{
+		Ok(false)
+	}
+}
+
+
+
+Register UI -> in Angular
+=========================
+ng g class models\RegisterUser 
+
+export class RegisterUser{
+	personName: string | null = null;
+	email: string | null = null;
+	phone: string | null = null;
+	password: string | null = null;
+	confirmPassword: string | null = null;
+}
+
+>ng g service services\Account 
+
+
+import {Injectable} from '@angular/core' 
+
+const API_BASE_URL: string = "http://localhost:7221/api/account/"
+
+@Injectable({
+	providedIn:'root'
+})
+export class AccountService{
+	constructor(private httpClient:HttpClient):Observable<RegisterUser>{
+		return this.httpClient.post<RegisterUser>(`${API_BASE_URL}register`,registerUser);
+	}
+}
+
+
+
+>ng g component Register 
+
+@Component({
+	selector: 'app-register',
+	templateUrl: './register.component.html',
+	styleUrls: ['./register.component.css']
+})
+export class RegisterComponent{
+	registerForm:FormGroup;
+	isRegisterFormSubmitted: boolean = false;
+	constructor(private accountService:AccountService, private router:Router){
+		this.registerForm = new FormGroup({
+			personName: new FormControl(null, [Validators.required]),
+			email: new FormControl(null, [Validators.required, Validators.email]),
+			phoneNumber: new FormControl(null, [Validators.required]),
+			password: new FormControl(null, [Validators.required]),
+			confirmPassword: new FormControl(null, [Validators.required])
+		},
+		{
+			validators:[CompareValidation("password",confirmPassword)]
+		});
+	}
+
+	get register_personNameControl(): any{
+		return this.registerForm.controls["personName"]
+	}
+	get register_emailControl(): any{
+		return this.registerForm.controls["email"]
+	}
+	get register_phoneNumberControl(): any{
+		return this.registerForm.controls["phoneNumber"]
+	}
+	get register_passwordControl(): any{
+		return this.registerForm.controls["password"]
+	}
+	get register_confirmPasswordControl(): any{
+		return this.registerForm.controls["confirmPassword"]
+	}
+
+	registerSubmitted(){
+		this.isRegisterFormSubmitted = true;
+		if(this.registerForm.valid)
+		{
+			this.isRegisterFormSubmitted = true;
+			this.accountService.postRequest(this.registerForm.value).subscribe({
+				next: (response:RegisterUser) => {
+					console.log(response);
+					this.registerSubmitted = false;
+					this.router.navigate(['/cities']);
+					this.registerForm.reset();
+				},
+
+				error: () => {
+					console.log(error);
+				}, 
+
+				complete: () => {}
+			});
+		}
+
+	}
+}
+
+
+<div class = "w-75 margin-auto">
+	<div class="form-container">
+		<h2>Register</h2>
+		<form [formGroup]="registerForm" (ngSubmit)="registerSubmitted()">
+			<!-- personName -->
+			<div class="form-field flex">
+				<div class="w-25">
+					<label for="personName" class="form-label pt">
+						Name
+					</label>
+				<div>
+				<div class="flex-1">
+					<input type="text" id="personName" class="form-input" 
+					formControlName="personName"/>
+					<span class="text-red" *ngIf="(register_personNameControl.touched
+					|| isRegisterFormSubmitted) && (register_personNameControl.errors?
+					.['required'])">Person Name Can't be blank</span>
+				<div>
+			<div>
+
+			<!-- email --> 
+			<div class="form-field flex">
+				<div class="w-25">
+					<label for="email" class="form-label pt">
+						email
+					</label>
+				<div>
+				<div class="flex-1">
+					<input type="email" id="email" class="form-input" 
+					formControlName="email"/>
+					<span class="text-red" *ngIf="(register_emailControl.touched
+					|| isRegisterFormSubmitted) && (register_emailControl.errors?
+					.['required'])">Person Name Can't be blank</span>
+
+					<span class="text-red" *ngIf="(register_emailControl.touched
+					|| isRegisterFormSubmitted) && (register_emailControl.errors?
+					.['email'])">Email should be in a proper email address format</span>
+				<div>
+			<div>
+
+			<!-- phoneNumber -->
+				<div class="form-field flex">
+				<div class="w-25">
+					<label for="phoneNumber" class="form-label pt">
+						phoneNumber
+					</label>
+				<div>
+				<div class="flex-1">
+					<input type="text" id="phoneNumber" class="form-input" 
+					formControlName="phoneNumber"/>
+					<span class="text-red" *ngIf="(register_phoneNumberControl.touched
+					|| isRegisterFormSubmitted) && (register_phoneNumberControl.errors?
+					.['required'])">phoneNumber Can't be blank</span>
+				<div>
+			<div>
+
+			<!-- password -->
+			<div class="form-field flex">
+				<div class="w-25">
+					<label for="password" class="form-label pt">
+						password
+					</label>
+				<div>
+				<div class="flex-1">
+					<input type="text" id="password" class="form-input" 
+					formControlName="password"/>
+					<span class="text-red" *ngIf="(register_passwordControl.touched
+					|| isRegisterFormSubmitted) && (register_passwordControl.errors?
+					.['required'])">password Can't be blank</span>
+				<div>
+			<div>
+
+			<!-- confirmPassword -->
+			<div class="form-field flex">
+				<div class="w-25">
+					<label for="confirmPassword" class="form-label pt">
+						confirmPassword
+					</label>
+				<div>
+				<div class="flex-1">
+					<input type="text" id="confirmPassword" class="form-input" 
+					formControlName="confirmPassword"/>
+					<span class="text-red" *ngIf="(register_confirmPasswordControl.touched
+					|| isRegisterFormSubmitted) && (register_confirmPassworddControl.errors?
+					.['required'])">confirmPassword Can't be blank</span>
+
+					<span class="text-red" *ngIf="(register_confirmPasswordControl.touched
+					|| isRegisterFormSubmitted) && (register_confirmPassworddControl.errors?
+					.['compareValidator'])">Password and confirmPassword do not match</span>
+				<div>
+			<div>
+
+			<!-- submit -->
+			<div class="form-field flex">
+				<div class="w-25">
+
+				<div>
+				<div class="flex-1">
+					<button type="submit" class="button button-green-back">
+						Register 
+					</button>
+				<div>
+			<div>
+
+		</form>
+	</div>
+</div>
+
+
+
+>ng serve 
+
+
+-in app component create hyperlinks 
+
+<div class="flex-1" id="top-bar-div">
+	<h2 class = "app-title">
+		Cities Manager
+	<h2>
+</div>
+
+<div class="flex-1" id="search-box-div">
+	<div class="navbar account-links">
+		<ul>
+			<li>
+				<a [routerLink]="[ '/login' ]"> Login </a> 
+			</li>
+			<li>
+				<a [routerLink] = "[ '/register' ]"> Register </a>
+			</li>
+		</ul>
+	<div>
+</div>
+
+
+-router module file 
+
+const route: Routes = [
+	{path: "cities", component: CitiesComponent},
+	{path: "register", component:; RegisterComponent}
+];
+
+@NgModule({
+	imports: [RouterModule.forRoot(routes)],
+	exports: [RouterModule]
+})
+export class AppRoutingModule{ }
+
+
+>Add-Migration IdentityChanges 
+>Update-Database 
+
+
+-in angular create /validators folder -> to add custom validations
+-add custom-validators.ts 
+
+export function CompareValidation(controlToValidate:string, controlToCompare:string): ValidatorFn{
+	return (formGroupAsControl:AbstractControl):ValidationErrors | null =>{
+		const formGroup = formGroupAsControl as FormGroup;
+		const control = formGroup.controls[controlToValidate];
+		const matchingControl = formGroup.controls[controlToCompare];
+
+		if(control.value !== matchingControl.value){
+			fromGroup.get(controlToCompare)?.setErrors
+			({compareValidator:{valid: false}})
+			return {compareValidator: true}
+		}else{
+			return null;
+		}
+	}
+}
+
+
+Login Endpoint
+==============
+-create LoginDTO.cs 
+
+public class LoginDTO
+{	
+	[Required(ErrorMessage = "Email can't be blank")]
+	[EmailAddress(ErrorMessage = "Email should be in a proper email address format)]
+	public string Email{get; set;}
+
+	[Required(ErrorMessage = "Password can't be blank)]
+	public string Password {get; set;} = string.Empty;
+
+}
+
+
+[HttpPost("login")]
+public async Task<ActionResult<ApplicationUser>> PostLogin(LoginDTO loginDTO){
+	//Validation 
+	if(ModelState.IsValid == false)
+	{
+		string errorMessage = string.Join(" | ", ModelState.Values.SelectMany(v => v.Errors).
+		Select(e => e.ErrorMessage));
+		return Problem(errorMessages);
+	}
+
+	var result = await _signInManager.PasswordSignInAsync(loginDTO.Email, LoginDTO.Password, isPersistent: false, 
+	lockoutOnFailure:false);
+
+	if(result.Succeeded)
+	{
+		ApplicationUser use = await _userManager.FindByEmailAsync(loginDTO.Email);
+		if(user == null)
+		{
+			return NoContent();
+		}
+		
+		return Ok(new{PersonName = user.PersonName, email = user.Email});
+	}else{
+		return Problem("Invalid email or password");
+	}
+
+
+};
+
+[HttpGet("logout")]
+public async <IActionResult> GetLogout()
+{
+	await _signInManager.SignOutAsync();
+	return NoContent();
+}
+
+
+Login UI 
+========
+-in angular 
+-create new model 
+>ng g class models\LoginUser 
+
+export class LoginUser{
+	email: string | null = null;
+	password: string | null = null;
+}
+
+
+
+public postLogin(loginUser: LoginUser): Observable<LoginUser>
+{
+	return this.httpClient.post<LoginUser>(`${API_BASE_URL}login`login, loginUser);
+
+}
+
+public getLogout(): Observable<string>{
+	return this.httpClient.get<string>(`${API_BASE_URL}logout`);
+}
+
+
+>ng g component Login 
+
+export class LoginComponent{
+	loginForm: FormGroup;
+	isLoginFormSubmitted: boolean = false;
+	constructor(private accountService:AccountService, private router:Router){
+		this.loginForm = new FormGroup({
+			email: new FormControl(null, [Validators.required, Validators.email]),
+			password: new FormControl(null, [Validators.required])
+		}
+	}
+
+
+	get login_emailControl(): any{
+		return this.loginForm.controls["email"]
+	}
+	get login_passwordControl(): any{
+		return this.loginForm.controls["password"]
+	}
+
+
+	LoginSubmitted(){
+		this.isLoginFormSubmitted = true;
+		if(this.loginForm.valid)
+		{
+
+			this.accountService.postRequest(this.loginForm.value).subscribe({
+				next: (response:LoginUser) => {
+					console.log(response);
+					this.isLoginFormSubmitted = false;
+					this.router.navigate(['/cities']);
+					this.loginForm.reset();
+				},
+
+				error: () => {
+					console.log(error);
+				}, 
+
+				complete: () => {}
+			});
+		}
+
+	}
+}
+
+
+
+
+<div class = "w-75 margin-auto">
+	<div class="form-container">
+		<h2>Login</h2>
+		<form [formGroup]="loginForm" (ngSubmit)="loginSubmitted()">
+		
+			<!-- email --> 
+			<div class="form-field flex">
+				<div class="w-25">
+					<label for="email" class="form-label pt">
+						email
+					</label>
+				<div>
+				<div class="flex-1">
+					<input type="email" id="email" class="form-input" 
+					formControlName="email"/>
+					<span class="text-red" *ngIf="(login_emailControl.touched
+					|| isLoginFormSubmitted) && (login_emailControl.errors?
+					.['required'])">Person Name Can't be blank</span>
+
+					<span class="text-red" *ngIf="(Login_emailControl.touched
+					|| isLoginFormSubmitted) && (Login_emailControl.errors?
+					.['email'])">Email should be in a proper email address format</span>
+				<div>
+			<div>
+
+			<!-- password -->
+			<div class="form-field flex">
+				<div class="w-25">
+					<label for="password" class="form-label pt">
+						password
+					</label>
+				<div>
+				<div class="flex-1">
+					<input type="text" id="password" class="form-input" 
+					formControlName="password"/>
+					<span class="text-red" *ngIf="(login_passwordControl.touched
+					|| isLoginFormSubmitted) && (login_passwordControl.errors?
+					.['required'])">password Can't be blank</span>
+				<div>
+			<div>
+
+			<!-- submit -->
+			<div class="form-field flex">
+				<div class="w-25">
+
+				<div>
+				<div class="flex-1">
+					<button type="submit" class="button button-green-back">
+						Login 
+					</button>
+				<div>
+			<div>
+
+		</form>
+	</div>
+</div>
+
+
+
+
+-for logout add code in AccountService in angular 
+
+public currentUserName:string | null = null;
+
+-in app component.ts file
+
+constructor(public accountService: AccountService, private router: Router){}
+
+onLogOutClicked(){
+	this.accountService.getLogout().subscribe({
+		next:(response: string) => {
+			this.accountService.currentUserName = null;
+			this.accountService.currentUserName = response.email;
+			this.loginForm.reset();
+			this.router.navigate(['/cities']);
+		},
+
+		error:(error) => {
+			console.log(error);
+		},
+
+		complete:() => {}
+	});
+}
+
+-in app.component.html 
+
+<ul *ngIf="accountService.currentUserName === '' || 
+	accountService.currentUserName === null ||
+	accountService.currentUserName === undefined">
+	..loging
+	..register 
+</ul>
+
+<ul *ngIf="accountService.currentUserName !== '' && 
+	accountService.currentUserName !== null &&
+	accountService.currentUserName !== undefined">
+	<li>
+		<a href="#" onclick="return false" (click)="onLogOutClicked()">Logout</a>
+	</li>
+</ul>

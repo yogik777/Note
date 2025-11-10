@@ -1,0 +1,557 @@
+Overview of Model Binding 
+==========================
+
+Model Binding   **Property names are not case sensitive in Model binding 
+--------------
+Model binding is a feature of asp.net core that reads values from http requests and pass then as 
+    and pass them as arguments to the action method.
+
+                                        Model Binding               Controller
+
+    Http request        Routing         Form fields
+    ------------------>         ----->  Request body           -----> Action 1
+                                        Route Data
+                                        Query string parameters
+
+
+Query String vs Route Data  
+---------------------------
+
+    public class Controller1Controller: Controller
+    {
+        [Route("/{age}")]
+        public IActionResult method1(int age)
+        {
+            return Ok(age);
+        }
+    }
+
+    ->we can make route data parameters option by suffixing them with the ?
+        [Route("/{age?}")]      like this.
+
+        https://localhost:7047/55/?age=22
+        ->here 55 will be be picked up because route data has higher precedence then    
+            Query string parameters 
+
+            -> Route Data /value1/value2
+HTTP Request        /{param}/{param2}
+---->                                                   --> Arguments to action method  -->Action1
+            -> Query String ?param1=value1&param2=value2                parameters
+
+
+
+[FromQuery] and [FromRoute]
+---------------------------
+
+    [FromQuery]
+
+    //gets the value from query string only 
+    public IActionResult ActionMethodName([FromQuery] type parameter)
+    {
+
+    }
+
+    [FromRoute]
+
+    //gets the value from route parameters only
+    public IActionResult ActionMethodName([FromRoute] type parameter)
+    {
+
+    }
+
+
+Model class
+-----------
+    -> Model is a class that represents structure of data (as properties) that 
+        you would like to receive form the request and/or send to the response.
+        Also known as POCO (Plain Old CLR Objects).
+
+ Request  ---> Model Binding     --> //receive request data as model Objects     
+                                    //other code
+ Response <--- Execution Action  <-- //send response data as model object       
+                Result
+
+    public class Book
+    {
+        //[FromQuery]
+        public int? BookId { get; set; }
+        public string? Author { get; set; }
+
+        public override string ToString()
+        {
+                return $"Book object - Book id: {BookId}, Author:{Author}";
+        }
+    }
+
+        [Route("/{BookId?}")]
+        public IActionResult method1(Book book)
+        {
+            return Ok(book.ToString());
+        }
+
+        https://localhost:7047/20
+        https://localhost:7047/?BookId=22
+
+
+form urlencoded and form-data
+------------------------------
+
+>form-urlencoded (default)
+
+Request Headers |  Content-Type: application/x-www-form-urlencoded
+Request body    |  param1=value1&param2=value2
+
+>form-data
+Request Headers |  Content-Type: multipart/form-data
+
+                | -----------------------------------d74496d66958873
+                | Content-Disposition: from-data; name="param1"
+Request Body    | value1
+                | -----------------------------------d74496d66958873
+                | Content-disposition: form-data; name="param2"
+                | value2
+
+
+
+Introduction to Model Validations
+-----------------------------------
+Model
+-----
+    class ClassName
+    {
+        [Attribute]     //applies validation rule on this property
+        public type PropertyName {get; set;}
+    }
+
+Model Validation
+-----------------
+                                                            Controller
+                                                             Action
+Request-->Model Binding --> Model Validation --> //receive request data as model object
+                                                 //other code
+Response <-- Execute Action Result ------------> //send response data as model object
+
+
+
+
+ModelState
+==========
+
+IsValid
+-------
+    Specifies whether there is at least one validation error or not (true or false).
+
+Values
+------
+    Contains each model property value with corresponding "Errors" property that 
+        contains list of validation errors of that model property.
+
+ErrorCount
+----------
+    Return number of errors. 
+    
+[Required(ErrorMessage = "value")]
+    -> Specifies that the property value is required (can't be blank or empty).
+
+[StringLength(int maximumLength, MinimumLength = value, ErrorMessage = "value")]
+    -> Specifies minimum and maximum length (number of characters) allowed in the string. 
+
+[Range(int minimum, int maximum, ErrorMessage = "value")]
+    -> Specific minimum and maximum numerical value allowed.
+
+
+[RegularExpression(string pattern, ErrorMessage="value")]
+    -> Specifies the valid pattern (regular expression).
+
+[EmailAddress(ErrorMessage="value")]
+    ->Specifies that the value should be a valid email address 
+
+[Phone(ErrorMessage="value")]
+    ->Specifies that the value should be a valid phone number.
+    Eg: (999)-999-9999 or 987654210
+
+[Compare(string otherProperty, ErrorMessage = "value")]
+    -> Specifies that the values of current property and other property should be same 
+
+[Url(ErrorMessage="value")]
+    ->Specifies that the value should be a valid url (website address).
+    Eg: http://wwww.example.com 
+
+[ValidateNever]
+    ->Specifies that the property should not be validated (executed the property from model validation).
+
+
+
+[Display(Name ="Person Name")]//we can change the property name from here if we want
+
+
+
+
+Custom Validation
+=================
+Custom Validation Attribute 
+
+class ClassName: ValidationAttribute
+{
+    public override ValidationResult? IsValid(object? value, ValidationContext validationContext)
+    {
+        //return ValidationResult.Success;
+        //[or] return new ValidationResult("error message");
+    }
+}
+
+
+
+
+	public class MinimumYearvalidationAttribute: ValidationAttribute
+	{
+		public int MinimumYear { get; set; } = 2000;
+		public string DefaultErrorMessage { get; set; } = "Year should not be less than {0}";
+
+		//parameterless constructor 
+		public MinimumYearvalidationAttribute()
+		{
+
+		}
+
+		//parameterized constructor 
+		public  MinimumYearvalidationAttribute( int minimumYear)
+		{
+			MinimumYear = minimumYear;
+		}
+		protected override ValidationResult? IsValid(object? value, ValidationContext validationContext)
+		{
+			if(value != null)
+			{
+				DateTime date = (DateTime)value;
+				if(date.Year >= MinimumYear)
+				{
+					return new ValidationResult(string.Format(ErrorMessage ?? DefaultErrorMessage, MinimumYear));
+				}
+				else
+				{
+					return ValidationResult.Success;
+				}
+
+				
+			}
+			return null;
+		}
+	}
+
+
+        [MinimumYearvalidation(2005, ErrorMessage ="Date of Birth should not be newer that Jan 01, {0}")]
+        public DateTime? DateOfBirth { get; set; }
+
+
+CustomValidations with Multiple properties 
+==========================================
+
+    Field1      --->
+                        Model Validation
+    Field3      --->
+
+
+
+reflection -> reading the metadata of objects and classes 
+
+
+
+
+public class DateRangeValidatorAttribute:ValidationAttribute
+{
+	public string OtherPropertyName { get; set; }
+	public DateRangeValidatorAttribute(string otherPropertyName)
+	{
+		OtherPropertyName = otherPropertyName;
+	}
+	protected override ValidationResult? IsValid(object? value, ValidationContext validationContext)
+	{
+		if(value != null)
+		{
+			//get to_date
+			DateTime to_date = Convert.ToDateTime(value);
+
+			//get from_date
+			PropertyInfo? otherProperty = validationContext.ObjectType.GetProperty(OtherPropertyName);
+
+			if(otherProperty != null)
+			{
+				DateTime from_date = Convert.ToDateTime(otherProperty.GetValue(validationContext.ObjectInstance));
+				if(from_date > to_date)
+				{
+					return new ValidationResult(ErrorMessage, new string[]
+					{
+						OtherPropertyName, validationContext.MemberName//name of the property where attribute is applied 
+						//because of these two error message will appear two times
+					});
+				}
+				else
+				{
+					return ValidationResult.Success;
+				}
+			}
+
+			return null;
+		}
+		return null;
+	}
+}
+
+
+IValidatableObject 
+==================
+
+-sometimes you want to create model validation which is for a particular model class --> which is not reusable
+
+
+
+
+Model class 
+
+class ClassName : IValidatableObject
+{
+    //model properties here
+    public IEnumerable<ValidationResult> Validate(ValidationContext validationContext)
+    {
+        if(condition)
+        {
+            yield return new ValidationResult("error message");
+        }
+    }
+}
+
+
+-either date of birth can be null or age can be null -> both can't be null at the same time 
+-and you don't want this validation to be reusable 
+
+-yield keyword allows you to return multiple values 
+-all the property level validations should be clear with no errors then only it executes the validate method 
+
+
+        public int? Age { get; set; }
+        
+
+
+		public IEnumerable<ValidationResult> Validate(ValidationContext validationContext)
+		{
+			if(DateOfBirth.HasValue == false && Age.HasValue == false)
+            {
+                yield return  new ValidationResult("Either of Date of Birth or Age must be supplied", new[] { nameof(Age) });
+            }
+		}
+
+
+
+[Bind] and [BindNever]
+=======================
+
+[Bind]
+------
+Controller 
+
+class ClassNameController: Controller
+{
+    public IActionResult ActionMethodName( [Bind( nameof(ClassName.PropertyName), nameof(ClassName.PropertyName) )]ClassName parameterName )
+}
+
+- [Bind] attribute specifies that only the specified properties should be included in model binding.
+- Prevents Over-posting (post values into unexpected properties) especially in 'Create' scenarios. 
+
+[BindNever]
+-----------
+class ModelClassName
+{
+    [BindNever]
+    public type PropertyName {get; set;}
+}
+
+-[BindNever] attribute specifies that the specified property should NOT be included in model binding.
+-Useful when you have fewer properties to eliminate from model binding.
+
+
+
+[FromBody]
+----------
+//enables the input formatters to read data from request body (as JSON or XML or custom) only
+
+public IActionResult ActionMethodName([FromBody] type parameter)
+{
+
+}
+
+
+-if we send data through body and dont you from body it does'nt receive any value but why 
+-you have to enable input formatters by using [FromBody] so that instead of regular model binding it enables the json 
+    input formatter to read the content from the request body and make a model object 
+
+
+    Content-Type: application/xml 
+    <root>
+        <Param1>value</Param1>
+        <Param2>value2</Param2>
+    </root>
+                                        arguments to action method 
+                                                parameters
+                                        -------------------------->     Action
+
+    Content-Type: application/json 
+    {
+        "Param1": "value1",
+        "Param2": "value2"
+    }
+
+
+
+Input Formatters 
+================
+
+        XmlSerializerInputFormatter
+
+    Content-Type: application/xml 
+    <root>
+        <Param1>value</Param1>
+        <Param2>value2</Param2>
+    </root>
+                                        arguments to action method 
+                                                parameters
+                                        -------------------------->     Action
+
+        JsonInputFormatter
+
+    Content-Type: application/json 
+    {
+        "Param1": "value1",
+        "Param2": "value2"
+    }
+
+
+-> in request headers if Content-Type is application/json then JsonInputFormatter will automatically be used 
+-> in request headers if Content-Type is application/xml  then XmlSerializerInputFormatter will automatically be used 
+
+-> by default we have JsonInputFormatter for xml data you manually have to add XmlSerializerInputFormatter
+
+
+builder.Services.AddControllers();
+builder.Services.AddControllers().AddXmlSerializerFormatters(); //add this one also 
+
+
+Custom Model Binder 
+===================
+
+class ClassName : IModelBinder
+{
+    public Task BindModelasync(ModelBindingContext bindingContext)
+    {
+        //gets value from the request 
+        BindingContext.ValueProvider.GetValue("FirstName");
+
+        //returns model object after reading dat from  the request 
+        bindingContext.Result = ModelBindingResult.Success(your_object);
+    }
+}
+
+
+
+public class PersonModelBinder : IModelBinder
+{
+	public Task BindModelAsync(ModelBindingContext bindingContext)
+	{
+		Person person = new Person();
+		//FirstName and LastName
+		if (bindingContext.ValueProvider.GetValue("FirstName").Length > 0)
+		{
+			string firstName = bindingContext.ValueProvider.GetValue("FirstName").FirstValue;
+
+			if (bindingContext.ValueProvider.GetValue("FirstName").Count() > 0)
+			{
+				person.PersonName += bindingContext.ValueProvider.GetValue("FirstName").FirstValue;
+
+			}
+		}
+		//Bind other properties 
+		//Email
+		if (bindingContext.ValueProvider.GetValue("FirstName").Count() > 0)
+			person.Email = bindingContext.ValueProvider.GetValue("Email").FirstValue;
+		//bind all other properties.....
+
+
+
+		bindingContext.Result = ModelBindingResult.Success(person);
+		return Task.CompletedTask;
+
+	}
+}
+
+
+        [Route("register")]
+        public IActionResult Index([FromBody][ModelBinder(BinderType = typeof(PersonModelBinder))]Person person)
+        {
+
+
+Model Binder Providers 
+======================
+-if you want to use same custom binder for all the action methods
+
+Custom Model Binder Provider 
+----------------------------
+class ClassName: IModelBinderProvider
+{
+    public IModelBinder GetBinder(ModelBinderProviderContext providerContext)
+    {
+        //returns type of custom model binder class to be invoked 
+        return new BinderTypeModelBinder(typeof(YourModelBinderClassName));
+    }
+}
+
+-where ever you use same model class the model binder will get applied there 
+-for larger projects you need not need to ues [ModelBinder(BinderType = typeof(PersonModelBinder))] every where 
+
+
+
+            builder.Services.AddControllers(options =>
+            {
+                options.ModelBinderProviders.Insert(0, new PersonBinderProvider());
+                //you have to use this binder against built in binder thats why index 0 
+            });
+
+    public class PersonBinderProvider : IModelBinderProvider
+	{
+		public IModelBinder? GetBinder(ModelBinderProviderContext context)
+		{
+			if(context.Metadata.ModelType == typeof(Person))
+			{
+				return new BinderTypeModelBinder(typeof(PersonModelBinder));
+			}
+			return null;//default model binding works 
+		}
+	}
+}
+
+
+Collection Binding
+==================
+
+in person dto class 
+public List<string?> Tags { get; set; } = new List<string?>();
+
+
+request in form data 
+
+Tags[0] : #dotnet
+Tags[1] : #python 
+ 
+-done
+
+
+
+FromHeader 
+==========
+
+-in action method you can get headers like
+ControllerContext.HttpContext.Request.Headers["Key"] 
+
+public IActionResult Index(Person person, [FromHeader(Name = "User-Agent")] string UserAgent)
+{
+    
+}

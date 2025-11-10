@@ -1,0 +1,328 @@
+Generating JWT Tokens Part 1
+============================
+
+Inputs 
+------
+    header
+    payload 
+    secrete 
+
+algorithm
+---------
+    data = base64Encode( header ) + "." + base64encode( payload )
+    hashedData = hash(data, secrete)
+    signature = base64encode(hashData)
+    jwtToken = data + "." + signature
+
+
+
+install nuget package
+---------------------
+        Microsoft.AspNetCore.Authentication.JwtBearer 
+
+
+/dto/AuthenticationRespones.cs 
+public class AuthenticationResponse 
+{
+    public string? PersonName {get; set;} = string.Empty;
+    public string? Email {get; set;} = string.Empty;
+    public string? Token {get; set;} = string.Empty;
+    public DateTime Expiration {get; set;} = string.Empty;
+}
+
+
+/ServiceContracts/IJwtService.cs 
+public interface IJwtService 
+{
+    AuthenticationResponse CreateJwtToken(ApplicationUser user); 
+}
+
+/appsetting.json
+
+"Jwt":
+{
+    "Issuer": "http://localhost:7221",          ->in this perticular domain we have generated the jwt token
+    "Audience": "http://localhost:4200",         ->which domain audience can have this jwtToken 
+    "EXPIRATION_MINUTES": 10,
+    "Key": "this is secret key for jwt"
+}
+//in the production you will add key in the environment variable 
+
+
+/services/JwtService.cs 
+
+using System.IdentityModel.Tokens.Jwt;
+
+public class JwtService: IJwtService 
+{
+    private readonly IConfiguration _configuration;
+    public JwtService(IConfiguration configuration){
+        _configuration = configuration;
+    }
+    public AuthenticationResponse CreateJstToken(ApplicationUser user)
+    {   //Create a DateTime object representing the token expiration time by adding the number of minutes 
+            specified in the configuration to the current UTC Time
+        DateTime expiration = DateTime.UtcNow.AddMinutes( Convert.ToDouble(_configuration["Jwt:EXPIRATION_MINUTES"]););
+        
+        
+        // Create an array of Claim objects representing the user's claims, such as their ID, name, email, etc.
+        //claims need to be added in the payload 
+        //a claim represents a particular value much like 
+        //there are some claims which must be included in the payload
+        Claim[] claims = new Claim[]{
+            //subject - you can add any value which is unique for the particular user
+            new Claim(JwtRegisteredClaimNames.Sub, user.Id.ToString()),
+            //Unique id for the token //JWT ID
+            new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
+            //Issued At (data and time of token generation),
+            new Claim(JwtRegisteredClaimNames.Iat,  DateTime.UtcNow.ToString()),
+            //optionaly we are adding //Unique name identifier of the user (Email)
+            new Claim(ClaimTypes.NameIdentifier, user.Email), 
+            //Name of the user
+            new Claim(ClaimTypes.Name, user.PersonName)
+
+            //Create a SymmetricSecurityKey object using the key specified in the configuration.
+            SymmetricSecurityKey securityKey = new SymmetricSecurityKey(
+                Encoding.UTF8.GetBytes(_configuration["Jwt:Key"])
+            );
+
+            //Create a SigningCredentials object with the security key and the HMACSHA256
+            SigningCredentials signingCredentials = new SigningCredentials(securityKey, SecurityAlgorithms.HmacSha256);
+            
+            //Create a JwtSecuritytoken object with the given issuer, audience, claims, expiration, and signing 
+                credentials.
+            JwtSecurityToken tokenGenerator = new JwtSecurityToken(
+                _configuration["Jwt:Issuer"],
+                _configuration["Jwt:],
+                claims,
+                expires: expiration,
+                signingCredentials: signingCredentials
+            );
+
+            // Create a JwtSecurityToHandler object and use it to write the token as a string.
+            JwtSecurityTokenHandler tokenHandler = new JwtSecurityTokenHandler();
+            string token = tokenHandler.WriteToken(tokenGenerator);
+
+
+            // Create and return an AuthenticationResponse object containing the token, user email. user name,
+                and token expiration time.
+            return new AuthenticationResponse(){
+                Token = token, 
+                Email = user.Email, 
+                PersonName = user.PersonName,
+                Expiration = expiration
+                };
+
+        }
+        
+       
+    }
+}
+
+
+-add this class as service 
+    builder.Service.AddTransient<IJwtService, JwtService>();
+
+
+
+    [HttpPost("register")]
+	public async Task<ActionResult<ApplicationUser>>PostRegister(RegisterDTO register)
+	{
+		//validation 
+		if(ModelState.IsValid == false)
+		{
+			string errorMessage = string.Join(" | ",ModelState.Values.SelectMany(v => v.Errors).Select(e=>e.ErrorMessage));
+			return Problem(errorMessage);
+		}
+
+		//create user
+		ApplicationUser user = new ApplicationUser(){
+			Email = registerDTO.Email,
+			PhoneNumber = registerDTO.PhoneNumber,
+			UserName = registerDTO.Email,
+			PersonName = registerDTO.PersonName
+		}
+
+		IdentityResult result = await _userManager.CreateAsync(user, registerDTO.Password);
+
+		if(result.Succeeded)
+		{
+			//sign-in 
+			await _signInManager.SignInAsync(user, isPersistent: false);
+
+            var authenticationResponse = _jwtService.CreateJwtToken(user);
+			return Ok(authenticationResponse);
+		}
+		else
+		{
+			string errorMessage = string.Join(" | ", result.Errors.Select(e => e.Description));
+			//error1 | error2 
+			return Problem(errorMessage);
+		}
+	}
+
+
+[HttpPost("login")]
+public async Task<ActionResult<ApplicationUser>> PostLogin(LoginDTO loginDTO){
+	//Validation 
+	if(ModelState.IsValid == false)
+	{
+		string errorMessage = string.Join(" | ", ModelState.Values.SelectMany(v => v.Errors).
+		Select(e => e.ErrorMessage));
+		return Problem(errorMessages);
+	}
+
+	var result = await _signInManager.PasswordSignInAsync(loginDTO.Email, LoginDTO.Password, isPersistent: false, 
+	lockoutOnFailure:false);
+
+	if(result.Succeeded)
+	{
+		ApplicationUser use = await _userManager.FindByEmailAsync(loginDTO.Email);
+		if(user == null)
+		{
+			return NoContent();
+		}
+
+        var authenticationResponse = _jwtService.CreateJwtToken(user);
+		return Ok(authenticationResponse);
+
+	}else{
+		return Problem("Invalid email or password");
+	}
+
+};
+
+
+
+    LoginSubmitted(){
+		this.isLoginFormSubmitted = true;
+		if(this.loginForm.valid)
+		{
+
+			this.accountService.postRequest(this.loginForm.value).subscribe({
+				next: (response:any) => {
+					console.log(response);
+					this.isLoginFormSubmitted = false;
+                    this.accountService.currentUserName = response.email 
+                    localStorage["token"] = response.token;
+
+
+					this.router.navigate(['/cities']);
+					this.loginForm.reset();
+				},
+
+				error: () => {
+					console.log(error);
+				}, 
+
+				complete: () => {}
+			});
+		}
+
+	}
+
+
+    registerSubmitted(){
+		this.isRegisterFormSubmitted = true;
+		if(this.registerForm.valid)
+		{
+			this.isRegisterFormSubmitted = true;
+			this.accountService.postRequest(this.registerForm.value).subscribe({
+				next: (response:RegisterUser) => {
+					console.log(response);
+					this.registerSubmitted = false;
+                    this.accountService.currentUserName = response.email 
+                    localStorage["token"] = response.token;
+					this.router.navigate(['/cities']);
+					this.registerForm.reset();
+				},
+
+				error: () => {
+					console.log(error);
+				}, 
+
+				complete: () => {}
+			});
+		}
+
+	}
+
+
+
+
+
+
+============================>YT<==============================
+https://chatgpt.com/share/676142f0-0810-800c-a190-305a685a9803
+https://chatgpt.com/share/676142f0-0810-800c-a190-305a685a9803
+
+1. install jwtBearer package 
+2. in program.cs add jwt authentication
+
+
+
+
+			builder.Services.AddAuthentication(options =>
+				{
+				    options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+					options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+				}
+			).AddJwtBearer(options =>
+			{
+				options.TokenValidationParameters = new Microsoft.IdentityModel.Tokens.TokenValidationParameters
+				{
+					ValidateIssuer = true,
+					ValidateAudience = true,
+					ValidateLifetime = true,
+					ValidateIssuerSigningKey = true,
+					ValidIssuer = builder.Configuration["Jwt: Issuer"],
+					ValidAudience = builder.Configuration["Jwt: Audience"],
+					IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration["Jwt:Key"]))
+
+				};
+			});
+
+
+3. Create Jwt Token
+
+
+[HttpPost]
+[Route("Login")]
+public IActionResult Login([FromBody]UserLoginDTO userLogin)
+{
+	if(User != null)
+	{
+
+		var user = Users.FirstOrDefault(u => u.UserName == userLogin.UserName && u.Password == userLogin.Password);
+
+		if(user != null)
+		{
+			var claims = new[]
+			{
+				new Claim(JwtRegisteredClaimNames.Sub, _config["jwt: Subject"]),
+				new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
+				new Claim("UserId", user.Id.ToString()),
+				new Claim("Email", user.Email.ToString()),
+
+			};
+
+			var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_config["Jwt:Key"]));
+			var signIn = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
+			var token = new JwtSecurityToken(
+				_config["Jwt:Issuer"],
+				_config["Jwt:Audience"],
+				claims,
+				expires: DateTime.UtcNow.AddMinutes(60),
+				signingCredentials: signIn
+
+				);
+
+			string tokenValue = new JwtSecurityTokenHandler().WriteToken(token);
+			return Ok(new { Token = tokenValue, User = user });
+		}
+		
+		return StatusCode(401, "Unauthorized access");
+
+	}
+	return StatusCode(401, "Unauthorized access");
+}

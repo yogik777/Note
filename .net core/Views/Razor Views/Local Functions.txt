@@ -1,0 +1,126 @@
+Razor - Local Functions
+
+@{
+    return_type method_name(arguments){
+        C# / html code here 
+    }
+}
+
+- The local functions are callable within the same view.
+
+
+
+-there is posibility of creating methods properties
+    and fields in the same RazerView.
+-A RazerView internally converted and compiled as a C#
+    class. that is inherited from the parent class called 
+    RazerPage.
+-It is rare to use this type of Local functions
+-because view are not intended to have much amount
+    of C# code.
+
+
+@using ViewsExample.Models;
+
+@{
+    string appTitle = "Hi this is title from variable!!!";
+    List<Person> people = new List<Person>()
+    {
+        new Person()
+        {
+            Name = "Yogesh",
+            DateOfBirth = DateTime.Parse("2001-05-6"),
+            PersonGender = Gender.Male
+        },
+        new Person()
+        {
+            Name = "Shubham",
+            DateOfBirth = DateTime.Parse("2000-09-30"),
+            PersonGender = Gender.Male
+        },
+        new Person()
+        {
+            Name = "Poonam",
+            PersonGender = Gender.Female
+        }
+    };
+}
+
+ @* following block only creates a Local function *@
+@* @{
+    double? GetAge(DateTime? dateOfBirth)
+    {
+        if(dateOfBirth is not null)
+        {
+            return Math.Round(((DateTime.Now - dateOfBirth.Value).TotalDays / 365.25));
+        }
+        else
+        {
+            return null;
+        }
+    }
+} *@
+
+
+@* with following block has a method and not a local function you can also declare properties and fields *@
+@functions{
+    double? GetAge(DateTime? dateOfBirth)
+    {
+        if (dateOfBirth is not null)
+        {
+            return Math.Round(((DateTime.Now - dateOfBirth.Value).TotalDays / 365.25));
+        }
+        else
+        {
+            return null;
+        }
+    }
+
+    //following is a field in a RazorView
+    int x = 10;
+
+    //following is a Property in a RazorView 
+    string Name { get; set; } = "Hello name";
+}
+
+
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>@appTitle</title>
+        <meta charset="utf-8" />
+    </head>
+    <body>
+        <h1>Welcome</h1>
+@*     @foreach (Person person in people)
+    {
+        <div>
+            @person.Name
+            <span>, </span>
+            <span>@person.PersonGender</span>
+            @if(person.DateOfBirth != null)
+            {
+                <span>@person.DateOfBirth.Value.ToString("MM/dd/yyyy")</span>
+            }
+        </div>
+    } *@
+
+    @for (int i = 0; i<2; i++)
+    {
+        Person person = people[i];
+        <text>this is static text</text>
+        @: Hello to
+        <div>
+            @person.Name
+            <span>, </span>
+            <span>@person.PersonGender</span>
+            @if (person.DateOfBirth != null)
+            {
+                <span>@person.DateOfBirth.Value.ToString("MM/dd/yyyy")</span>
+                <span>@GetAge(person.DateOfBirth) years old</span>
+            }
+        </div>
+    }
+
+</body>
+</html>

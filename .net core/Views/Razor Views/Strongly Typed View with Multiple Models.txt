@@ -1,0 +1,17 @@
+-> Strongly Typed View can be bound to a single model directly.
+    But that model class can have reference to objects of other 
+    model classes.
+
+              @model ModelClassName 
+        View ------------------------> Model
+
+Presentation Logic &
+
+ @Model.Property1               public Model1 Property1 {get; set;}
+ @Model.Property2               public Model2 Property2 {get; set;}
+
+
+-> Wrapper model will contain multiple models 
+
+
+-> to align html code press ctrl+K and ctrl+D

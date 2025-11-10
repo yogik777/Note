@@ -1,0 +1,120 @@
+SOLID Principles 
+	1. Single Responsibility Principle (SRP)
+		-A class should have only one reason to change.
+	2. Open/Closed Principle (OCP)
+		-A class should be open for extension but closed for modification.
+	3. Liskov Substitution Principle (LSP)
+		-Subtypes should be substitutable for their base types without altering the correctness of the program.
+	4. Interface Segregation Principle (ISP)
+		-A class should not be forced to implement interfaces it does not use.
+	5. Dependency Inversion Principle (DIP)
+		-High-level modules should not depend on low-level modules; both should depend on abstractions. 
+			Abstractions should not depend on details; details should depend on abstractions.
+	Principle		Focus												Benefits
+	SRP				Single responsibility per class						Simplified maintenance and testing.
+	OCP				Extend without modifying existing code				Easier to add features without breaking code.
+	LSP				Subtypes should behave like their base type			Ensures consistent behavior.
+	ISP				Specific interfaces for specific needs				Prevents unused code and unnecessary coupling.
+	DIP				Depend on abstractions, not implementations			Enables flexibility and testability.
+
+JWT Token and Authentication 
+Authorizatin 
+	-Role Based 
+	-Claim Based 
+
+Model Binding and validation 
+EFCore (ORM)
+	-packages 
+Dependency Injection
+Views 
+	-Razor views 
+	-Layout Views 
+	-Partial Views 
+	-View Components 
+Middlewares
+	-app.Use(async (context, next) => { ... }) 
+	-app.Run(async (context) => { ... })
+	-Custom Middleware
+		-Implement IMiddleware: This interface requires a single method: InvokeAsync(HttpContext context, RequestDelegate next). 
+			This is the heart of your middleware's logic.
+	-Custom Conventional Middleware
+		-Class-Based: Conventional middleware is implemented as a class.
+		-Constructor Injection: It receives dependencies (if any) through its constructor.
+		-Invoke Method: This is the heart of the middleware, containing the logic that handles each request.
+	-Sequence 
+		1.Exception/Error Handling
+		2.HTTPS Redirection
+		3.Static Files
+		4.Routing
+		5.CORS (Cross-Origin Resource Sharing)
+		6.Authentication
+		7.Authorization
+		8.Custom Middleware
+Filters 
+
+    ->Authorization Filter (OnAuthorization)---------------->
+    ->Resource Filter (OnResourceExecuting)
+    -->ModelBinding & Validation 
+    ->Action Filter (OnActionExecuting)
+    -->Action method
+    ->Action Filter (OnActionExecuted)
+    ->Exception Filter (OnException)----------------------?
+		->Handle unhandled exceptions that occur in controller creation, model binding, 
+			action filters, or action methods.
+		->Do not catch exceptions that occur in resource filters, result filters, or MVC result execution.
+    ->Result Filter (OnResultExecuting)
+    -->IActionResult execution 
+    ->Result Filter (OnResultExecuted)
+    ->Resource Filter (OnResourceExecuted)
+    (exit)
+
+
+
+Error Handling 
+	-Exception Handling Middleware 
+	-Custom Exceptions 
+	-UserExceptionHandler 
+
+Unit Testing 
+Environments and configurations 
+CORS (Cross-Origin Resource Sharing)
+	-CORS (Cross-Origin Resource Sharing) is a security feature implemented by web browser 
+		to allow or deny a web page from making requests to a different domain than the 
+		one that served the web page.
+	1.Configure CORS 
+		builder.Services.AddCors(options => {
+			options.AddDefaultPolicy(builder => {
+				builder.WithOrigins("http://localhost:4200");
+			});
+		});
+	2.Use CORS 
+		app.UseRouting();
+		app.UseCors();
+
+	CORS Configuration 
+		"AllowedOrigins" : 
+		[
+			"http://localhost:4200"
+		]
+		builder.Services.AddCors(options => {
+			options.AddDefaultPolicy(policyBuilder => {
+				policyBuilder.WithOrigins(builder.Configuration.GetSection("AllowedOrigins").Get<string[]>[]);
+			});
+		});
+
+	Default CORS Policy 
+		-Authorization Token is by default not allowed.
+		builder.Services.AddCors(options => {
+			options.AddDefaultPolicy(policyBuilder => {
+				policyBuilder.WithOrigins(builder.Configuration.GetSection("AllowedOrigins").Get<string[]>[]);
+				policyBuilder.WithHeaders("Authorization", "origin", "accept", "content-types");
+			});
+		})
+
+		Preflight Request 
+		-----------------
+			-It is an HTTP OPTIONS request that is sent by the browser to the Web API server before the 
+				actual request is made. 
+			-The preflight request is used to determine whether the Web API server is willing to accept 
+				the actual request 
+			-when you try tor customize the headers the browser sends this request 

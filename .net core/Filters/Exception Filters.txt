@@ -1,0 +1,88 @@
+Exception Filters 
+=================
+
+When it runs 
+    -> Runs when an exception is raised during the filter pipeline.
+
+'OnException method'
+    ->Handles unhandled exceptions that occur in controller creation, model 
+        binding, action filters or action methods
+    ->Does'nt handle the unhandled exception that occur in authorization filters,
+        resource filters, result filters or IActionResult execution.
+    ->Recommended to be used only when you want a different error handling and 
+        generate different result for specific controllers;
+        otherwise, ErrorHandlingMiddleware is recommended over Exception Filters.
+
+    -it can catch exceptions occurd in 
+        -Action Filter (OnActionExecuting)
+        -Action method 
+        -Action Filter (OnActionExecuted)
+
+Synchronous Exception Filter 
+----------------------------
+public class FilterClassName : IExceptionFilter
+{
+    public void OnException(ExceptionContext context)
+    {
+        //TO DO: exception handling logic here, as follows 
+        context.Result = some_action_result;
+        //or 
+        context.ExceptionHandled = true;
+    }
+}
+
+
+Asynchronous Exception Filter 
+-----------------------------
+public class FilterClassName : IAsyncExceptionFilter
+{
+    public async Task OnExceptionAsync(ExceptionFilterContext context)
+    {
+        //TO DO: exception handling logic here, as follows 
+        context.Result = some_action_result;
+
+        //or 
+        context.ExceptionHandled = true;
+        return Task.CompleteTask;
+    }
+}
+
+
+	public class HandleExceptionFilter:IExceptionFilter
+	{
+		private readonly ILogger<HandleExceptionFilter> _logger;
+        private readonly IHostEnvironment _hostEnvironment;        
+
+		public HandleExceptionFilter(ILogger<HandleExceptionFilter> logger,
+        IHostEnvironment hostEnvironment)
+		{
+			_logger = logger; 
+            _hostEnvironment = hostEnvironment;
+		}
+		//this method only executes when an exception is raised otherwase not 
+		public void OnException(ExceptionContext context) 
+		{
+			_logger.LogError("Exception filter {FilterName}.{MethodName}\n{ExceptionType}\n{ExceptionMessage}"
+				nameof(HandleExceptionFilter), 
+				nameof(OnException), 
+				context.Exception.GetType().ToString(),
+				context.Exception.Message
+				);
+
+            //we can shortcircuit thi pipeline by doing 
+            //the remaining filters and action result execution will be 
+                //short circuited 
+            if(_hostEnvironment.IsDevelopment())
+                context.Result = new ContentResult(){
+                    content = context.Exception.Message, StatusCode = 500
+                }
+		}
+	}
+
+    [TypeFilter(typeof(HandleExceptionFilter))]
+    public class PersonsController : Controller
+    {
+
+    }
+
+

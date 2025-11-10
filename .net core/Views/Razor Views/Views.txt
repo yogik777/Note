@@ -1,0 +1,26 @@
+Views
+======
+
+-> View is a web page. (.cshtml) that is responsible for containing presentation 
+	logic that merges data along with static design code (HTML).
+
+1. Controller creates object of View Model and fills data in its properties
+
+2. Controller selects an appropriate view and invokes the same View & supplies
+	object of View Model to the View.
+
+3. View accesses the View Model.
+
+
+
+
+	public class HomeController: Controller
+	{
+		[Route("home")]
+		public IActionResult Index()
+		{
+			return View();  //Views/Home/Index.cshtml
+							//return new ViewResult() { ViewName = "abc" };
+							//return View("abc");		//abc.cshtml
+		}
+	}
